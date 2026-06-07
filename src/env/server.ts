@@ -1,0 +1,21 @@
+import { createEnv } from "@t3-oss/env-core";
+import { z } from "zod";
+
+export const serverEnv = createEnv({
+	server: {
+		DATABASE_URL: z.string().min(1),
+		BETTER_AUTH_URL: z.string().min(1),
+		BETTER_AUTH_SECRET: z.string().min(1),
+	},
+
+	runtimeEnv: process.env,
+	emptyStringAsUndefined: true,
+
+	onValidationError(issues) {
+		console.error("Invalid Environment Variable");
+		issues.map((issue) =>
+			console.error(`  ${issue.path?.join(".")}: ${issue.message}`),
+		);
+		process.exit(1);
+	},
+});
