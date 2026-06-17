@@ -1,6 +1,8 @@
 {
 	"name": "e",
+	"title": "e",
 	"description": "e is the best learning platform",
+	"lang": "en",
 	"theme": "modern",
 	"branding": {
 		"primary": "#ff0000"
