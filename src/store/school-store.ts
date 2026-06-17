@@ -1,14 +1,15 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
-type Config = null
-type Content = null
+import type { SchoolConfig, SchoolContent } from "#/types/school";
 
 interface SchoolStore {
-	config: Config;
-	content: Content;
-	setConfig: (config: Config) => void;
-	setContent: (content: Content) => void;
+	config: SchoolConfig | null;
+	content: SchoolContent | null;
+
+	initialized: boolean;
+
+	setSchool: (config: SchoolConfig, content: SchoolContent) => void;
 }
 
 export const useSchoolStore = create<SchoolStore>()(
@@ -16,13 +17,17 @@ export const useSchoolStore = create<SchoolStore>()(
 		config: null,
 		content: null,
 
-		setConfig: (config) =>
+		initialized: false,
+
+		setSchool: (config, content) =>
 			set((state) => {
 				state.config = config;
-			}),
-		setContent: (content) =>
-			set((state) => {
 				state.content = content;
+				state.initialized = true;
 			}),
 	})),
 );
+
+export const useSchoolConfig = () => useSchoolStore((state) => state.config);
+
+export const useSchoolContent = () => useSchoolStore((state) => state.content);

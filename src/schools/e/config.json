@@ -1,8 +1,6 @@
 {
 	"name": "e",
-	"title": "e",
-	"description": "e is the best learning platform",
-	"lang": "en",
+	"identifier": "e",
 	"theme": "modern",
 	"branding": {
 		"primary": "#ff0000"
@@ -12,9 +10,12 @@
 		"events": true,
 		"notices": true
 	},
-	"content": {},
 	"contact": {
 		"phone": "980000000",
 		"email": "e@gmail.com"
+	},
+	"seo": {
+		"title": "e",
+		"description": "e is the best learning platform"
 	}
 }
