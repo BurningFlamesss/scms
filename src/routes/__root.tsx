@@ -6,7 +6,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { getSchoolConfig, getSchoolContent } from "#/lib/school.ts";
+import { getSchoolConfig, getSchoolContent } from "#/packages/school/loader.ts";
 import { SchoolProvider } from "#/provider/school-provider.tsx";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
