@@ -5,5 +5,7 @@ ScMS is a all-in-one system to manage the operations, events, notices, users, at
 ## Tech Stack
 
 - Tanstack start (w/ React compiler, Tailwind css)
+- Postgresql (w/ Prisma)
 - T3env
 - Biome
+- Docker
