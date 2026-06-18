@@ -15,7 +15,7 @@ import appCss from "../styles.css?url";
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	async beforeLoad() {
-		const session = getSessionFn();
+		const session = await getSessionFn();
 
 		return { session };
 	},
