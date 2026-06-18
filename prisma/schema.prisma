@@ -166,7 +166,7 @@ model UserRole {
 
   createdAt DateTime @default(now())
 
-  @@unique([userId, organizationId, role])
+  @@unique([userId, organizationId, role], name: "userId_organizationId_role")
 }
 
 model Student {

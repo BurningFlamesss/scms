@@ -12,19 +12,35 @@ const prisma = new PrismaClient({ adapter })
 async function main() {
   console.log('🌱 Seeding database...')
 
-  // Clear existing todos
-  await prisma.todo.deleteMany()
-
-  // Create example todos
-  const todos = await prisma.todo.createMany({
-    data: [
-      { title: 'Buy groceries' },
-      { title: 'Read a book' },
-      { title: 'Workout' },
-    ],
+  const organization = await prisma.organization.upsert({
+    where: {
+      slug: serverEnv.ORGANIZATION_SLUG
+    },
+    update: {},
+    create: {
+      name: serverEnv.ORGANIZATION_NAME,
+      slug: serverEnv.ORGANIZATION_SLUG
+    }
   })
 
-  console.log(`✅ Created ${todos.count} todos`)
+  const branch = await prisma.branch.upsert({
+    where: {
+      organizationId_slug: {
+        organizationId: organization.id,
+        slug: serverEnv.DEFAULT_BRANCH_SLUG
+      }
+    },
+    update: {},
+    create: {
+      name: serverEnv.DEFAULT_BRANCH_NAME,
+      slug: serverEnv.DEFAULT_BRANCH_SLUG,
+      organizationId: organization.id
+    }
+  })
+
+  
+
+  console.log(`✅ Created`)
 }
 
 main()
