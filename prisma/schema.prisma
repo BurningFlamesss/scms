@@ -37,6 +37,8 @@ model User {
   accounts      Account[]
   userRoles     UserRole[]
   student       Student?
+  staff         Staff?
+  guardian      Guardian?
 
   @@unique([email])
   @@map("user")
@@ -124,6 +126,7 @@ model Branch {
   updatedAt DateTime @updatedAt
 
   students Student[]
+  staffs   Staff[]
 
   @@unique([organizationId, slug])
 }
@@ -164,3 +167,32 @@ model Student {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Staff {
+  id String @id @default(cuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  branchId String
+  branch   Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  designation String
+  department  String?
+
+  joinedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Guardian {
+  id String @id @default(cuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
