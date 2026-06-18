@@ -7,16 +7,35 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  SUPERADMIN
+  ADMIN
+
+  STUDENT
+  GUARDIAN
+
+  STAFF
+  ACCOUNTANT
+  TEACHER
+  LIBRARIAN
+  DRIVER
+  GUARD
+
+  PRINCIPAL
+  SHAREHOLDER
+}
+
 model User {
-  id            String    @id
+  id            String     @id
   name          String
   email         String
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean    @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   sessions      Session[]
   accounts      Account[]
+  userRoles     UserRole[]
 
   @@unique([email])
   @@map("user")
@@ -68,4 +87,50 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Organization {
+  id String @id @default(cuid())
+
+  name String
+  slug String
+
+  logo        String?
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  branches  Branches[]
+  userRoles UserRole[]
+}
+
+model Branches {
+  id String @id @default(cuid())
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  name String
+  slug String
+
+  address String?
+
+  phone String?
+  email String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([organizationId, slug])
+}
+
+model UserRole {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 }
