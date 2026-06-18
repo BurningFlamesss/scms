@@ -7,7 +7,7 @@ function Home() {
   const config = useSchoolConfig()
   return (
     <div>
-      {config?.name}
+      {config?.organization.name}
     </div>
   )
 }
