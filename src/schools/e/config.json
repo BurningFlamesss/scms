@@ -1,8 +1,10 @@
 {
-	"name": "e",
-	"identifier": "e",
-	"theme": "modern",
-	"branding": {
+	"organization": {
+		"slug": "e",
+		"name": "e"
+	},
+	"theme": {
+		"template": "modern",
 		"primary": "#ff0000"
 	},
 	"features": {

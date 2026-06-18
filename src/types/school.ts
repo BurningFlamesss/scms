@@ -1,8 +1,10 @@
 export interface SchoolConfig {
-	name: string;
-	identifier: string;
-	theme: "modern";
-	branding: {
+	organization: {
+		name: string;
+		slug: string;
+	};
+	theme: {
+		template: "modern";
 		primary: `#${string}`;
 	};
 	features: {
