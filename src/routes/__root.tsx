@@ -6,17 +6,20 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { getSessionFn } from "#/packages/auth/middleware/auth.middleware.ts";
 import { getSchoolConfig, getSchoolContent } from "#/packages/school/loader.ts";
 import { SchoolProvider } from "#/provider/school-provider.tsx";
+import type { MyRouterContext } from "#/types/router-context.ts";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
-interface MyRouterContext {
-	queryClient: QueryClient;
-}
-
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-	loader: async () => {
+	async beforeLoad() {
+		const session = getSessionFn();
+
+		return { session };
+	},
+	async loader() {
 		const config = getSchoolConfig("e");
 		const content = getSchoolContent("e");
 

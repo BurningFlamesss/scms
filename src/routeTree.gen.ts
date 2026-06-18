@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardLoginRouteImport } from './routes/_onboard/login'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as OnboardActivateTokenRouteImport } from './routes/_onboard/activate.$token'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardLoginRoute = OnboardLoginRouteImport.update({
+  id: '/_onboard/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -22,30 +29,48 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
+  id: '/_onboard/activate/$token',
+  path: '/activate/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof OnboardLoginRoute
+  '/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof OnboardLoginRoute
+  '/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_onboard/login': typeof OnboardLoginRoute
+  '/_onboard/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/auth/$'
+  fullPaths: '/' | '/login' | '/activate/$token' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$'
-  id: '__root__' | '/' | '/api/auth/$'
+  to: '/' | '/login' | '/activate/$token' | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/_onboard/login'
+    | '/_onboard/activate/$token'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OnboardLoginRoute: typeof OnboardLoginRoute
+  OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -58,6 +83,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_onboard/login': {
+      id: '/_onboard/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof OnboardLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -65,11 +97,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_onboard/activate/$token': {
+      id: '/_onboard/activate/$token'
+      path: '/activate/$token'
+      fullPath: '/activate/$token'
+      preLoaderRoute: typeof OnboardActivateTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OnboardLoginRoute: OnboardLoginRoute,
+  OnboardActivateTokenRoute: OnboardActivateTokenRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
