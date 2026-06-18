@@ -26,19 +26,21 @@ enum Role {
 }
 
 model User {
-  id            String     @id
+  id            String    @id
   name          String
   email         String
-  emailVerified Boolean    @default(false)
+  emailVerified Boolean   @default(false)
   image         String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
-  userRoles     UserRole[]
-  student       Student?
-  staff         Staff?
-  guardian      Guardian?
+
+  userRoles UserRole[]
+
+  student  Student?
+  staff    Staff?
+  guardian Guardian?
 
   @@unique([email])
   @@map("user")
@@ -96,7 +98,7 @@ model Organization {
   id String @id @default(cuid())
 
   name String
-  slug String
+  slug String @unique
 
   logo        String?
   description String?
@@ -115,7 +117,7 @@ model Branch {
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   name String
-  slug String
+  slug String @unique
 
   address String?
 
@@ -164,6 +166,8 @@ model Student {
 
   joinedAt DateTime
 
+  guardianStudents GuardianStudent[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -192,7 +196,25 @@ model Guardian {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  guardianStudents GuardianStudent[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model GuardianStudent {
+  id String @id @default(cuid())
+
+  guardianId String
+  guardian   Guardian @relation(fields: [guardianId], references: [id], onDelete: Cascade)
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  relation  String
+  isPrimary Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@unique([guardianId, studentId])
+}
