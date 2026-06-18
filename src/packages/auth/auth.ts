@@ -39,7 +39,7 @@ export const auth = betterAuth({
 		expiresIn: 1000 * 60 * 20,
 	},
 
-	baseURL: serverEnv.BETTER_AUTH_URL,
+	baseURL: serverEnv.APP_URL,
 
 	plugins: [tanstackStartCookies()],
 });

@@ -38,9 +38,67 @@ async function main() {
     }
   })
 
-  
+  const user = await prisma.user.upsert({
+    where: {
+      email: serverEnv.SUPER_ADMIN_EMAIL
+    },
+    update: {},
+    create: {
+      id: crypto.randomUUID(),
+      name: serverEnv.SUPER_ADMIN_NAME,
+      email: serverEnv.SUPER_ADMIN_EMAIL,
+      emailVerified: true
+    }
+  })
 
-  console.log(`✅ Created`)
+  const staff = await prisma.staff.upsert({
+    where: {
+      userId: user.id
+    },
+    update: {},
+    create: {
+      userId: user.id,
+      organizationId: organization.id,
+      branchId: branch.id,
+      designation: "Super Administrator",
+    }
+  })
+
+  const role = await prisma.userRole.upsert({
+    where: {
+      userId_organizationId_role: {
+        userId: user.id,
+        organizationId: organization.id,
+        role: "SUPERADMIN"
+      }
+    },
+    update: {},
+    create: {
+      userId: user.id,
+      organizationId: organization.id,
+      branchId: branch.id,
+      role: "SUPERADMIN"
+    }
+  })
+
+  const invite = await prisma.invite.create({
+    data: {
+			token: crypto.randomUUID(),
+			userId: user.id,
+			type: "STAFF",
+			expiresAt: new Date(
+				Date.now() + 1000 * 60 * 60 * 24 * 7,
+			),
+		},
+  })
+
+  console.log(`
+    SUPER ADMIN created:
+    
+    EMAIL: ${user.email}
+
+    ACTIVATION LINK: ${serverEnv.APP_URL}/activate/${invite.token}
+    `)
 }
 
 main()
