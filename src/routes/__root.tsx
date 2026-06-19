@@ -49,6 +49,14 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			},
 		],
 	}),
+	notFoundComponent: () => {
+		return (
+			<div>
+				<h1>404</h1>
+				<p>Not found</p>
+			</div>
+		);
+	},
 	shellComponent: RootDocument,
 });
 
@@ -59,7 +67,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
-					{children}
+				{children}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",

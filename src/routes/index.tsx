@@ -5,5 +5,6 @@ export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
 	const config = useSchoolConfig();
-	return <div>{config?.organization.name}ff</div>;
+
+	return <div>{config?.organization.name}</div>;
 }

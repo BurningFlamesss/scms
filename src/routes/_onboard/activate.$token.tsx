@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
-import { auth } from "#/packages/auth/auth.ts";
+import { authClient } from "#/packages/auth/auth-client.ts";
 import { activateInvite } from "#/packages/auth/server/activate-invite.ts";
 import {
 	getInvite,
@@ -48,7 +48,7 @@ function RouteComponent() {
 	const invite = Route.useLoaderData();
 	const navigate = useNavigate();
 
-	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const formData = new FormData(e.currentTarget);
@@ -57,6 +57,7 @@ function RouteComponent() {
 
 		if (password !== confirmPassword) {
 			// TODO: show error in the UI
+			console.log("Password doesnot match");
 			return;
 		}
 
@@ -69,12 +70,25 @@ function RouteComponent() {
 			});
 
 			if (!response.success) {
+				console.log("Failed to set password");
 				return;
 			}
 
+			const signInRes = await authClient.signIn.email({
+				email: invite.user.email,
+				password,
+			});
+
+			if (signInRes.error) {
+				console.error(signInRes.error);
+				return;
+			}
+
+			console.log("Successfully! Activated the account");
+
 			navigate({ to: "/" });
 		} catch (error) {
-			console.error(error);
+			console.error("CLIENT error:", error);
 		}
 	};
 
