@@ -1,11 +1,8 @@
 import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
+import { ERROR } from "#/lib/error.ts";
 import { authClient } from "#/packages/auth/auth-client.ts";
 import { activateInvite } from "#/packages/auth/server/activate-invite.ts";
-import {
-	getInvite,
-	InviteExpiredError,
-	InviteUsedError,
-} from "#/packages/auth/server/get-invite.ts";
+import { getInvite } from "#/packages/auth/server/get-invite.ts";
 
 export const Route = createFileRoute("/_onboard/activate/$token")({
 	loader: async ({ params }) => {
@@ -18,11 +15,11 @@ export const Route = createFileRoute("/_onboard/activate/$token")({
 		}
 
 		if (invite.usedAt) {
-			throw new InviteUsedError();
+			throw new Error(ERROR.INVITATION_USED);
 		}
 
 		if (invite.expiresAt < new Date()) {
-			throw new InviteExpiredError();
+			throw new Error(ERROR.INVITATION_EXPIRED);
 		}
 
 		return invite;
@@ -31,11 +28,11 @@ export const Route = createFileRoute("/_onboard/activate/$token")({
 		return <>This invite link doesn't exists.</>;
 	},
 	errorComponent: ({ error }) => {
-		if (error instanceof InviteUsedError) {
+		if (error.message === ERROR.INVITATION_USED) {
 			return <div>This invitation has already been used.</div>;
 		}
 
-		if (error instanceof InviteExpiredError) {
+		if (error.message === ERROR.INVITATION_EXPIRED) {
 			return <div>This invitation has expired.</div>;
 		}
 
