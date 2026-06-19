@@ -34,12 +34,34 @@ export const activateInvite = createServerFn()
 			throw new Error("INVITE_EXPIRED");
 		}
 
-        const hashedPassword = await auth.api.setPassword({
-            body: {
-                newPassword: password
-            },
-            context
-        })
+		const response = await auth.api.setPassword({
+			body: {
+				newPassword: password,
+			},
+			context,
+		});
 
-		
+		if (!response.status) {
+			return { success: false }
+		}
+
+		await prisma.$transaction([
+			prisma.user.update({
+				where: { id: invite.userId },
+				data: {
+					activatedAt: new Date(),
+					emailVerified: true,
+				},
+			}),
+			prisma.invite.update({
+				where: { id: invite.id },
+				data: {
+					usedAt: new Date(),
+				},
+			}),
+		]);
+
+		return {
+			success: true
+		}
 	});

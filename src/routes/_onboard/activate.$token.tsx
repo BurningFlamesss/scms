@@ -1,11 +1,11 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
+import { auth } from "#/packages/auth/auth.ts";
 import { activateInvite } from "#/packages/auth/server/activate-invite.ts";
 import {
 	getInvite,
 	InviteExpiredError,
 	InviteUsedError,
 } from "#/packages/auth/server/get-invite.ts";
-import { auth } from "#/packages/auth/auth.ts";
 
 export const Route = createFileRoute("/_onboard/activate/$token")({
 	loader: async ({ params }) => {
@@ -46,31 +46,37 @@ export const Route = createFileRoute("/_onboard/activate/$token")({
 
 function RouteComponent() {
 	const invite = Route.useLoaderData();
+	const navigate = useNavigate();
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+		e.preventDefault();
 
-		const formData = new FormData(e.currentTarget)
-		const password = formData.get("password") as string
-		const confirmPassword = formData.get("confirmPassword") as string
+		const formData = new FormData(e.currentTarget);
+		const password = formData.get("password") as string;
+		const confirmPassword = formData.get("confirmPassword") as string;
 
 		if (password !== confirmPassword) {
 			// TODO: show error in the UI
+			return;
 		}
 
 		try {
-			await activateInvite({
+			const response = await activateInvite({
 				data: {
 					token: invite.token,
-					password
-				}
-			})
+					password,
+				},
+			});
 
+			if (!response.success) {
+				return;
+			}
+
+			navigate({ to: "/" });
 		} catch (error) {
-			
+			console.error(error);
 		}
-
-	}
+	};
 
 	return (
 		<div>

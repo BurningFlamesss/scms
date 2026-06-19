@@ -1,13 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useSchoolConfig } from '#/store/school-store.ts';
+import { createFileRoute } from "@tanstack/react-router";
+import { useSchoolConfig } from "#/packages/school/hook.tsx";
 
-export const Route = createFileRoute('/')({ component: Home })
+export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const config = useSchoolConfig()
-  return (
-    <div>
-      {config?.organization.name}
-    </div>
-  )
+	const config = useSchoolConfig();
+	return <div>{config?.organization.name}ff</div>;
 }
