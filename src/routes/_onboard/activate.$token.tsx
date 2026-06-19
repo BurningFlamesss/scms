@@ -1,10 +1,20 @@
-import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
+import {
+	createFileRoute,
+	notFound,
+	redirect,
+	useNavigate,
+} from "@tanstack/react-router";
 import { ERROR } from "#/lib/error.ts";
 import { authClient } from "#/packages/auth/auth-client.ts";
 import { activateInvite } from "#/packages/auth/server/activate-invite.ts";
 import { getInvite } from "#/packages/auth/server/get-invite.ts";
 
 export const Route = createFileRoute("/_onboard/activate/$token")({
+	beforeLoad: async ({ context }) => {
+		if (context.session) {
+			throw redirect({ to: "/" });
+		}
+	},
 	loader: async ({ params }) => {
 		const invite = await getInvite({
 			data: params.token,
