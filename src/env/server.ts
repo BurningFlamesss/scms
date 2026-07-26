@@ -16,6 +16,9 @@ export const serverEnv = createEnv({
 
 		DEFAULT_BRANCH_NAME: z.string().min(1),
 		DEFAULT_BRANCH_SLUG: z.string().min(1),
+
+		MAIL_APP_USER: z.string(),
+		MAIL_APP_PASSWORD: z.string()
 	},
 
 	runtimeEnv: process.env,
