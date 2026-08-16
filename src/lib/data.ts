@@ -1,0 +1,1 @@
+export const PUBLIC_ADDRESS = "../../../public/schools/everest"

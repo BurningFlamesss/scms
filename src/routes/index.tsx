@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSchoolConfig } from "#/packages/school/hook.tsx";
-import Header from "#/templates/modern/Header.tsx";
+import Sidebar from "#/templates/modern/Sidebar.tsx";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -9,7 +9,7 @@ function Home() {
 
 	return (
 		<main>
-			<Header />
+			<Sidebar />
 		</main>
 	);
 }

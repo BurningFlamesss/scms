@@ -22,4 +22,11 @@ export interface SchoolConfig {
 	};
 }
 
-export interface SchoolContent {}
+export interface SchoolContent {
+	sidebar: SidebarContent;
+}
+
+export interface SidebarContent {
+	logo: string;
+	tagline: string;
+}
