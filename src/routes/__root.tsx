@@ -18,8 +18,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		return { session };
 	},
 	async loader() {
-		const config = getSchoolConfig("e");
-		const content = getSchoolContent("e");
+		const config = getSchoolConfig("everest");
+		const content = getSchoolContent("everest");
 
 		return {
 			config,

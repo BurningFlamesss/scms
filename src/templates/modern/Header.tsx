@@ -19,7 +19,7 @@ function Header() {
 		<header>
 			<div>
 				<Link to="/"></Link>
-				<nav></nav>
+				<nav>Hello</nav>
 			</div>
 			<div></div>
 		</header>
