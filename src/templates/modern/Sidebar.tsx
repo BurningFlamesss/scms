@@ -1,19 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { useSchoolContent } from "#/packages/school/hook.tsx";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 import { cn } from "#/lib/utils.ts";
+import { useSchoolContent } from "#/packages/school/hook.tsx";
 import type { ItemDetail } from "#/types/school.ts";
 
 function Sidebar() {
 	const { sidebar } = useSchoolContent();
 	const [scrolled, setScrolled] = useState(false);
 	const [isSidebarOpened, setIsSidebarOpened] = useState(true);
-	const [openSubMenus, setOpenSubMenus] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
 			setScrolled(scrollY > 50);
+
+			if (scrollY > 50) {
+				setIsSidebarOpened(false)
+			} else {
+				setIsSidebarOpened(true)
+			}
 		};
 
 		window.addEventListener("scroll", handleScroll);
@@ -34,7 +39,7 @@ function Sidebar() {
 				onClick={() => setIsSidebarOpened((state) => !state)}
 				className="absolute right-0 top-0 translate-x-[30%] translate-y-[-30%] rounded-full bg-white border border-red-500 cursor-pointer"
 			>
-				<ChevronLeft width={18} height={18} />
+				<ChevronLeft width={18} height={18} className={cn(isSidebarOpened ? "" : "rotate-180")} />
 			</button>
 			<section
 				className={cn(
