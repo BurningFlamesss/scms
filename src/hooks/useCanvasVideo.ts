@@ -1,5 +1,5 @@
 import { PUBLIC_ADDRESS } from "#/lib/data.ts";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function useCanvasVideo(canvasRef, frameCount) {
 	const [images, setImages] = useState([]);
@@ -9,5 +9,40 @@ export function useCanvasVideo(canvasRef, frameCount) {
 	const imagePrefix = "frame_";
 	const imageExtension = ".jpeg";
 
-	const savedImages = useRef([]);
+	const savedImages = useRef<Array<HTMLImageElement>>([]);
+
+	useEffect(() => {
+		const loadedImages = [];
+		let loadCounter = 0;
+
+		for (let index = 0; index < frameCount; index++) {
+			const img = new Image();
+			const padNumber = (num: number) => num.toString().padStart(4, "0");
+
+			const filename = `${imagePrefix}${padNumber(index)}${imageExtension}`;
+			img.src = `${imageFolder}${filename}`;
+
+			img.onload = () => {
+				loadCounter++;
+				setLoadedCount(loadCounter);
+			};
+
+			savedImages.current[index - 1] = img;
+
+			loadedImages.push(img);
+		}
+	}, [frameCount]);
+
+	const drawFrame = (index) => {
+		const canvas = canvasRef.current;
+
+		if (!canvas) return;
+	};
+
+	return {
+		progress: (loadedCount / frameCount) * 100,
+		isLoading: loadedCount < frameCount,
+		frameCount,
+		drawFrame,
+	};
 }
