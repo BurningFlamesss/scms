@@ -36,7 +36,12 @@ function Sidebar() {
 			>
 				<ChevronLeft width={18} height={18} />
 			</button>
-			<section className={cn("", isSidebarOpened ? "" : "hidden")}>
+			<section
+				className={cn(
+					"h-full flex flex-col justify-between",
+					isSidebarOpened ? "" : "hidden",
+				)}
+			>
 				<header className="rounded-t-2xl bg-red-400 flex flex-col items-center justify-center">
 					<div className="p-4">
 						<img src={sidebar.logo} alt="" />
@@ -45,15 +50,22 @@ function Sidebar() {
 						{sidebar.tagline}
 					</span>
 				</header>
-				<main className="bg-red-400">
+
+				<main className="bg-red-400 flex-1 min-h-0 overflow-auto">
 					<ul>
 						{Object.values(sidebar.collapsible).map((item, index) => {
 							return <SidebarItem key={item.id} item={item} />;
 						})}
 					</ul>
 				</main>
-				<footer>
-					<button type="button">Login</button>
+
+				<footer className="rounded-b-2xl bg-yellow-400">
+					<Link
+						to="/"
+						className="flex w-full items-center justify-center py-2 cursor-pointer"
+					>
+						Login
+					</Link>
 				</footer>
 			</section>
 		</aside>
@@ -69,11 +81,14 @@ function SidebarItem({ item }: { item: ItemDetail }) {
 	if (!hasChildren) {
 		return (
 			<li>
-				<Link to={item.href ?? "/"} className="flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">
+				<Link
+					to={item.href ?? "/"}
+					className="flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+				>
 					<span>{item.label}</span>
 				</Link>
 			</li>
-		)
+		);
 	}
 
 	return (
