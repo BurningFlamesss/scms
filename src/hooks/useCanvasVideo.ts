@@ -1,7 +1,10 @@
-import { PUBLIC_ADDRESS } from "#/lib/data.ts";
 import { useEffect, useRef, useState } from "react";
+import { PUBLIC_ADDRESS } from "#/lib/data.ts";
 
-export function useCanvasVideo(canvasRef, frameCount) {
+export function useCanvasVideo(
+	canvasRef: React.RefObject<HTMLCanvasElement> | null,
+	frameCount: number,
+) {
 	const [images, setImages] = useState([]);
 	const [loadedCount, setLoadedCount] = useState(0);
 
@@ -12,7 +15,7 @@ export function useCanvasVideo(canvasRef, frameCount) {
 	const savedImages = useRef<Array<HTMLImageElement>>([]);
 
 	useEffect(() => {
-		const loadedImages = [];
+		const loadedImages: Array<HTMLImageElement> = [];
 		let loadCounter = 0;
 
 		for (let index = 0; index < frameCount; index++) {
@@ -31,12 +34,51 @@ export function useCanvasVideo(canvasRef, frameCount) {
 
 			loadedImages.push(img);
 		}
-	}, [frameCount]);
+	}, [frameCount, imageFolder]);
 
 	const drawFrame = (index) => {
-		const canvas = canvasRef.current;
+		const canvas = canvasRef?.current;
 
 		if (!canvas) return;
+
+		const context = canvas.getContext("2d", {
+			alpha: false,
+			colorSpace: "display-p3",
+		});
+
+		if (!context) return;
+
+		const dpr = devicePixelRatio || 1;
+
+		const rect = canvas.getBoundingClientRect();
+
+		if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+			canvas.width = rect.width * dpr;
+			canvas.height = rect.height * dpr;
+			context.scale(dpr, dpr);
+		}
+
+        const width = rect.width
+        const height = rect.width
+
+        const imgIndex = Math.min(frameCount - 1, Math.max(0, Math.round(index)))
+
+        const img = savedImages.current[imgIndex]
+
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        const vW = img.naturalWidth
+        const vH = img.naturalHeight
+        const rW = width / vW
+        const rH = height / vH
+        const ratio = Math.max(rW, rH)
+
+        const newW = vW * ratio
+        const newH = vH * ratio
+        const x = (width - newW) / 2
+        const y = (height - newH) / 2
+
+        
 	};
 
 	return {
