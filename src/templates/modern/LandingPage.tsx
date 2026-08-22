@@ -10,7 +10,7 @@ export default function LandingPage() {
 
 	return (
 		<main className="w-full">
-			<div ref={containerRef} className="relative">
+			<div ref={containerRef} className="relative h-[500vh]">
 				<div className="sticky top-0 h-screen w-full overflow-hidden">
 					<HeroCanvas scrollTrackRef={containerRef} />
 				</div>

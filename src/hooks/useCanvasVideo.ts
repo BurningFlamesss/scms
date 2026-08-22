@@ -17,7 +17,7 @@ export function useCanvasVideo(
 		const loadedImages: Array<HTMLImageElement> = [];
 		let loadCounter = 0;
 
-		for (let index = 1; index < frameCount; index++) {
+		for (let index = 1; index <= frameCount; index++) {
 			const img = new Image();
 			const padNumber = (num: number) => num.toString().padStart(4, "0");
 
