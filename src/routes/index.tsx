@@ -8,7 +8,7 @@ function Home() {
 	const config = useSchoolConfig();
 
 	return (
-		<main>
+		<main className="h-[200vh]">
 			<Sidebar />
 		</main>
 	);

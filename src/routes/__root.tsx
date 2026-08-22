@@ -5,6 +5,7 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { LenisProvider } from "#/components/LenisProvider.tsx";
 import { getSessionFn } from "#/packages/auth/middleware/auth.middleware.ts";
 import { getSchoolConfig, getSchoolContent } from "#/packages/school/loader.ts";
 import type { MyRouterContext } from "#/types/router-context.ts";
@@ -67,6 +68,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body>
+				<LenisProvider />
 				{children}
 				<TanStackDevtools
 					config={{
