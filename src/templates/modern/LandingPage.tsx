@@ -22,25 +22,54 @@ export default function LandingPage() {
 export function HeroCanvas({ scrollTrackRef }) {
 	const canvasRef = useRef(null);
 
-    const { drawFrame, frameCount, isLoading, progress } = useCanvasVideo(canvasRef, 216)
+	const { drawFrame, frameCount, isLoading, progress } = useCanvasVideo(
+		canvasRef,
+		216,
+	);
 
-    useEffect(() => {
-        if (isLoading) return;
+	useEffect(() => {
+		if (isLoading) return;
 
-        drawFrame(0)
+		drawFrame(0);
 
-        const handleResize = () => {
-            const start = ScrollTrigger.getById("hero-scroll")
+		const handleResize = () => {
+			const start = ScrollTrigger.getById("hero-scroll");
 
-            if (start) {
-                drawFrame(start.progress * (frameCount - 1))
-            }
-        }
+			if (start) {
+				drawFrame(start.progress * (frameCount - 1));
+			}
+		};
 
-        addEventListener("resize", handleResize)
+		addEventListener("resize", handleResize);
 
-        
-    }, [])
+		const timeline = gsap.timeline({
+			scrollTrigger: {
+				id: "hero-scroll",
+				trigger: scrollTrackRef.current,
+				start: "top top",
+				end: "bottom bottom",
+				scrub: 0,
+				onUpdate: (self) => {
+					const frameIndex = Math.floor(self.progress * (frameCount - 1));
+					drawFrame(frameIndex);
+				},
+			},
+		});
+
+		return () => {
+			removeEventListener("resize", handleResize);
+			ScrollTrigger.getById("hero-scroll")?.kill();
+			timeline.kill();
+		};
+	}, [isLoading, drawFrame, scrollTrackRef, frameCount]);
+
+    if (isLoading) {
+        return (
+            <div className="fixed inset-0 z-50 flex flex-col items-center justify-center">
+                <h1 className="text-2xl mb-4">Loading Experience</h1>
+            </div>
+        )
+    }
 
 	return (
 		<div className="relative w-full h-full">
