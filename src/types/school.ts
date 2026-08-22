@@ -29,12 +29,14 @@ export interface SchoolContent {
 export interface SidebarContent {
 	logo: string;
 	tagline: string;
-	about: ItemDetail;
-	courses: ItemDetail;
-	facilities: ItemDetail;
-	gallery: ItemDetail;
-	moreInfo: ItemDetail;
-	contact: ItemDetail;
+	collapsible: {
+		about: ItemDetail;
+		courses: ItemDetail;
+		facilities: ItemDetail;
+		gallery: ItemDetail;
+		moreInfo: ItemDetail;
+		contact: ItemDetail;
+	};
 }
 
 export interface ItemDetail {

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSchoolContent } from "#/packages/school/hook.tsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "#/lib/utils.ts";
+import type { ItemDetail } from "#/types/school.ts";
 
 function Sidebar() {
 	const { sidebar } = useSchoolContent();
@@ -36,16 +37,18 @@ function Sidebar() {
 				<ChevronLeft width={18} height={18} />
 			</button>
 			<section className={cn("", isSidebarOpened ? "" : "hidden")}>
-				<header className="rounded-t-2xl bg-yellow-400 flex flex-col items-center justify-center">
+				<header className="rounded-t-2xl bg-red-400 flex flex-col items-center justify-center">
 					<div className="p-4">
 						<img src={sidebar.logo} alt="" />
 					</div>
-					<span className="py-2 bg-red-500 w-full text-center">Goated education</span>
+					<span className="py-2 bg-yellow-400 w-full text-center">{sidebar.tagline}</span>
 				</header>
-				<main>
-					{[].map((item, index) => {
-						return <SidebarItem key={item} />;
+				<main className="bg-red-400">
+					<ul>
+						{Object.values(sidebar.collapsible).map((item, index) => {
+						return <SidebarItem key={item.id} item={item}  />;
 					})}
+					</ul>
 				</main>
 				<footer>
 					<button type="button">Login</button>
@@ -57,11 +60,11 @@ function Sidebar() {
 
 export default Sidebar;
 
-function SidebarItem() {
+function SidebarItem({item}: {item: ItemDetail}) {
 	return (
 		<li>
 			<Link to="/"></Link>
-			<span></span>
+			<span>{item.label}</span>
 		</li>
 	);
 }

@@ -1,5 +1,24 @@
 {
-    "sidebar":{
-        "logo": "../../../public/schools/everest/logo.png"
-    }
+	"sidebar": {
+		"logo": "../../../public/schools/everest/logo.png",
+		"tagline": "Goated Education",
+		"collapsible": {
+			"about": {
+				"id": "about",
+				"label": "About Everest"
+			},
+			"courses": {
+				"id": "courses",
+				"label": "Courses"
+			},
+			"facilities": {
+				"id": "facilities",
+				"label": "Facilities"
+			},
+			"gallery": {
+				"id": "gallery",
+				"label": "Gallery"
+			}
+		}
+	}
 }
