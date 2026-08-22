@@ -5,7 +5,13 @@
 		"collapsible": {
 			"about": {
 				"id": "about",
-				"label": "About Everest"
+				"label": "About Everest",
+				"children": [
+					{
+						"id": "Info",
+						"label": "Info"
+					}
+				]
 			},
 			"courses": {
 				"id": "courses",
