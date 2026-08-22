@@ -2,10 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useSchoolContent } from "#/packages/school/hook.tsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "#/lib/utils.ts";
 
 function Sidebar() {
 	const { sidebar } = useSchoolContent();
 	const [scrolled, setScrolled] = useState(false);
+	const [isSidebarOpened, setIsSidebarOpened] = useState(true);
 	const [openSubMenus, setOpenSubMenus] = useState(false);
 
 	useEffect(() => {
@@ -20,15 +22,26 @@ function Sidebar() {
 	}, []);
 
 	return (
-		<aside className="fixed z-50 my-4 mx-4 rounded-2xl bg-cyan-300 p-4 h-[calc(100vh-32px)]">
-			<span className="absolute right-0 top-0 translate-x-[30%] -translate-y-[30%] rounded-full bg-white border border-red-500 cursor-pointer">
+		<aside
+			className={cn(
+				"fixed z-50 my-4 mx-4 rounded-2xl h-[calc(100vh-32px)] w-60 transition-all duration-500",
+				isSidebarOpened ? "" : "w-4",
+			)}
+		>
+			<button
+				type="button"
+				onClick={() => setIsSidebarOpened((state) => !state)}
+				className="absolute right-0 top-0 translate-x-[30%] -translate-y-[30%] rounded-full bg-white border border-red-500 cursor-pointer"
+			>
 				<ChevronLeft width={18} height={18} />
-			</span>
-			<section>
-				<header>
-					<img src={sidebar.logo} alt="" />
+			</button>
+			<section className={cn("", isSidebarOpened ? "" : "hidden")}>
+				<header className="rounded-t-2xl bg-yellow-400 flex flex-col items-center justify-center">
+					<div className="p-4">
+						<img src={sidebar.logo} alt="" />
+					</div>
+					<span className="py-2 bg-red-500 w-full text-center">Goated education</span>
 				</header>
-				<div>Goated education</div>
 				<main>
 					{[].map((item, index) => {
 						return <SidebarItem key={item} />;

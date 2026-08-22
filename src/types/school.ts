@@ -29,4 +29,21 @@ export interface SchoolContent {
 export interface SidebarContent {
 	logo: string;
 	tagline: string;
+	about: ItemDetail;
+	courses: ItemDetail;
+	facilities: ItemDetail;
+	gallery: ItemDetail;
+	moreInfo: ItemDetail;
+	contact: ItemDetail;
+}
+
+export interface ItemDetail {
+	id: string;
+	label: string;
+	icon?: string;
+	href?: string;
+	external?: boolean;
+	src?: string;
+	content?: string;
+	children?: Array<ItemDetail>;
 }
