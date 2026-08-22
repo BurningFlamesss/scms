@@ -61,7 +61,7 @@ function Sidebar() {
 
 				<footer className="rounded-b-2xl bg-yellow-400">
 					<Link
-						to="/"
+						to="/login"
 						className="flex w-full items-center justify-center py-2 cursor-pointer"
 					>
 						Login
@@ -83,6 +83,7 @@ function SidebarItem({ item }: { item: ItemDetail }) {
 			<li>
 				<Link
 					to={item.href ?? "/"}
+					target={item.external ? "_blank" : ""}
 					className="flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
 				>
 					<span>{item.label}</span>
