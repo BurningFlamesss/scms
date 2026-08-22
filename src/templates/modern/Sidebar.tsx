@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useSchoolContent } from "#/packages/school/hook.tsx";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "#/lib/utils.ts";
 import type { ItemDetail } from "#/types/school.ts";
 
@@ -32,7 +32,7 @@ function Sidebar() {
 			<button
 				type="button"
 				onClick={() => setIsSidebarOpened((state) => !state)}
-				className="absolute right-0 top-0 translate-x-[30%] -translate-y-[30%] rounded-full bg-white border border-red-500 cursor-pointer"
+				className="absolute right-0 top-0 translate-x-[30%] translate-y-[-30%] rounded-full bg-white border border-red-500 cursor-pointer"
 			>
 				<ChevronLeft width={18} height={18} />
 			</button>
@@ -41,13 +41,15 @@ function Sidebar() {
 					<div className="p-4">
 						<img src={sidebar.logo} alt="" />
 					</div>
-					<span className="py-2 bg-yellow-400 w-full text-center">{sidebar.tagline}</span>
+					<span className="py-2 bg-yellow-400 w-full text-center">
+						{sidebar.tagline}
+					</span>
 				</header>
 				<main className="bg-red-400">
 					<ul>
 						{Object.values(sidebar.collapsible).map((item, index) => {
-						return <SidebarItem key={item.id} item={item}  />;
-					})}
+							return <SidebarItem key={item.id} item={item} />;
+						})}
 					</ul>
 				</main>
 				<footer>
@@ -60,11 +62,34 @@ function Sidebar() {
 
 export default Sidebar;
 
-function SidebarItem({item}: {item: ItemDetail}) {
+function SidebarItem({ item }: { item: ItemDetail }) {
+	const [isOpen, setIsOpen] = useState(false);
+	const hasChildren = item.children && item.children.length > 0;
+
 	return (
-		<li>
-			<Link to="/"></Link>
-			<span>{item.label}</span>
+		<li className={cn(isOpen ? "" : "")}>
+			<button
+				type="button"
+				onClick={() => setIsOpen((state) => !state)}
+				className="flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+			>
+				<span className="flex-1 text-left">{item.label}</span>
+				<ChevronRight
+					size={16}
+					className={cn(
+						"shrink-0 transition-transform duration-300",
+						isOpen ? "rotate-90" : "",
+					)}
+				/>
+			</button>
+
+			{isOpen && (
+				<ul className="rounded-lg overflow-hidden">
+					{item.children?.map((child) => (
+						<SidebarItem key={child.id} item={child} />
+					))}
+				</ul>
+			)}
 		</li>
 	);
 }
