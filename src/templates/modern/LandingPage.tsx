@@ -6,7 +6,32 @@ import { useEffect, useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
-	const containerRef = useRef(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const ctx = gsap.context(() => {
+			gsap.fromTo(
+				".hero-next-section",
+				{
+					yPercent: 100,
+					clipPath: "polygon(5% 0%, 95% 0%, 90% 100%, 10% 100%)",
+				},
+				{
+					yPercent: 0,
+					clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+					ease: "none",
+					scrollTrigger: {
+						trigger: containerRef.current,
+						start: "20% top",
+						end: "bottom top",
+						scrub: true,
+					},
+				},
+			);
+		}, containerRef);
+
+		return () => ctx.revert();
+	}, []);
 
 	return (
 		<main className="w-full">
@@ -14,7 +39,15 @@ export default function LandingPage() {
 				<div className="sticky top-0 h-screen w-full overflow-hidden">
 					<HeroCanvas scrollTrackRef={containerRef} />
 				</div>
+
+				<section className="hero-next-section absolute bottom-0 left-0 z-10 h-screen w-full overflow-hidden bg-white rounded-3xl">
+					<div className="flex h-full items-center justify-center"></div>
+				</section>
 			</div>
+
+			<section className="h-[100vh] bg-yellow-500">
+				<div className="flex h-full items-center justify-center"></div>
+			</section>
 		</main>
 	);
 }
@@ -63,13 +96,13 @@ export function HeroCanvas({ scrollTrackRef }) {
 		};
 	}, [isLoading, drawFrame, scrollTrackRef, frameCount]);
 
-    if (isLoading) {
-        return (
-            <div className="fixed inset-0 z-50 flex flex-col items-center justify-center">
-                <h1 className="text-2xl mb-4">Loading Experience</h1>
-            </div>
-        )
-    }
+	if (isLoading) {
+		return (
+			<div className="fixed inset-0 z-50 flex flex-col items-center justify-center">
+				<h1 className="text-2xl mb-4">Loading Experience</h1>
+			</div>
+		);
+	}
 
 	return (
 		<div className="relative w-full h-full">
