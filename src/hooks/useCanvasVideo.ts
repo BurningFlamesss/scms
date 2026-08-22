@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { PUBLIC_ADDRESS } from "#/lib/data.ts";
 
 export function useCanvasVideo(
-	canvasRef: React.RefObject<HTMLCanvasElement> | null,
+	canvasRef: React.RefObject<HTMLCanvasElement | null>,
 	frameCount: number,
 ) {
-	const [images, setImages] = useState([]);
 	const [loadedCount, setLoadedCount] = useState(0);
 
 	const imageFolder = `${PUBLIC_ADDRESS}/landing-footage/`;
@@ -18,7 +17,7 @@ export function useCanvasVideo(
 		const loadedImages: Array<HTMLImageElement> = [];
 		let loadCounter = 0;
 
-		for (let index = 0; index < frameCount; index++) {
+		for (let index = 1; index < frameCount; index++) {
 			const img = new Image();
 			const padNumber = (num: number) => num.toString().padStart(4, "0");
 
@@ -36,8 +35,8 @@ export function useCanvasVideo(
 		}
 	}, [frameCount, imageFolder]);
 
-	const drawFrame = (index) => {
-		const canvas = canvasRef?.current;
+	const drawFrame = (index: number) => {
+		const canvas = canvasRef.current;
 
 		if (!canvas) return;
 
@@ -52,33 +51,40 @@ export function useCanvasVideo(
 
 		const rect = canvas.getBoundingClientRect();
 
-		if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+		if (
+			canvas.width !== rect.width * dpr ||
+			canvas.height !== rect.height * dpr
+		) {
 			canvas.width = rect.width * dpr;
 			canvas.height = rect.height * dpr;
 			context.scale(dpr, dpr);
 		}
 
-        const width = rect.width
-        const height = rect.width
+		const width = rect.width;
+		const height = rect.height;
 
-        const imgIndex = Math.min(frameCount - 1, Math.max(0, Math.round(index)))
+		const imgIndex = Math.min(frameCount - 1, Math.max(0, Math.round(index)));
 
-        const img = savedImages.current[imgIndex]
+		const img = savedImages.current[imgIndex];
 
-        if (!img || !img.complete || img.naturalWidth === 0) return;
+		if (!img || !img.complete || img.naturalWidth === 0) return;
 
-        const vW = img.naturalWidth
-        const vH = img.naturalHeight
-        const rW = width / vW
-        const rH = height / vH
-        const ratio = Math.max(rW, rH)
+		const vW = img.naturalWidth;
+		const vH = img.naturalHeight;
+		const rW = width / vW;
+		const rH = height / vH;
+		const ratio = Math.max(rW, rH);
 
-        const newW = vW * ratio
-        const newH = vH * ratio
-        const x = (width - newW) / 2
-        const y = (height - newH) / 2
+		const newW = vW * ratio;
+		const newH = vH * ratio;
+		const x = (width - newW) / 2;
+		const y = (height - newH) / 2;
 
-        
+		context.imageSmoothingEnabled = true;
+		context.imageSmoothingQuality = "high";
+
+		context.clearRect(0, 0, width, height);
+		context.drawImage(img, x, y, newW, newH);
 	};
 
 	return {
