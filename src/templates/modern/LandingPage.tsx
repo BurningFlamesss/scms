@@ -1,6 +1,7 @@
+import { useCanvasVideo } from "#/hooks/useCanvasVideo.ts";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,27 @@ export default function LandingPage() {
 
 export function HeroCanvas({ scrollTrackRef }) {
 	const canvasRef = useRef(null);
+
+    const { drawFrame, frameCount, isLoading, progress } = useCanvasVideo(canvasRef, 216)
+
+    useEffect(() => {
+        if (isLoading) return;
+
+        drawFrame(0)
+
+        const handleResize = () => {
+            const start = ScrollTrigger.getById("hero-scroll")
+
+            if (start) {
+                drawFrame(start.progress * (frameCount - 1))
+            }
+        }
+
+        addEventListener("resize", handleResize)
+
+        
+    }, [])
+
 	return (
 		<div className="relative w-full h-full">
 			<canvas
