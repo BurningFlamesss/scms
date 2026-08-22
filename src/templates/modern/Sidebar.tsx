@@ -66,6 +66,16 @@ function SidebarItem({ item }: { item: ItemDetail }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const hasChildren = item.children && item.children.length > 0;
 
+	if (!hasChildren) {
+		return (
+			<li>
+				<Link to={item.href ?? "/"} className="flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200">
+					<span>{item.label}</span>
+				</Link>
+			</li>
+		)
+	}
+
 	return (
 		<li className={cn(isOpen ? "" : "")}>
 			<button
