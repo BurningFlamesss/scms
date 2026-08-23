@@ -70,7 +70,7 @@ function Sidebar() {
 					</ul>
 				</main>
 
-				<footer className="rounded-b-2xl bg-red-500">
+				<footer className="rounded-b-2xl bg-red-400">
 					{data?.session.id ? (
 						<div className="bg-yellow-400 flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl">
 							Dashboard Coming Soon!
@@ -85,7 +85,7 @@ function Sidebar() {
 							</Link>
 							<Link
 								to="/login"
-								className="bg-red-500 flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl"
+								className="bg-red-400 flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl"
 							>
 								Login
 							</Link>
