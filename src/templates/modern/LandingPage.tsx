@@ -45,7 +45,39 @@ export default function LandingPage() {
 				</div>
 
 				<section className="hero-next-section absolute bottom-0 left-0 z-10 h-screen w-full overflow-hidden bg-white rounded-3xl">
-					<div className="flex h-full items-center justify-center"></div>
+					<div>
+						<h2>
+							Established in purpose.
+							<br />
+							Contemporary in outlook.
+						</h2>
+						<div>
+							<p>
+								Everest English Boarding Higher Secondary School is a learning
+								institution in Nepal built around a simple conviction: students
+								thrive when expectations are clear, relationships are strong,
+								and curiosity has room to become practice.
+							</p>
+							<dl>
+								<div>
+									<dt>Institution</dt>
+									<dd>Everest English Boarding Higher Secondary School</dd>
+								</div>
+								<div>
+									<dt>Learning Spaces</dt>
+									<dd>Everest Building + Canon Building</dd>
+								</div>
+								<div>
+									<dt>Streams</dt>
+									<dd>Science (Computer/Biology), Management</dd>
+								</div>
+								<div>
+									<dt>Labs</dt>
+									<dd>Computer, Biology, Physics, Chemistry</dd>
+								</div>
+							</dl>
+						</div>
+					</div>
 				</section>
 			</div>
 
