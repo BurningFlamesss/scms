@@ -58,28 +58,26 @@ export default function LandingPage() {
 								thrive when expectations are clear, relationships are strong,
 								and curiosity has room to become practice.
 							</p>
-							<dl className="border-t">
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
-									<dt className="text-xs uppercase">
-										Institution
-									</dt>
+							<dl className="border-t border-gray-300">
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+									<dt className="text-xs uppercase">Institution</dt>
 									<dd className="text-md font-medium">
 										Everest English Boarding Higher Secondary School
 									</dd>
 								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
-									<dt className="text-xs uppercase">
-										Learning Spaces
-									</dt>
-									<dd className="text-md font-medium">Everest Building + Canon Building</dd>
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+									<dt className="text-xs uppercase">Learning Spaces</dt>
+									<dd className="text-md font-medium">
+										Everest Building + Canon Building
+									</dd>
 								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
 									<dt className="text-xs uppercase">Streams</dt>
 									<dd className="text-md font-medium">
 										Science (Computer/Biology), Management
 									</dd>
 								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
 									<dt className="text-xs uppercase">Labs</dt>
 									<dd className="text-md font-medium">
 										Computer, Biology, Physics, Chemistry
@@ -91,32 +89,52 @@ export default function LandingPage() {
 				</section>
 			</div>
 
-			<footer className="h-[100vh] bg-yellow-500">
-				<div className="flex h-full items-center justify-center">
-					<div>
-						<p>Reach the Highest Points</p>
-						<Link to="/contact">
-							<span>Contact Everest</span>
-							<ArrowUpRight />
+			<footer className="bg-black pb-10 pt-32.5 text-white">
+				<div className="mx-8">
+					<div className="flex items-end justify-between gap-7.5">
+						<p className="m-0 text-[10px] uppercase tracking-[0.14em] text-muted">
+							Reach the Highest Points
+						</p>
+						<Link
+							className="group inline-flex items-center gap-5.5 text-[clamp(62px,7vw,110px)] leading-[0.9] no-underline"
+							to="/contact"
+						>
+							<span>With Everest</span>
+							<ArrowUpRight className="h-11 w-11 text-yellow-400 transition-transform duration-220 ease-in group-hover:translate-x-1.25 group-hover:-translate-y-1.25" />
 						</Link>
 					</div>
-					<hr />
-					<div>
+
+					<div className="mb-10.5 mt-13.5 h-px bg-gray-700" />
+
+					<div className="grid grid-cols-[2fr_1fr_1.5fr_1fr] gap-15">
 						<img src={sidebar.logo} alt="" />
-						<div>
-							<span>Explore</span>
+
+						<div className="flex flex-col gap-2.5 text-xs">
+							<span className="mb-2 text-[9px] uppercase tracking-[.12em] text-yellow-400">
+								Explore
+							</span>
 							{["Home", "About", "Contact", "Signup"].map((item) => (
-								<Link key={item} to={item}>
+								<Link
+									key={item}
+									to={item}
+									className="text-[#d1d3d8] no-underline transition-colors hover:text-yellow-400"
+								>
 									{item}
 								</Link>
 							))}
 						</div>
-						<div>
-							<span>Institution</span>
-							<p>Nepal</p>
-							<p>School Administrator</p>
+
+						<div className="flex flex-col gap-2.5 text-xs">
+							<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
+								Institution
+							</span>
+							<p className="m-0 leading-normal text-muted">Nepal</p>
+							<p className="m-0 leading-normal text-muted">
+								School Administrator
+							</p>
 						</div>
-						<div>
+
+						<div className="flex flex-col items-end justify-between text-[9px] text-muted">
 							<span>SCMS / Everest</span>
 							<span>{new Date().getFullYear()}</span>
 						</div>
