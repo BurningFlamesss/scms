@@ -1,1 +1,1 @@
-export const PUBLIC_ADDRESS = "../../../public/schools/everest"
+export const PUBLIC_ADDRESS = "../../../schools/everest"
