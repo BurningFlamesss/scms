@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnboardLoginRouteImport } from './routes/_onboard/login'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -18,6 +19,11 @@ import { Route as OnboardActivateTokenRouteImport } from './routes/_onboard/acti
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +49,7 @@ const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/login': typeof OnboardLoginRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/login': typeof OnboardLoginRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/_onboard/login': typeof OnboardLoginRoute
   '/_onboard/activate/$token': typeof OnboardActivateTokenRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/login' | '/activate/$token' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/login'
+    | '/activate/$token'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/login' | '/activate/$token' | '/api/auth/$'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/login'
+    | '/activate/$token'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/contact'
     | '/_onboard/login'
     | '/_onboard/activate/$token'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   OnboardLoginRoute: typeof OnboardLoginRoute
   OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   OnboardLoginRoute: OnboardLoginRoute,
   OnboardActivateTokenRoute: OnboardActivateTokenRoute,
