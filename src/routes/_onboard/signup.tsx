@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Divide } from "lucide-react";
 import { useState } from "react";
 import { createInvite } from "#/packages/auth/server/create-invite.ts";
 
