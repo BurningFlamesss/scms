@@ -44,36 +44,46 @@ export default function LandingPage() {
 					<HeroCanvas scrollTrackRef={containerRef} />
 				</div>
 
-				<section className="hero-next-section absolute bottom-0 left-0 z-10 h-screen w-full overflow-hidden bg-white rounded-3xl">
-					<div>
-						<h2>
+				<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-white rounded-3xl">
+					<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
+						<h2 className="text-8xl font-bold">
 							Established in purpose.
 							<br />
 							Contemporary in outlook.
 						</h2>
 						<div>
-							<p>
+							<p className="text-lg leading-normal mb-8">
 								Everest English Boarding Higher Secondary School is a learning
 								institution in Nepal built around a simple conviction: students
 								thrive when expectations are clear, relationships are strong,
 								and curiosity has room to become practice.
 							</p>
-							<dl>
-								<div>
-									<dt>Institution</dt>
-									<dd>Everest English Boarding Higher Secondary School</dd>
+							<dl className="border-t">
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+									<dt className="text-xs uppercase">
+										Institution
+									</dt>
+									<dd className="text-md font-medium">
+										Everest English Boarding Higher Secondary School
+									</dd>
 								</div>
-								<div>
-									<dt>Learning Spaces</dt>
-									<dd>Everest Building + Canon Building</dd>
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+									<dt className="text-xs uppercase">
+										Learning Spaces
+									</dt>
+									<dd className="text-md font-medium">Everest Building + Canon Building</dd>
 								</div>
-								<div>
-									<dt>Streams</dt>
-									<dd>Science (Computer/Biology), Management</dd>
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+									<dt className="text-xs uppercase">Streams</dt>
+									<dd className="text-md font-medium">
+										Science (Computer/Biology), Management
+									</dd>
 								</div>
-								<div>
-									<dt>Labs</dt>
-									<dd>Computer, Biology, Physics, Chemistry</dd>
+								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b">
+									<dt className="text-xs uppercase">Labs</dt>
+									<dd className="text-md font-medium">
+										Computer, Biology, Physics, Chemistry
+									</dd>
 								</div>
 							</dl>
 						</div>
