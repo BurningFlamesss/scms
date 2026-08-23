@@ -54,9 +54,9 @@ function Sidebar() {
 				)}
 			>
 				<header className="rounded-t-2xl bg-red-400 flex flex-col items-center justify-center">
-					<div className="p-4">
+					<Link to="/" className="p-4">
 						<img src={sidebar.logo} alt="" />
-					</div>
+					</Link>
 					<span className="py-2 bg-yellow-400 w-full text-center">
 						{sidebar.tagline}
 					</span>

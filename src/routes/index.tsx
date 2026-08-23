@@ -10,7 +10,7 @@ function Home() {
 
 	return (
 		<main className="h-[200vh]">
-			<Sidebar />
+			{/* <Sidebar /> */}
 			<LandingPage />
 		</main>
 	);

@@ -11,6 +11,7 @@ import { getSchoolConfig, getSchoolContent } from "#/packages/school/loader.ts";
 import type { MyRouterContext } from "#/types/router-context.ts";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
+import Sidebar from "#/templates/modern/Sidebar.tsx";
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	async beforeLoad() {
@@ -69,6 +70,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				{/* <LenisProvider /> */}
+				<Sidebar /> 
 				{children}
 				<TanStackDevtools
 					config={{
