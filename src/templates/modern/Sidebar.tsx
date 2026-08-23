@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { cn } from "#/lib/utils.ts";
 import { useSchoolContent } from "#/packages/school/hook.tsx";
 import type { ItemDetail } from "#/types/school.ts";
+import { authClient } from "#/packages/auth/auth-client.ts";
 
 function Sidebar() {
+	const { data } = authClient.useSession();
 	const { sidebar } = useSchoolContent();
 	const [scrolled, setScrolled] = useState(false);
 	const [isSidebarOpened, setIsSidebarOpened] = useState(true);
@@ -15,9 +17,9 @@ function Sidebar() {
 			setScrolled(scrollY > 50);
 
 			if (scrollY > 50) {
-				setIsSidebarOpened(false)
+				setIsSidebarOpened(false);
 			} else {
-				setIsSidebarOpened(true)
+				setIsSidebarOpened(true);
 			}
 		};
 
@@ -39,7 +41,11 @@ function Sidebar() {
 				onClick={() => setIsSidebarOpened((state) => !state)}
 				className="absolute right-0 top-0 translate-x-[30%] translate-y-[-30%] rounded-full bg-white border border-red-500 cursor-pointer"
 			>
-				<ChevronLeft width={18} height={18} className={cn(isSidebarOpened ? "" : "rotate-180")} />
+				<ChevronLeft
+					width={18}
+					height={18}
+					className={cn(isSidebarOpened ? "" : "rotate-180")}
+				/>
 			</button>
 			<section
 				className={cn(
@@ -64,13 +70,27 @@ function Sidebar() {
 					</ul>
 				</main>
 
-				<footer className="rounded-b-2xl bg-yellow-400">
-					<Link
-						to="/login"
-						className="flex w-full items-center justify-center py-2 cursor-pointer"
-					>
-						Login
-					</Link>
+				<footer className="rounded-b-2xl bg-red-500">
+					{data?.session.id ? (
+						<div className="bg-yellow-400 flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl">
+							Dashboard Coming Soon!
+						</div>
+					) : (
+						<>
+							<Link
+								to="/signup"
+								className="bg-yellow-400 flex w-full items-center justify-center py-2 cursor-pointer"
+							>
+								Signup
+							</Link>
+							<Link
+								to="/login"
+								className="bg-red-500 flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl"
+							>
+								Login
+							</Link>
+						</>
+					)}
 				</footer>
 			</section>
 		</aside>
