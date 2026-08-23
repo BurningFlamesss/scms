@@ -1,11 +1,15 @@
 import { useCanvasVideo } from "#/hooks/useCanvasVideo.ts";
+import { useSchoolContent } from "#/packages/school/hook.tsx";
+import { Link } from "@tanstack/react-router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
+	const { sidebar } = useSchoolContent();
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -45,9 +49,38 @@ export default function LandingPage() {
 				</section>
 			</div>
 
-			<section className="h-[100vh] bg-yellow-500">
-				<div className="flex h-full items-center justify-center"></div>
-			</section>
+			<footer className="h-[100vh] bg-yellow-500">
+				<div className="flex h-full items-center justify-center">
+					<div>
+						<p>Reach the Highest Points</p>
+						<Link to="/contact">
+							<span>Contact Everest</span>
+							<ArrowUpRight />
+						</Link>
+					</div>
+					<hr />
+					<div>
+						<img src={sidebar.logo} alt="" />
+						<div>
+							<span>Explore</span>
+							{["Home", "About", "Contact", "Signup"].map((item) => (
+								<Link key={item} to={item}>
+									{item}
+								</Link>
+							))}
+						</div>
+						<div>
+							<span>Institution</span>
+							<p>Nepal</p>
+							<p>School Administrator</p>
+						</div>
+						<div>
+							<span>SCMS / Everest</span>
+							<span>{new Date().getFullYear()}</span>
+						</div>
+					</div>
+				</div>
+			</footer>
 		</main>
 	);
 }
