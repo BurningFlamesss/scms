@@ -3,7 +3,7 @@ import { Divide } from "lucide-react";
 import { useState } from "react";
 import { createInvite } from "#/packages/auth/server/create-invite.ts";
 
-export const Route = createFileRoute("/_onboard/create-accounts")({
+export const Route = createFileRoute("/_onboard/signup")({
 	component: RouteComponent,
 });
 
@@ -34,12 +34,6 @@ function RouteComponent() {
 	};
 	return (
 		<main>
-			<form onSubmit={handleSubmit}>
-				<input type="text" name="name" placeholder="Name" />
-				<input type="email" name="email" placeholder="Email" />
-
-				<button type="submit">Generate Activation Link</button>
-			</form>
 			{inviteLink ? (
 				<div>
 					Here's your Invite Link (Tester):{" "}
@@ -50,6 +44,12 @@ function RouteComponent() {
 			) : (
 				<div>Enter details to generate a activation link</div>
 			)}
+			<form onSubmit={handleSubmit}>
+				<input type="text" name="name" placeholder="Name" />
+				<input type="email" name="email" placeholder="Email" />
+
+				<button type="submit">Generate Activation Link</button>
+			</form>
 		</main>
 	);
 }
