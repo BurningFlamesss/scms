@@ -6,24 +6,12 @@
 			"about": {
 				"id": "about",
 				"label": "About Everest",
-				"children": [
-					{
-						"id": "Info",
-						"label": "Info"
-					}
-				]
+				"href": "/about"
 			},
-			"courses": {
-				"id": "courses",
-				"label": "Courses"
-			},
-			"facilities": {
-				"id": "facilities",
-				"label": "Facilities"
-			},
-			"gallery": {
-				"id": "gallery",
-				"label": "Gallery"
+			"contact": {
+				"id": "contact",
+				"label": "Contact",
+				"href": "/contact"
 			}
 		}
 	}

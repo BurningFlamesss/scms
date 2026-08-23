@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnboardLoginRouteImport } from './routes/_onboard/login'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as OnboardActivateTokenRouteImport } from './routes/_onboard/activate.$token'
 
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/login': typeof OnboardLoginRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/login': typeof OnboardLoginRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -50,18 +58,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
   '/_onboard/login': typeof OnboardLoginRoute
   '/_onboard/activate/$token': typeof OnboardActivateTokenRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/activate/$token' | '/api/auth/$'
+  fullPaths: '/' | '/contact' | '/login' | '/activate/$token' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/activate/$token' | '/api/auth/$'
+  to: '/' | '/contact' | '/login' | '/activate/$token' | '/api/auth/$'
   id:
     | '__root__'
     | '/'
+    | '/contact'
     | '/_onboard/login'
     | '/_onboard/activate/$token'
     | '/api/auth/$'
@@ -69,6 +79,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
   OnboardLoginRoute: typeof OnboardLoginRoute
   OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -76,6 +87,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -109,6 +127,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
   OnboardLoginRoute: OnboardLoginRoute,
   OnboardActivateTokenRoute: OnboardActivateTokenRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
