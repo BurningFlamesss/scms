@@ -39,7 +39,7 @@ function Sidebar() {
 			<button
 				type="button"
 				onClick={() => setIsSidebarOpened((state) => !state)}
-				className="absolute right-0 top-0 translate-x-[30%] translate-y-[-30%] rounded-full bg-white border border-red-500 cursor-pointer"
+				className={cn("absolute right-0 top-1/2 translate-x-[30%] translate-y-[-50%] rounded-full bg-white border border-red-500 cursor-pointer")}
 			>
 				<ChevronLeft
 					width={18}

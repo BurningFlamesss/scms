@@ -93,7 +93,7 @@ export default function LandingPage() {
 				<div className="mx-8">
 					<div className="flex items-end justify-between gap-7.5">
 						<p className="m-0 text-[10px] uppercase tracking-[0.14em] text-muted">
-							Reach the Highest Points
+							Reach the Highest Point
 						</p>
 						<Link
 							className="group inline-flex items-center gap-5.5 text-[clamp(62px,7vw,110px)] leading-[0.9] no-underline"
@@ -110,14 +110,14 @@ export default function LandingPage() {
 						<img src={sidebar.logo} alt="" />
 
 						<div className="flex flex-col gap-2.5 text-xs">
-							<span className="mb-2 text-[9px] uppercase tracking-[.12em] text-yellow-400">
+							<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
 								Explore
 							</span>
 							{["Home", "About", "Contact", "Signup"].map((item) => (
 								<Link
 									key={item}
 									to={item}
-									className="text-[#d1d3d8] no-underline transition-colors hover:text-yellow-400"
+									className="text-white no-underline transition-colors hover:text-yellow-400"
 								>
 									{item}
 								</Link>
