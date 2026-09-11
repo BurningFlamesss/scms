@@ -106,3 +106,13 @@ export type Invite = Prisma.InviteModel
  * 
  */
 export type GuardianInvite = Prisma.GuardianInviteModel
+/**
+ * Model WebsitePage
+ * 
+ */
+export type WebsitePage = Prisma.WebsitePageModel
+/**
+ * Model ContentBlock
+ * 
+ */
+export type ContentBlock = Prisma.ContentBlockModel

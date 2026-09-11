@@ -57,6 +57,8 @@ model User {
   invites     Invite[]
 
   @@unique([email])
+  @@index([emailVerified])
+  @@index([activatedAt])
   @@map("user")
 }
 
@@ -73,6 +75,7 @@ model Session {
 
   @@unique([token])
   @@index([userId])
+  @@index([expiresAt])
   @@map("session")
 }
 
@@ -93,6 +96,7 @@ model Account {
   updatedAt             DateTime  @updatedAt
 
   @@index([userId])
+  @@index([providerId, accountId])
   @@map("account")
 }
 
@@ -124,6 +128,8 @@ model Organization {
   userRoles UserRole[]
   students  Student[]
   staffs    Staff[]
+
+  @@index([slug])
 }
 
 model Branch {
@@ -148,6 +154,8 @@ model Branch {
   userRoles UserRole[]
 
   @@unique([organizationId, slug])
+  @@index([organizationId])
+  @@index([slug])
 }
 
 model UserRole {
@@ -195,6 +203,11 @@ model Student {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([branchId, status])
+  @@index([organizationId, status])
+  @@index([grade, section])
+  @@index([admissionNo])
 }
 
 model Staff {
@@ -220,6 +233,11 @@ model Staff {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([branchId, status])
+  @@index([organizationId, status])
+  @@index([department])
+  @@index([employeeId])
 }
 
 model Guardian {
@@ -265,6 +283,10 @@ model Invite {
   usedAt    DateTime?
 
   createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([type])
 }
 
 model GuardianInvite {
@@ -279,4 +301,84 @@ model GuardianInvite {
   usedAt    DateTime?
 
   createdAt DateTime @default(now())
+
+  @@index([studentId])
+  @@index([expiresAt])
+}
+
+enum WebsitePageKey {
+  homepage
+  about
+  contact
+  other
+}
+
+enum WebsitePageStatus {
+  draft
+  published
+}
+
+enum BlockType {
+  hero
+  headline
+  intro
+  stats
+  cta
+  featured_events
+  featured_notices
+  rich_text
+  history
+  mission_vision
+  principal_message
+  facilities
+  achievements
+  contact_details
+  office_hours
+  social_links
+  map
+  announcements
+  gallery_grid
+  faculty
+  academics
+  admissions_info
+}
+
+model WebsitePage {
+  id                    String         @id @default(cuid())
+  key                   WebsitePageKey @unique
+  title                 String
+  path                  String
+  status                WebsitePageStatus @default(draft)
+  hasUnpublishedChanges Boolean        @default(true)
+  seoTitle              String?
+  seoDescription        String?
+  seoKeywords           String?
+  publishedAt           DateTime?
+  updatedAt             DateTime       @updatedAt
+  updatedBy             String
+  createdAt             DateTime       @default(now())
+
+  blocks ContentBlock[]
+
+  @@index([status])
+  @@index([path])
+  @@map("website_page")
+}
+
+model ContentBlock {
+  id        String     @id @default(cuid())
+  type      BlockType
+  label     String
+  visible   Boolean    @default(true)
+  order     Int
+  fields    Json
+  updatedAt DateTime   @updatedAt
+  createdAt DateTime   @default(now())
+
+  pageId String
+  page   WebsitePage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId, order])
+  @@index([pageId, visible])
+  @@map("content_block")
 }

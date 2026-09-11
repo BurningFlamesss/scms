@@ -1,11 +1,11 @@
 {
 	"organization": {
 		"slug": "everest",
-		"name": "everest"
+		"name": "Everest English Boarding Secondary School"
 	},
 	"theme": {
 		"template": "modern",
-		"primary": "#ff0000"
+		"primary": "#d32f2f"
 	},
 	"features": {
 		"clubs": true,
@@ -13,11 +13,11 @@
 		"notices": true
 	},
 	"contact": {
-		"phone": "980000000",
-		"email": "everestbutwal@gmail.com"
+		"phone": "+977 61 521884",
+		"email": "office@everestpokhara.edu.np"
 	},
 	"seo": {
-		"title": "everest",
-		"description": "everest is the best learning platform"
+		"title": "Everest English Boarding Secondary School",
+		"description": "A complete school journey in Pokhara, built on close teaching, clear standards and care for every learner."
 	}
 }

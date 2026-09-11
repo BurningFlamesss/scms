@@ -1,17 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useSchoolConfig } from "#/packages/school/hook.tsx";
 import LandingPage from "#/templates/modern/LandingPage.tsx";
-import Sidebar from "#/templates/modern/Sidebar.tsx";
 
-export const Route = createFileRoute("/")({ component: Home });
+const PUBLIC_CACHE_HEADERS = () => ({
+  "Cache-Control": "public, max-age=60, s-maxage=3600, stale-while-revalidate=86400",
+  "CDN-Cache-Control": "max-age=3600, stale-while-revalidate=86400",
+});
+
+export const Route = createFileRoute("/")({
+  component: Home,
+  headers: PUBLIC_CACHE_HEADERS,
+});
 
 function Home() {
-	const config = useSchoolConfig();
-
-	return (
-		<main className="h-[200vh]">
-			{/* <Sidebar /> */}
-			<LandingPage />
-		</main>
-	);
+  return <LandingPage />;
 }

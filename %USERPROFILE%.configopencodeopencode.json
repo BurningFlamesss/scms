@@ -1,0 +1,28 @@
+{
+  "provider": {
+    "omniroute": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "OmniRoute",
+      "options": {
+        "baseURL": "http://localhost:20128/v1",
+        "apiKey": "sk-28db7b160bbbhgghghggg-dbb31ebf"
+      },
+      "models": {
+        "auto": {
+          "name": "auto",
+          "limit": {
+            "input": 128000,
+            "output": 4096
+          }
+        },
+        "auto/coding": {
+          "name": "auto/coding",
+          "limit": {
+            "input": 128000,
+            "output": 4096
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { NoticeDialog } from "#/components/common/NoticeDialog";
+import Sidebar from "./Sidebar";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,131 +40,148 @@ export default function LandingPage() {
 	}, []);
 
 	return (
-		<main className="w-full">
-			<div ref={containerRef} className="relative h-[500vh]">
-				<div className="sticky top-0 h-screen w-full overflow-hidden">
-					<HeroCanvas scrollTrackRef={containerRef} />
-				</div>
+		<>
+			<div className="relative min-h-screen">
+				<Sidebar />
+				<main className="w-full">
+					<div ref={containerRef} className="relative h-[500vh]">
+						<div className="sticky top-0 h-screen w-full overflow-hidden">
+							<HeroCanvas scrollTrackRef={containerRef} />
+						</div>
 
-				<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-white rounded-3xl">
-					<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
-						<h2 className="text-8xl font-bold">
-							Established in purpose.
-							<br />
-							Contemporary in outlook.
-						</h2>
-						<div>
-							<p className="text-lg leading-normal mb-8">
-								Everest English Boarding Higher Secondary School is a learning
-								institution in Nepal built around a simple conviction: students
-								thrive when expectations are clear, relationships are strong,
-								and curiosity has room to become practice.
+						<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-white rounded-3xl">
+							<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
+								<h2 className="text-8xl font-bold">
+									Established in purpose.
+									<br />
+									Contemporary in outlook.
+								</h2>
+								<div>
+									<p className="text-lg leading-normal mb-8">
+										Everest English Boarding Higher Secondary School is a learning
+										institution in Nepal built around a simple conviction: students
+										thrive when expectations are clear, relationships are strong,
+										and curiosity has room to become practice.
+									</p>
+									<dl className="border-t border-gray-300">
+										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+											<dt className="text-xs uppercase">Institution</dt>
+											<dd className="text-md font-medium">
+												Everest English Boarding Higher Secondary School
+											</dd>
+										</div>
+										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+											<dt className="text-xs uppercase">Learning Spaces</dt>
+											<dd className="text-md font-medium">
+												Everest Building + Canon Building
+											</dd>
+										</div>
+										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+											<dt className="text-xs uppercase">Streams</dt>
+											<dd className="text-md font-medium">
+												Science (Computer/Biology), Management
+											</dd>
+										</div>
+										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+											<dt className="text-xs uppercase">Labs</dt>
+											<dd className="text-md font-medium">
+												Computer, Biology, Physics, Chemistry
+											</dd>
+										</div>
+									</dl>
+								</div>
+							</div>
+						</section>
+					</div>
+				</main>
+
+				<footer className="bg-black pb-10 pt-32.5 text-white">
+					<div className="mx-8">
+						<div className="flex items-end justify-between gap-7.5">
+							<p className="m-0 text-[10px] uppercase tracking-[0.14em] text-muted">
+								Reach the Highest Point
 							</p>
-							<dl className="border-t border-gray-300">
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-									<dt className="text-xs uppercase">Institution</dt>
-									<dd className="text-md font-medium">
-										Everest English Boarding Higher Secondary School
-									</dd>
-								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-									<dt className="text-xs uppercase">Learning Spaces</dt>
-									<dd className="text-md font-medium">
-										Everest Building + Canon Building
-									</dd>
-								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-									<dt className="text-xs uppercase">Streams</dt>
-									<dd className="text-md font-medium">
-										Science (Computer/Biology), Management
-									</dd>
-								</div>
-								<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-									<dt className="text-xs uppercase">Labs</dt>
-									<dd className="text-md font-medium">
-										Computer, Biology, Physics, Chemistry
-									</dd>
-								</div>
-							</dl>
+							<Link
+								className="group inline-flex items-center gap-5.5 text-[clamp(62px,7vw,110px)] leading-[0.9] no-underline"
+								to="/contact"
+							>
+								<span>With Everest</span>
+								<ArrowUpRight className="h-11 w-11 text-yellow-400 transition-transform duration-220 ease-in group-hover:translate-x-1.25 group-hover:-translate-y-1.25" />
+							</Link>
+						</div>
+
+						<div className="mb-10.5 mt-13.5 h-px bg-gray-700" />
+
+						<div className="grid grid-cols-[2fr_1fr_1.5fr_1fr] gap-15">
+							{sidebar?.logo ? <img src={sidebar.logo} alt="" /> : null}
+
+							<div className="flex flex-col gap-2.5 text-xs">
+								<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
+									Explore
+								</span>
+								{["Home", "About", "Contact", "Signup"].map((item) => (
+									<Link
+										key={item}
+										to={item}
+										className="text-white no-underline transition-colors hover:text-yellow-400"
+									>
+										{item}
+									</Link>
+								))}
+							</div>
+
+							<div className="flex flex-col gap-2.5 text-xs">
+								<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
+									Institution
+								</span>
+								<p className="m-0 leading-normal text-muted">Nepal</p>
+								<p className="m-0 leading-normal text-muted">
+									School Administrator
+								</p>
+							</div>
+
+							<div className="flex flex-col items-end justify-between text-[9px] text-muted">
+								<span>SCMS / Everest</span>
+								<span>{new Date().getFullYear()}</span>
+							</div>
 						</div>
 					</div>
-				</section>
+				</footer>
 			</div>
-
-			<footer className="bg-black pb-10 pt-32.5 text-white">
-				<div className="mx-8">
-					<div className="flex items-end justify-between gap-7.5">
-						<p className="m-0 text-[10px] uppercase tracking-[0.14em] text-muted">
-							Reach the Highest Point
-						</p>
-						<Link
-							className="group inline-flex items-center gap-5.5 text-[clamp(62px,7vw,110px)] leading-[0.9] no-underline"
-							to="/contact"
-						>
-							<span>With Everest</span>
-							<ArrowUpRight className="h-11 w-11 text-yellow-400 transition-transform duration-220 ease-in group-hover:translate-x-1.25 group-hover:-translate-y-1.25" />
-						</Link>
-					</div>
-
-					<div className="mb-10.5 mt-13.5 h-px bg-gray-700" />
-
-					<div className="grid grid-cols-[2fr_1fr_1.5fr_1fr] gap-15">
-						<img src={sidebar.logo} alt="" />
-
-						<div className="flex flex-col gap-2.5 text-xs">
-							<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
-								Explore
-							</span>
-							{["Home", "About", "Contact", "Signup"].map((item) => (
-								<Link
-									key={item}
-									to={item}
-									className="text-white no-underline transition-colors hover:text-yellow-400"
-								>
-									{item}
-								</Link>
-							))}
-						</div>
-
-						<div className="flex flex-col gap-2.5 text-xs">
-							<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
-								Institution
-							</span>
-							<p className="m-0 leading-normal text-muted">Nepal</p>
-							<p className="m-0 leading-normal text-muted">
-								School Administrator
-							</p>
-						</div>
-
-						<div className="flex flex-col items-end justify-between text-[9px] text-muted">
-							<span>SCMS / Everest</span>
-							<span>{new Date().getFullYear()}</span>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</main>
+			<NoticeDialog />
+		</>
 	);
 }
 
-export function HeroCanvas({ scrollTrackRef }) {
-	const canvasRef = useRef(null);
+export function HeroCanvas({ scrollTrackRef }: { scrollTrackRef: React.RefObject<HTMLDivElement | null> }) {
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-	const { drawFrame, frameCount, isLoading, progress } = useCanvasVideo(
+	const { drawFrame, frameCount, isLoading, progress, ready } = useCanvasVideo(
 		canvasRef,
 		216,
 	);
 
+	// Ensure active frame is drawn whenever ready or when loading completes
 	useEffect(() => {
-		if (isLoading) return;
+		if (ready && !isLoading) {
+			requestAnimationFrame(() => {
+				const start = ScrollTrigger.getById("hero-scroll");
+				const index = start ? Math.floor(start.progress * (frameCount - 1)) : 0;
+				drawFrame(index);
+			});
+		}
+	}, [ready, isLoading, drawFrame, frameCount]);
 
-		drawFrame(0);
+	useEffect(() => {
+		if (!ready) return;
 
 		const handleResize = () => {
 			const start = ScrollTrigger.getById("hero-scroll");
 
 			if (start) {
 				drawFrame(start.progress * (frameCount - 1));
+			} else {
+				drawFrame(0);
 			}
 		};
 
@@ -182,23 +201,29 @@ export function HeroCanvas({ scrollTrackRef }) {
 			},
 		});
 
+		// Trigger initial frame draw after GSAP ScrollTrigger setup
+		const currentScroll = ScrollTrigger.getById("hero-scroll");
+		const initialIndex = currentScroll ? Math.floor(currentScroll.progress * (frameCount - 1)) : 0;
+		drawFrame(initialIndex);
+
 		return () => {
 			removeEventListener("resize", handleResize);
 			ScrollTrigger.getById("hero-scroll")?.kill();
 			timeline.kill();
 		};
-	}, [isLoading, drawFrame, scrollTrackRef, frameCount]);
-
-	if (isLoading) {
-		return (
-			<div className="fixed inset-0 z-50 flex flex-col items-center justify-center">
-				<h1 className="text-2xl mb-4">Loading Experience</h1>
-			</div>
-		);
-	}
+	}, [ready, drawFrame, scrollTrackRef, frameCount]);
 
 	return (
-		<div className="relative w-full h-full">
+		<div className="relative w-full h-full bg-black">
+			{isLoading && (
+				<div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background">
+					<div className="text-center">
+						<div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+						<h1 className="text-lg font-medium">Loading Experience</h1>
+						<p className="text-sm text-muted-foreground mt-1">{Math.round(progress)}%</p>
+					</div>
+				</div>
+			)}
 			<canvas
 				ref={canvasRef}
 				className="block w-full h-full object-cover filter contrast-[1.05] saturate-[1.05]"

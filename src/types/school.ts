@@ -24,6 +24,7 @@ export interface SchoolConfig {
 
 export interface SchoolContent {
 	sidebar: SidebarContent;
+	login: {}
 }
 
 export interface SidebarContent {

@@ -46,3 +46,49 @@ export const InviteType = {
 } as const
 
 export type InviteType = (typeof InviteType)[keyof typeof InviteType]
+
+
+export const WebsitePageKey = {
+  homepage: 'homepage',
+  about: 'about',
+  contact: 'contact',
+  other: 'other'
+} as const
+
+export type WebsitePageKey = (typeof WebsitePageKey)[keyof typeof WebsitePageKey]
+
+
+export const WebsitePageStatus = {
+  draft: 'draft',
+  published: 'published'
+} as const
+
+export type WebsitePageStatus = (typeof WebsitePageStatus)[keyof typeof WebsitePageStatus]
+
+
+export const BlockType = {
+  hero: 'hero',
+  headline: 'headline',
+  intro: 'intro',
+  stats: 'stats',
+  cta: 'cta',
+  featured_events: 'featured_events',
+  featured_notices: 'featured_notices',
+  rich_text: 'rich_text',
+  history: 'history',
+  mission_vision: 'mission_vision',
+  principal_message: 'principal_message',
+  facilities: 'facilities',
+  achievements: 'achievements',
+  contact_details: 'contact_details',
+  office_hours: 'office_hours',
+  social_links: 'social_links',
+  map: 'map',
+  announcements: 'announcements',
+  gallery_grid: 'gallery_grid',
+  faculty: 'faculty',
+  academics: 'academics',
+  admissions_info: 'admissions_info'
+} as const
+
+export type BlockType = (typeof BlockType)[keyof typeof BlockType]
