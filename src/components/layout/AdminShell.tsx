@@ -67,7 +67,7 @@ export function AdminShell() {
             onToggleSidebar={() => setCollapsed((v) => !v)}
           />
           <main className="min-w-0 flex-1" data-testid="app-main">
-            <div key={location.pathname} className="animate-rise-in py-6">
+            <div key={location.pathname} className="animate-rise-in px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto w-full">
               <Outlet />
             </div>
           </main>

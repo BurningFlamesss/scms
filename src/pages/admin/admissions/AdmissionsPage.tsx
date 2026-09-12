@@ -60,10 +60,10 @@ export default function AdmissionsPage() {
   const { actor, can } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearch();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
-  const statusParam = params.get("status") ?? "all";
-  const view = params.get("view") ?? (statusParam !== "all" ? "table" : "board");
+  const statusParam = searchParams.status ?? "all";
+  const view = searchParams.view ?? (statusParam !== "all" ? "table" : "board");
   const canManage = can("admissions.manage");
 
   const [search, setSearch] = useState("");
@@ -76,10 +76,15 @@ export default function AdmissionsPage() {
   const [pendingDelete, setPendingDelete] = useState<Application | null>(null);
 
   const setParam = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value === "all") next.delete(key);
-    else next.set(key, value);
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => {
+        const next = { ...prev };
+        if (value === "all" || !value) delete next[key];
+        else next[key] = value;
+        return next;
+      },
+      replace: true,
+    });
   };
 
   const { data, isLoading, isError, refetch } = useQuery({

@@ -162,7 +162,7 @@ export default function AlbumDetailPage() {
     onSuccess: () => {
       toast.success("Album deleted");
       qc.invalidateQueries({ queryKey: ["albums"] });
-      navigate("/gallery");
+      navigate("/admin/gallery");
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -215,7 +215,7 @@ export default function AlbumDetailPage() {
           title="Album not found"
           description="This album may have been deleted. Head back to the gallery to pick another one."
           primaryLabel="Back to gallery"
-          onPrimary={() => navigate("/gallery")}
+          onPrimary={() => navigate("/admin/gallery")}
           testId="album-detail-missing"
         />
       </div>
@@ -236,7 +236,7 @@ export default function AlbumDetailPage() {
             <span>Updated {relativeTime(album.updatedAt)}</span>
             <StatusBadge value={album.visibility} testId="album-visibility-badge" />
             {linkedEvent && (
-              <Link to={`/events/${linkedEvent.id}`} className="text-primary hover:underline" data-testid="album-event-link">
+              <Link to={`/admin/events/${linkedEvent.id}`} className="text-primary hover:underline" data-testid="album-event-link">
                 {linkedEvent.title}
               </Link>
             )}
@@ -245,7 +245,7 @@ export default function AlbumDetailPage() {
         actions={
           <>
             <Button asChild variant="outline" size="sm" className="gap-1.5">
-              <Link to="/gallery" data-testid="album-back">
+              <Link to="/admin/gallery" data-testid="album-back">
                 <ArrowLeft className="h-3.5 w-3.5" /> All albums
               </Link>
             </Button>

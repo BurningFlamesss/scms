@@ -53,9 +53,9 @@ export default function NoticesPage() {
   const { actor, can } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearch();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
-  const [status, setStatus] = useState(params.get("status") ?? "all");
+  const [status, setStatus] = useState(searchParams.status ?? "all");
   const [search, setSearch] = useState("");
   const [priority, setPriority] = useState("all");
   const [page, setPage] = useState(1);
@@ -63,10 +63,10 @@ export default function NoticesPage() {
 
   // Sidebar sub-navigation drives the status tab through the query string.
   useEffect(() => {
-    const next = params.get("status") ?? "all";
+    const next = searchParams.status ?? "all";
     setStatus(next);
     setPage(1);
-  }, [params]);
+  }, [searchParams.status]);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["notices", { search, status, priority, page }],
@@ -116,10 +116,15 @@ export default function NoticesPage() {
   });
 
   const changeStatusTab = (value: string) => {
-    const next = new URLSearchParams(params);
-    if (value === "all") next.delete("status");
-    else next.set("status", value);
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => {
+        const next = { ...prev };
+        if (value === "all") delete next.status;
+        else next.status = value;
+        return next;
+      },
+      replace: true,
+    });
   };
 
   const columns: Column<Notice>[] = [
@@ -131,7 +136,7 @@ export default function NoticesPage() {
           {notice.pinned && <Pin className="mt-1 h-3.5 w-3.5 shrink-0 text-accent" aria-label="Pinned" />}
           <div className="min-w-0">
             <Link
-              to={`/notices/${notice.id}`}
+              to={`/admin/notices/${notice.id}`}
               className="block truncate text-sm font-medium text-foreground transition-colors hover:text-primary focus-ring"
               data-testid={`notice-link-${notice.id}`}
               onClick={(event) => event.stopPropagation()}
@@ -202,7 +207,7 @@ export default function NoticesPage() {
             className="row-actions h-7 w-7"
             aria-label="Open notice"
             data-testid={`notice-view-${notice.id}`}
-            onClick={() => navigate(`/notices/${notice.id}`)}
+            onClick={() => navigate(`/admin/notices/${notice.id}`)}
           >
             <Eye className="h-3.5 w-3.5" />
           </Button>
@@ -222,7 +227,7 @@ export default function NoticesPage() {
               <DropdownMenuItem
                 className="gap-2 text-xs"
                 data-testid={`notice-action-open-${notice.id}`}
-                onClick={() => navigate(`/notices/${notice.id}`)}
+                onClick={() => navigate(`/admin/notices/${notice.id}`)}
               >
                 <Eye className="h-3.5 w-3.5" /> Open
               </DropdownMenuItem>
@@ -230,7 +235,7 @@ export default function NoticesPage() {
                 <DropdownMenuItem
                   className="gap-2 text-xs"
                   data-testid={`notice-action-edit-${notice.id}`}
-                  onClick={() => navigate(`/notices/${notice.id}/edit`)}
+                  onClick={() => navigate(`/admin/notices/${notice.id}/edit`)}
                 >
                   <Pencil className="h-3.5 w-3.5" /> Edit
                 </DropdownMenuItem>
@@ -307,7 +312,7 @@ export default function NoticesPage() {
         actions={
           can("notices.manage") ? (
             <Button asChild size="sm" className="gap-1.5">
-              <Link to="/notices/new" data-testid="notices-new">
+              <Link to="/admin/notices/new" data-testid="notices-new">
                 <Plus className="h-3.5 w-3.5" /> Write a notice
               </Link>
             </Button>
@@ -374,7 +379,7 @@ export default function NoticesPage() {
         loading={isLoading}
         error={isError ? true : undefined}
         onRetry={() => void refetch()}
-        onRowClick={(notice) => navigate(`/notices/${notice.id}`)}
+        onRowClick={(notice) => navigate(`/admin/notices/${notice.id}`)}
         page={page}
         pageSize={8}
         total={data?.total ?? 0}
@@ -385,7 +390,7 @@ export default function NoticesPage() {
             title="No notices here yet"
             description="Nothing matches this view. Change the status tab or write a new notice for students, guardians or staff."
             primaryLabel={can("notices.manage") ? "Write a notice" : undefined}
-            onPrimary={() => navigate("/notices/new")}
+            onPrimary={() => navigate("/admin/notices/new")}
             testId="notices-empty"
           />
         }

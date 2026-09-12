@@ -59,7 +59,8 @@ export function Topbar({ onOpenMobileNav, onOpenPalette, onToggleSidebar }: Topb
   useEffect(() => setMounted(true), []);
 
   const segments = location.pathname.split("/").filter(Boolean);
-  const rootTitle = ROUTE_TITLES[segments[0] ?? "overview"] ?? "Overview";
+  const currentSegment = segments[0] === "admin" ? (segments[1] ?? "overview") : (segments[0] ?? "overview");
+  const rootTitle = ROUTE_TITLES[currentSegment] ?? "Overview";
   const activeBranch = branches.find((b) => b.id === branchId);
 
   return (
@@ -89,14 +90,14 @@ export function Topbar({ onOpenMobileNav, onOpenPalette, onToggleSidebar }: Topb
       </Button>
 
       <nav aria-label="Breadcrumb" className="hidden min-w-0 items-center gap-1.5 text-sm md:flex">
-        <Link to="/overview" className="text-muted-foreground transition-colors hover:text-foreground">
-          Northfield
+        <Link to="/admin/overview" className="text-muted-foreground transition-colors hover:text-foreground">
+          EEBSS
         </Link>
         <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
         <span className="truncate font-medium text-foreground" data-testid="breadcrumb-current">
           {rootTitle}
         </span>
-        {segments[1] && (
+        {segments[2] && (
           <>
             <ChevronRight className="h-3.5 w-3.5 text-muted-foreground" />
             <span className="max-w-[220px] truncate text-muted-foreground">Detail</span>
@@ -222,10 +223,10 @@ export function Topbar({ onOpenMobileNav, onOpenPalette, onToggleSidebar }: Topb
               <span className="block text-xs font-normal text-muted-foreground">{user?.email}</span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem data-testid="profile-menu-account" onClick={() => navigate("/settings?tab=school")}>
+            <DropdownMenuItem data-testid="profile-menu-account" onClick={() => navigate({ to: "/admin/settings", search: { tab: "school" } })}>
               <User className="mr-2 h-4 w-4" /> Account & profile
             </DropdownMenuItem>
-            <DropdownMenuItem data-testid="profile-menu-settings" onClick={() => navigate("/settings")}>
+            <DropdownMenuItem data-testid="profile-menu-settings" onClick={() => navigate({ to: "/admin/settings" })}>
               <Settings className="mr-2 h-4 w-4" /> School settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />

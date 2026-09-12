@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSearch } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CheckCircle2, MailPlus, MoreHorizontal, ShieldCheck, UserPlus, XCircle } from "lucide-react";
 import { toast } from "sonner";
@@ -63,16 +63,17 @@ const INVITE_STEPS = [
 
 export default function UsersPage() {
   const { actor, can } = useAuth();
+  const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearchParams();
-  const tab = params.get("tab") ?? "directory";
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
+  const tab = searchParams.tab ?? "directory";
 
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("all");
   const [accountStatus, setStatus] = useState("all");
   const [invitationStatus, setInvitationStatus] = useState("all");
   const [page, setPage] = useState(1);
-  const [createOpen, setCreateOpen] = useState(params.get("new") === "1");
+  const [createOpen, setCreateOpen] = useState(searchParams.new === "1");
   const [form, setForm] = useState<CreateUserInput>({
     name: "",
     email: "",
@@ -85,8 +86,8 @@ export default function UsersPage() {
   const [confirm, setConfirm] = useState<{ title: string; description: string; label: string; destructive?: boolean; run: () => void } | null>(null);
 
   useEffect(() => {
-    if (params.get("new") === "1") setCreateOpen(true);
-  }, [params]);
+    if (searchParams.new === "1") setCreateOpen(true);
+  }, [searchParams.new]);
 
   const summary = useMemo(() => userSummary(), []);
   const effectiveInvitation = tab === "invitations" && invitationStatus === "all" ? "pending" : invitationStatus;
@@ -317,9 +318,14 @@ export default function UsersPage() {
       <Tabs
         value={tab}
         onValueChange={(value: string) => {
-          const next = new URLSearchParams(params);
-          next.set("tab", value);
-          setParams(next, { replace: true });
+          navigate({
+            search: (prev: Record<string, any>) => {
+              const next = { ...prev };
+              next.tab = value;
+              return next;
+            },
+            replace: true,
+          });
         }}
       >
         <TabsList className="mb-4 h-9">
@@ -572,9 +578,14 @@ export default function UsersPage() {
         onOpenChange={(open) => {
           setCreateOpen(open);
           if (!open) {
-            const next = new URLSearchParams(params);
-            next.delete("new");
-            setParams(next, { replace: true });
+            navigate({
+              search: (prev: Record<string, any>) => {
+                const next = { ...prev };
+                delete next.new;
+                return next;
+              },
+              replace: true,
+            });
           }
         }}
       >

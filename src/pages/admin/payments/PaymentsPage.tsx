@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearch } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { FilePlus2, Wallet } from "lucide-react";
 import type { Invoice } from "#/types";
@@ -29,20 +29,26 @@ const TABS: { value: Tab; label: string }[] = [
 
 export default function PaymentsPage() {
   const { can } = useAuth();
-  const [params, setParams] = useSearch();
+  const navigate = useNavigate();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
   const canManage = can("payments.manage");
 
-  const tab = (params.get("tab") as Tab) ?? "invoices";
-  const status = params.get("status") ?? "all";
+  const tab = (searchParams.tab as Tab) ?? "invoices";
+  const status = searchParams.status ?? "all";
 
   const [issueOpen, setIssueOpen] = useState(false);
   const [recording, setRecording] = useState<Invoice | null>(null);
 
   const setParam = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value === "all" || !value) next.delete(key);
-    else next.set(key, value);
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => {
+        const next = { ...prev };
+        if (value === "all" || !value) delete next[key];
+        else next[key] = value;
+        return next;
+      },
+      replace: true,
+    });
   };
 
   const { data: summary } = useQuery({
@@ -132,16 +138,16 @@ export default function PaymentsPage() {
             type="button"
             data-testid={`payments-kpi-${kpi.key}`}
             onClick={() => {
-              setParams(
-                (() => {
-                  const next = new URLSearchParams(params);
-                  next.set("tab", "invoices");
-                  if (kpi.status === "all") next.delete("status");
-                  else next.set("status", kpi.status);
+              navigate({
+                search: (prev: Record<string, any>) => {
+                  const next = { ...prev };
+                  next.tab = "invoices";
+                  if (kpi.status === "all") delete next.status;
+                  else next.status = kpi.status;
                   return next;
-                })(),
-                { replace: true },
-              );
+                },
+                replace: true,
+              });
             }}
             className={cn(
               "rounded-lg border bg-surface-1 px-3 py-2.5 text-left transition-colors duration-150 focus-ring",

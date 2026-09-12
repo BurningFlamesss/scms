@@ -26,7 +26,7 @@ import { cn } from "#/lib/utils";
 
 export default function ClassesPage() {
   const { actor, can } = useAuth();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
   const [grade, setGrade] = useState("all");
@@ -149,7 +149,7 @@ export default function ClassesPage() {
                   return (
                     <Link
                       key={cls.id}
-                      to={`/classes/${cls.id}`}
+                      to={`/admin/classes/${cls.id}`}
                       data-testid={`class-card-${cls.id}`}
                       className="panel group p-4 transition-colors hover:border-primary/35 focus-ring"
                     >

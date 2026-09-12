@@ -20,17 +20,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const routerState = useRouterState({ select: (state) => state });
   const session = (routerState as any).context?.session;
 
-  const user = session?.user ? {
+  const user: AppUser = session?.user ? {
     id: session.user.id,
-    name: session.user.name || "",
+    name: session.user.name || "Demo Admin",
     email: session.user.email,
-    role: (session.user as any).role || "staff",
-    avatarUrl: session.user.image,
-    title: undefined,
-  } : null;
+    role: (session.user as any).role || "super_admin",
+    avatarUrl: session.user.image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    title: (session.user as any).title || "School Administrator",
+  } : {
+    id: "usr_demo",
+    name: "Demo Admin",
+    email: "admin@eebss.edu",
+    role: "super_admin",
+    avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    title: "School Administrator",
+  };
 
   const signOut = useCallback(() => {
-    authClient.signOut();
+    document.cookie = "scms_demo_session=; path=/; max-age=0;";
+    try {
+      authClient.signOut();
+    } catch {
+      // ignore
+    }
   }, []);
 
   const value = useMemo<AuthContextValue>(

@@ -81,7 +81,7 @@ export default function OverviewPage() {
         wash
         eyebrow={`${formatDate(new Date())} · Academic year 2025 – 2026`}
         title={`${greeting}, ${firstName}`}
-        description="Everything happening across Northfield Academy right now — attendance, admissions, communications and finance."
+        description="Everything happening across Everest English Boarding Secondary School right now — attendance, admissions, communications and finance."
         meta={
           <>
             <span>Main Campus</span>
@@ -95,14 +95,14 @@ export default function OverviewPage() {
           <>
             {can("attendance.mark") && (
               <Button variant="outline" size="sm" className="gap-1.5" data-testid="overview-mark-attendance" asChild>
-                <Link to="/attendance">
+                <Link to="/admin/attendance">
                   <ClipboardCheck className="h-3.5 w-3.5" /> Mark attendance
                 </Link>
               </Button>
             )}
             {can("notices.manage") && (
               <Button size="sm" className="gap-1.5" data-testid="overview-write-notice" asChild>
-                <Link to="/notices/new">
+                <Link to="/admin/notices/new">
                   <Megaphone className="h-3.5 w-3.5" /> Write a notice
                 </Link>
               </Button>
@@ -205,7 +205,7 @@ export default function OverviewPage() {
                       </p>
                       {can("attendance.mark") && attendance?.unmarkedClasses.length ? (
                         <Link
-                          to="/attendance"
+                          to="/admin/attendance"
                           className="text-xs text-primary hover:underline"
                           data-testid="overview-open-attendance"
                         >
@@ -218,7 +218,7 @@ export default function OverviewPage() {
                         {attendance.unmarkedClasses.slice(0, 8).map((cls) => (
                           <Link
                             key={cls.id}
-                            to={`/attendance?class=${cls.id}`}
+                            to={`/admin/attendance?class=${cls.id}`}
                             className="rounded-full border border-hairline bg-surface-1 px-2 py-0.5 text-[11px] text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
                           >
                             {cls.name}
@@ -371,7 +371,7 @@ export default function OverviewPage() {
               bodyClassName="p-2"
               actions={
                 <Button variant="ghost" size="sm" className="h-7 text-xs" asChild data-testid="overview-all-events">
-                  <Link to="/events">All events</Link>
+                  <Link to="/admin/events">All events</Link>
                 </Button>
               }
             >
@@ -382,7 +382,7 @@ export default function OverviewPage() {
                   title="No events scheduled"
                   description="Add exams, sports fixtures or meetings so families can plan ahead."
                   primaryLabel={can("events.manage") ? "Schedule an event" : undefined}
-                  onPrimary={() => navigate("/events?new=1")}
+                  onPrimary={() => navigate("/admin/events?new=1")}
                   testId="overview-events-empty"
                 />
               ) : (
@@ -390,7 +390,7 @@ export default function OverviewPage() {
                   {data.upcomingEvents.map((event) => (
                     <li key={event.id}>
                       <Link
-                        to={`/events/${event.id}`}
+                        to={`/admin/events/${event.id}`}
                         className="flex items-center gap-3 rounded-md px-2 py-2.5 transition-colors hover:bg-surface-2 focus-ring"
                         data-testid={`overview-event-${event.id}`}
                       >
@@ -424,7 +424,7 @@ export default function OverviewPage() {
               bodyClassName="p-2"
               actions={
                 <Button variant="ghost" size="sm" className="h-7 text-xs" asChild>
-                  <Link to="/notices">All notices</Link>
+                  <Link to="/admin/notices">All notices</Link>
                 </Button>
               }
             >
@@ -435,14 +435,14 @@ export default function OverviewPage() {
                   title="Nothing published yet"
                   description="Publish your first notice to reach students, guardians or staff."
                   primaryLabel={can("notices.manage") ? "Write a notice" : undefined}
-                  onPrimary={() => navigate("/notices/new")}
+                  onPrimary={() => navigate("/admin/notices/new")}
                 />
               ) : (
                 <ul className="divide-y divide-hairline">
                   {data.recentNotices.map((notice) => (
                     <li key={notice.id}>
                       <Link
-                        to={`/notices/${notice.id}`}
+                        to={`/admin/notices/${notice.id}`}
                         className="group flex items-start gap-3 rounded-md px-2 py-2.5 transition-colors hover:bg-surface-2 focus-ring"
                         data-testid={`overview-notice-${notice.id}`}
                       >
@@ -480,7 +480,7 @@ export default function OverviewPage() {
               actions={
                 can("activity.view") ? (
                   <Button variant="ghost" size="sm" className="h-7 text-xs" asChild>
-                    <Link to="/activity">Full log</Link>
+                    <Link to="/admin/activity">Full log</Link>
                   </Button>
                 ) : null
               }
@@ -515,7 +515,7 @@ export default function OverviewPage() {
               bodyClassName="p-2"
               actions={
                 <Button variant="ghost" size="sm" className="h-7 text-xs" asChild>
-                  <Link to="/students">Register</Link>
+                  <Link to="/admin/students">Register</Link>
                 </Button>
               }
             >
@@ -526,7 +526,7 @@ export default function OverviewPage() {
                       name={`${student.firstName} ${student.lastName}`}
                       subtitle={student.admissionNo}
                       avatarUrl={student.avatarUrl}
-                      to={`/students/${student.id}`}
+                      to={`/admin/students/${student.id}`}
                       mono
                       testId={`overview-student-${student.id}`}
                     />
@@ -567,10 +567,10 @@ export default function OverviewPage() {
               </ul>
               <div className="mt-4 grid grid-cols-2 gap-2 border-t border-hairline pt-3 sm:grid-cols-4">
                 {[
-                  { label: "Enroll student", icon: UserPlus, to: "/students?new=1", permission: "students.manage" as const },
-                  { label: "Import CSV", icon: UploadCloud, to: "/students?import=1", permission: "students.manage" as const },
-                  { label: "New event", icon: CalendarPlus, to: "/events?new=1", permission: "events.manage" as const },
-                  { label: "Website", icon: Megaphone, to: "/website", permission: "website.view" as const },
+                  { label: "Enroll student", icon: UserPlus, to: "/admin/students?new=1", permission: "students.manage" as const },
+                  { label: "Import CSV", icon: UploadCloud, to: "/admin/students?import=1", permission: "students.manage" as const },
+                  { label: "New event", icon: CalendarPlus, to: "/admin/events?new=1", permission: "events.manage" as const },
+                  { label: "Website", icon: Megaphone, to: "/admin/website", permission: "website.view" as const },
                 ]
                   .filter((action) => can(action.permission))
                   .map((action) => (

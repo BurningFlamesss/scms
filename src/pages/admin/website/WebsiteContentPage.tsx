@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSearch } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   DndContext,
@@ -68,9 +68,10 @@ export default function WebsiteContentPage() {
   const { actor, can } = useAuth();
   const canManage = can("website.manage");
   const qc = useQueryClient();
-  const [params, setParams] = useSearchParams();
+  const navigate = useNavigate();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
-  const rawKey = params.get("page") as WebsitePageKey | null;
+  const rawKey = searchParams.page as WebsitePageKey | null;
   const pageKey: WebsitePageKey = rawKey && PAGE_KEYS.includes(rawKey) ? rawKey : "homepage";
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -246,9 +247,14 @@ export default function WebsiteContentPage() {
   };
 
   const changePage = (value: string) => {
-    const next = new URLSearchParams(params);
-    next.set("page", value);
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => {
+        const next = { ...prev };
+        next.page = value;
+        return next;
+      },
+      replace: true,
+    });
   };
 
   const previewData = {

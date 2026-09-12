@@ -76,7 +76,7 @@ export default function InvoiceDetailPage() {
       toast.success("Invoice deleted");
       qc.invalidateQueries({ queryKey: ["invoices"] });
       qc.invalidateQueries({ queryKey: ["payments-summary"] });
-      navigate("/payments");
+      navigate("/admin/payments");
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -107,7 +107,7 @@ export default function InvoiceDetailPage() {
           title="Invoice not found"
           description="It may have been deleted. Head back to the ledger to pick another invoice."
           primaryLabel="Back to payments"
-          onPrimary={() => navigate("/payments")}
+          onPrimary={() => navigate("/admin/payments")}
           testId="invoice-detail-missing"
         />
       </div>
@@ -157,7 +157,7 @@ export default function InvoiceDetailPage() {
         actions={
           <>
             <Button asChild variant="outline" size="sm" className="gap-1.5">
-              <Link to="/payments" data-testid="invoice-back">
+              <Link to="/admin/payments" data-testid="invoice-back">
                 <ArrowLeft className="h-3.5 w-3.5" /> All invoices
               </Link>
             </Button>
@@ -172,7 +172,7 @@ export default function InvoiceDetailPage() {
             </Button>
             {!settled && (
               <Button asChild variant="outline" size="sm" className="gap-1.5">
-                <Link to={`/payments/checkout/${invoice.id}`} data-testid="invoice-pay-online">
+                <Link to={`/admin/payments/checkout/${invoice.id}`} data-testid="invoice-pay-online">
                   <CreditCard className="h-3.5 w-3.5" /> Pay online
                 </Link>
               </Button>
@@ -343,7 +343,7 @@ export default function InvoiceDetailPage() {
                   name={`${student.firstName} ${student.lastName}`}
                   subtitle={student.admissionNo}
                   avatarUrl={student.avatarUrl}
-                  to={`/students/${student.id}`}
+                  to={`/admin/students/${student.id}`}
                   size="lg"
                   mono
                   testId="invoice-student-link"

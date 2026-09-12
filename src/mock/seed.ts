@@ -148,7 +148,7 @@ export function buildSeed(): Collections {
   const branches: Branch[] = [
     {
       id: "branch_main",
-      name: "Northfield Main Campus",
+      name: "EEBSS Main Campus",
       code: "NFA-MAIN",
       address: "120 Academy Drive, Northfield",
       phone: "+1 (555) 240-1100",
@@ -1234,8 +1234,8 @@ export function buildSeed(): Collections {
   ];
 
   const settings: SchoolSettings = {
-    name: "Northfield Academy",
-    shortName: "Northfield",
+    name: "Everest English Boarding Secondary School",
+    shortName: "EEBSS",
     tagline: "Learning that lasts",
     description:
       "An independent day school for Grades 6–12 offering inquiry-led academics, a strong arts programme and competitive athletics across two campuses.",

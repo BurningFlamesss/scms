@@ -146,7 +146,7 @@ export default function NoticeEditorPage() {
           ? `“${notice.title}” published to ${formatNumber(reach)} recipients`
           : `“${notice.title}” saved as ${notice.status}`,
       );
-      navigate(`/notices/${notice.id}`);
+      navigate(`/admin/notices/${notice.id}`);
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -180,7 +180,7 @@ export default function NoticeEditorPage() {
         actions={
           <>
             <Button asChild variant="ghost" size="sm" className="gap-1.5">
-              <Link to="/notices" data-testid="notice-editor-cancel">
+              <Link to="/admin/notices" data-testid="notice-editor-cancel">
                 <ArrowLeft className="h-3.5 w-3.5" /> Cancel
               </Link>
             </Button>

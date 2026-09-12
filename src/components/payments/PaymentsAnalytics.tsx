@@ -207,7 +207,7 @@ export function PaymentsAnalytics() {
                   name={`${student.firstName} ${student.lastName}`}
                   subtitle={`${student.grade} · ${student.guardian.name}`}
                   avatarUrl={student.avatarUrl}
-                  to={`/students/${student.id}`}
+                  to={`/admin/students/${student.id}`}
                   size="sm"
                 />
               </div>
@@ -222,7 +222,7 @@ export function PaymentsAnalytics() {
         </ul>
         <div className="px-2 pt-2">
           <Link
-            to="/students"
+            to="/admin/students"
             className="text-xs text-primary underline-offset-2 hover:underline"
             data-testid="payments-balances-all"
           >

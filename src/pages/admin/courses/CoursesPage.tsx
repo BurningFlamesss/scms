@@ -64,7 +64,7 @@ export default function CoursesPage() {
       header: "Subject",
       render: (course) => (
         <div className="min-w-0">
-          <Link to={`/courses/${course.id}`} className="block truncate text-sm font-medium text-foreground hover:text-primary" data-testid={`course-link-${course.id}`}>
+          <Link to={`/admin/courses/${course.id}`} className="block truncate text-sm font-medium text-foreground hover:text-primary" data-testid={`course-link-${course.id}`}>
             {course.name}
           </Link>
           <p className="num truncate font-mono text-[11px] text-muted-foreground">{course.code}</p>

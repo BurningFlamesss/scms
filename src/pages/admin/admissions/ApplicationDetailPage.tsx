@@ -113,7 +113,7 @@ export default function ApplicationDetailPage() {
     onSuccess: () => {
       toast.success("Application deleted");
       qc.invalidateQueries({ queryKey: ["applications"] });
-      navigate("/admissions");
+      navigate("/admin/admissions");
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -134,7 +134,7 @@ export default function ApplicationDetailPage() {
           title="Application not found"
           description="It may have been deleted or converted. Head back to the pipeline to pick another one."
           primaryLabel="Back to admissions"
-          onPrimary={() => navigate("/admissions")}
+          onPrimary={() => navigate("/admin/admissions")}
           testId="application-detail-missing"
         />
       </div>
@@ -167,7 +167,7 @@ export default function ApplicationDetailPage() {
             <span>{SOURCE_LABEL[application.source] ?? application.source}</span>
             {application.convertedStudentId && (
               <Link
-                to={`/students/${application.convertedStudentId}`}
+                to={`/admin/students/${application.convertedStudentId}`}
                 className="text-primary hover:underline"
                 data-testid="application-student-link"
               >
@@ -179,7 +179,7 @@ export default function ApplicationDetailPage() {
         actions={
           <>
             <Button asChild variant="outline" size="sm" className="gap-1.5">
-              <Link to="/admissions" data-testid="application-back">
+              <Link to="/admin/admissions" data-testid="application-back">
                 <ArrowLeft className="h-3.5 w-3.5" /> All applications
               </Link>
             </Button>

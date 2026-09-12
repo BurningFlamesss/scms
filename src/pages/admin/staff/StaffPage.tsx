@@ -64,7 +64,7 @@ export default function StaffPage() {
   const { actor, can } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearch();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("all");
@@ -73,15 +73,15 @@ export default function StaffPage() {
   const [branch, setBranch] = useState("all");
   const [sort, setSort] = useState<SortState>({ key: "firstName", dir: "asc" });
   const [page, setPage] = useState(1);
-  const [formOpen, setFormOpen] = useState(params.get("new") === "1");
+  const [formOpen, setFormOpen] = useState(searchParams.new === "1");
   const [form, setForm] = useState<StaffInput>(EMPTY_STAFF);
   const [roleTarget, setRoleTarget] = useState<StaffMember | null>(null);
   const [nextRole, setNextRole] = useState<Role>("staff");
   const [confirm, setConfirm] = useState<{ title: string; description: string; label: string; destructive?: boolean; run: () => void } | null>(null);
 
   useEffect(() => {
-    if (params.get("new") === "1") setFormOpen(true);
-  }, [params]);
+    if (searchParams.new === "1") setFormOpen(true);
+  }, [searchParams.new]);
 
   const options = useMemo(() => staffFilterOptions(), []);
   const summary = useMemo(() => staffDirectorySummary(), []);
@@ -394,9 +394,14 @@ export default function StaffPage() {
         onOpenChange={(open) => {
           setFormOpen(open);
           if (!open) {
-            const next = new URLSearchParams(params);
-            next.delete("new");
-            setParams(next, { replace: true });
+            navigate({
+              search: (prev: Record<string, any>) => {
+                const next = { ...prev };
+                delete next.new;
+                return next;
+              },
+              replace: true,
+            });
           }
         }}
       >

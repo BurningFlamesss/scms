@@ -59,7 +59,7 @@ export default function NoticeDetailPage() {
     onSuccess: () => {
       toast.success("Notice deleted");
       invalidate();
-      navigate("/notices");
+      navigate("/admin/notices");
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -74,7 +74,7 @@ export default function NoticeDetailPage() {
           title="That notice no longer exists"
           description="It may have been deleted. Head back to the notice board to see everything that's live."
           primaryLabel="Back to notices"
-          onPrimary={() => navigate("/notices")}
+          onPrimary={() => navigate("/admin/notices")}
           testId="notice-not-found-empty"
         />
       </div>
@@ -109,13 +109,13 @@ export default function NoticeDetailPage() {
         actions={
           <>
             <Button asChild variant="ghost" size="sm" className="gap-1.5">
-              <Link to="/notices" data-testid="notice-detail-back">
+              <Link to="/admin/notices" data-testid="notice-detail-back">
                 <ArrowLeft className="h-3.5 w-3.5" /> All notices
               </Link>
             </Button>
             {can("notices.manage") && (
               <Button asChild variant="outline" size="sm" className="gap-1.5">
-                <Link to={`/notices/${notice.id}/edit`} data-testid="notice-detail-edit">
+                <Link to={`/admin/notices/${notice.id}/edit`} data-testid="notice-detail-edit">
                   <Pencil className="h-3.5 w-3.5" /> Edit
                 </Link>
               </Button>

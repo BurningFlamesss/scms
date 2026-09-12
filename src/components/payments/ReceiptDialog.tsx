@@ -31,7 +31,7 @@ function Line({ label, value, testId }: { label: string; value: React.ReactNode;
   );
 }
 
-export function ReceiptDialog({ payment, onOpenChange, schoolName = "Northfield Academy" }: ReceiptDialogProps) {
+export function ReceiptDialog({ payment, onOpenChange, schoolName = "Everest English Boarding Secondary School" }: ReceiptDialogProps) {
   const download = () => {
     if (!payment) return;
     const lines = [

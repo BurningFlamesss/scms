@@ -28,7 +28,7 @@ export default function ClassDetailPage() {
           title="Class not found"
           description="This class may have been removed for the current academic year."
           primaryLabel="Back to classes"
-          onPrimary={() => navigate("/classes")}
+          onPrimary={() => navigate("/admin/classes")}
         />
       </div>
     );
@@ -39,7 +39,7 @@ export default function ClassDetailPage() {
   return (
     <div data-testid="class-detail-page">
       <Button variant="ghost" size="sm" className="mb-3 gap-1.5 text-xs" asChild>
-        <Link to="/classes">
+        <Link to="/admin/classes">
           <ArrowLeft className="h-3.5 w-3.5" /> Classes
         </Link>
       </Button>
@@ -63,7 +63,7 @@ export default function ClassDetailPage() {
           </div>
           {can("attendance.mark") && (
             <Button size="sm" className="gap-1.5" asChild data-testid="class-mark-attendance">
-              <Link to={`/attendance?class=${cls.id}`}>
+              <Link to={`/admin/attendance?class=${cls.id}`}>
                 <ClipboardCheck className="h-3.5 w-3.5" /> Mark attendance
               </Link>
             </Button>
@@ -100,7 +100,7 @@ export default function ClassDetailPage() {
                             name={`${student.firstName} ${student.lastName}`}
                             subtitle={student.admissionNo}
                             avatarUrl={student.avatarUrl}
-                            to={`/students/${student.id}`}
+                            to={`/admin/students/${student.id}`}
                             mono
                           />
                           <span className="num ml-auto shrink-0 text-xs text-muted-foreground">
@@ -125,7 +125,7 @@ export default function ClassDetailPage() {
                         {course.code.split("-")[0]}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <Link to={`/courses/${course.id}`} className="block truncate text-sm text-foreground hover:text-primary">
+                        <Link to={`/admin/courses/${course.id}`} className="block truncate text-sm text-foreground hover:text-primary">
                           {course.name}
                         </Link>
                         <p className="truncate text-xs text-muted-foreground">{course.department}</p>
@@ -170,7 +170,7 @@ export default function ClassDetailPage() {
               <div className="flex items-center gap-3">
                 <img src={teacher.avatarUrl} alt="" className="h-10 w-10 rounded-lg border border-hairline" />
                 <div className="min-w-0">
-                  <Link to={`/staff/${teacher.id}`} className="block truncate text-sm font-medium text-foreground hover:text-primary">
+                  <Link to={`/admin/staff/${teacher.id}`} className="block truncate text-sm font-medium text-foreground hover:text-primary">
                     {teacher.firstName} {teacher.lastName}
                   </Link>
                   <p className="truncate text-xs text-muted-foreground">

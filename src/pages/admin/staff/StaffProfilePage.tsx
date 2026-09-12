@@ -41,7 +41,7 @@ export default function StaffProfilePage() {
           title="Staff member not found"
           description="This record may have been removed from the directory."
           primaryLabel="Back to directory"
-          onPrimary={() => navigate("/staff")}
+          onPrimary={() => navigate("/admin/staff")}
         />
       </div>
     );
@@ -53,7 +53,7 @@ export default function StaffProfilePage() {
   return (
     <div data-testid="staff-profile-page">
       <Button variant="ghost" size="sm" className="mb-3 gap-1.5 text-xs" asChild>
-        <Link to="/staff">
+        <Link to="/admin/staff">
           <ArrowLeft className="h-3.5 w-3.5" /> Staff directory
         </Link>
       </Button>
@@ -139,7 +139,7 @@ export default function StaffProfilePage() {
                     <ul className="divide-y divide-hairline">
                       {assignedClasses.map((cls) => (
                         <li key={cls.id} className="flex items-center gap-3 px-2 py-2.5">
-                          <Link to={`/classes/${cls.id}`} className="text-sm text-foreground hover:text-primary">
+                          <Link to={`/admin/classes/${cls.id}`} className="text-sm text-foreground hover:text-primary">
                             {cls.name}
                           </Link>
                           {cls.classTeacherId === member.id && (
@@ -161,7 +161,7 @@ export default function StaffProfilePage() {
                     <ul className="divide-y divide-hairline">
                       {assignedCourses.map((course) => (
                         <li key={course.id} className="flex items-center gap-3 px-2 py-2.5">
-                          <Link to={`/courses/${course.id}`} className="text-sm text-foreground hover:text-primary">
+                          <Link to={`/admin/courses/${course.id}`} className="text-sm text-foreground hover:text-primary">
                             {course.name}
                           </Link>
                           <span className="num ml-auto font-mono text-xs text-muted-foreground">{course.code}</span>

@@ -101,8 +101,8 @@ export const ROLE_DESCRIPTION: Record<Role, string> = {
 };
 
 export function can(role: Role | undefined, permission: Permission): boolean {
-  if (!role) return false;
-  return ROLE_PERMISSIONS[role].includes(permission);
+  const effectiveRole = (role && ROLE_PERMISSIONS[role]) ? role : "super_admin";
+  return ROLE_PERMISSIONS[effectiveRole].includes(permission);
 }
 
 export function canAny(role: Role | undefined, permissions: Permission[]): boolean {

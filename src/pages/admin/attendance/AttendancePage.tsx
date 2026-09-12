@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useSearch } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Download, UserCheck } from "lucide-react";
 import { toast } from "sonner";
@@ -26,17 +26,19 @@ const VIEWS: { value: View; label: string }[] = [
 
 export default function AttendancePage() {
   const { can } = useAuth();
-  const [params, setParams] = useSearch();
+  const navigate = useNavigate();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
-  const view = (params.get("view") as View) ?? "daily";
-  const date = params.get("date") ?? todayKey();
-  const classId = params.get("class") ?? "";
+  const view = (searchParams.view as View) ?? "daily";
+  const date = searchParams.date ?? todayKey();
+  const classId = searchParams.class ?? "";
   const canMark = can("attendance.mark");
 
   const setParam = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    next.set(key, value);
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => ({ ...prev, [key]: value }),
+      replace: true,
+    });
   };
 
   const { data: overview } = useQuery({
@@ -48,9 +50,7 @@ export default function AttendancePage() {
   useEffect(() => {
     if (classId || !overview?.classes.length) return;
     const target = overview.classes.find((row) => !row.marked) ?? overview.classes[0];
-    const next = new URLSearchParams(params);
-    next.set("class", target.cls.id);
-    setParams(next, { replace: true });
+    setParam("class", target.cls.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classId, overview]);
 

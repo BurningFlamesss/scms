@@ -53,7 +53,7 @@ export default function EventsPage() {
   const { actor, can } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearch();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
@@ -70,14 +70,19 @@ export default function EventsPage() {
 
   // Quick-create menu links here with ?new=1
   useEffect(() => {
-    if (params.get("new") === "1") {
+    if (searchParams.new === "1") {
       setEditing(null);
       setFormOpen(true);
-      const next = new URLSearchParams(params);
-      next.delete("new");
-      setParams(next, { replace: true });
+      navigate({
+        search: (prev: Record<string, any>) => {
+          const next = { ...prev };
+          delete next.new;
+          return next;
+        },
+        replace: true,
+      });
     }
-  }, [params, setParams]);
+  }, [searchParams.new, navigate]);
 
   const { data: events = [], isLoading, isError, refetch } = useQuery({
     queryKey: ["events", { search, category, status }],
@@ -132,7 +137,7 @@ export default function EventsPage() {
         className="row-actions h-7 w-7"
         aria-label="Open event"
         data-testid={`event-view-${event.id}`}
-        onClick={() => navigate(`/events/${event.id}`)}
+        onClick={() => navigate(`/admin/events/${event.id}`)}
       >
         <Eye className="h-3.5 w-3.5" />
       </Button>
@@ -152,7 +157,7 @@ export default function EventsPage() {
           <DropdownMenuItem
             className="gap-2 text-xs"
             data-testid={`event-action-open-${event.id}`}
-            onClick={() => navigate(`/events/${event.id}`)}
+            onClick={() => navigate(`/admin/events/${event.id}`)}
           >
             <Eye className="h-3.5 w-3.5" /> Open
           </DropdownMenuItem>
@@ -210,7 +215,7 @@ export default function EventsPage() {
       render: (event) => (
         <div className="min-w-0">
           <Link
-            to={`/events/${event.id}`}
+                      to={`/admin/events/${event.id}`}
             className="block truncate text-sm font-medium text-foreground transition-colors hover:text-primary focus-ring"
             data-testid={`event-link-${event.id}`}
             onClick={(e) => e.stopPropagation()}
@@ -340,7 +345,7 @@ export default function EventsPage() {
           loading={isLoading}
           error={isError ? true : undefined}
           onRetry={() => void refetch()}
-          onRowClick={(event) => navigate(`/events/${event.id}`)}
+          onRowClick={(event) => navigate(`/admin/events/${event.id}`)}
           total={events.length}
           pageSize={events.length || 1}
           footNote={`${events.length} events on the calendar`}
@@ -401,7 +406,7 @@ export default function EventsPage() {
                 {dayEvents.map((event) => (
                   <li key={event.id} className="group">
                     <Link
-                      to={`/events/${event.id}`}
+            to={`/admin/events/${event.id}`}
                       data-testid={`events-agenda-item-${event.id}`}
                       className="block rounded-lg border border-hairline bg-surface-1 px-3 py-2.5 transition-colors duration-150 hover:border-primary/35 hover:bg-surface-2 focus-ring"
                     >

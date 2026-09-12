@@ -52,13 +52,13 @@ export function Sidebar({ collapsed, mobile = false, onToggle, onNavigate }: Sid
       data-collapsed={collapsed ? "true" : "false"}
     >
       <div className={cn("flex h-14 items-center gap-2.5 border-b border-border px-4", collapsed && "justify-center px-0")}>
-        <div className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-primary text-[13px] font-bold text-primary-foreground">
-          NA
+        <div className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-primary text-[11px] font-bold text-primary-foreground">
+          EEBSS
         </div>
         {!collapsed && (
           <div className="min-w-0">
-            <p className="truncate font-display text-sm font-semibold leading-tight text-foreground">Northfield Academy</p>
-            <p className="truncate text-[11px] text-muted-foreground">School Management</p>
+            <p className="truncate font-display text-xs font-semibold leading-tight text-foreground" title="Everest English Boarding Secondary School">Everest English Boarding Sec. School</p>
+            <p className="truncate text-[11px] text-muted-foreground">EEBSS Admin Console</p>
           </div>
         )}
       </div>

@@ -98,7 +98,7 @@ export default function StudentProfilePage() {
     mutationFn: () => deleteStudent(id, actor),
     onSuccess: () => {
       toast.success("Student record deleted");
-      navigate("/students");
+      navigate("/admin/students");
     },
   });
 
@@ -111,7 +111,7 @@ export default function StudentProfilePage() {
           title="Student not found"
           description="This record may have been deleted or the link is out of date."
           primaryLabel="Back to register"
-          onPrimary={() => navigate("/students")}
+          onPrimary={() => navigate("/admin/students")}
           testId="student-not-found"
         />
       </div>
@@ -145,7 +145,7 @@ export default function StudentProfilePage() {
   return (
     <div data-testid="student-profile-page">
       <Button variant="ghost" size="sm" className="mb-3 gap-1.5 text-xs" asChild data-testid="student-back">
-        <Link to="/students">
+        <Link to="/admin/students">
           <ArrowLeft className="h-3.5 w-3.5" /> Student register
         </Link>
       </Button>
@@ -256,7 +256,7 @@ export default function StudentProfilePage() {
                     <KeyValue label="Admission number" value={student.admissionNo} mono />
                     <KeyValue label="Admission date" value={formatDate(student.admissionDate)} />
                     <KeyValue label="Admission year" value={String(student.admissionYear)} />
-                    <KeyValue label="Campus" value={student.branchId === "branch_main" ? "Northfield Main Campus" : "Riverside Campus"} />
+                    <KeyValue label="Campus" value={student.branchId === "branch_main" ? "EEBSS Main Campus" : "Riverside Campus"} />
                     <KeyValue label="Record created" value={formatDateTime(student.createdAt)} />
                     <KeyValue label="Last updated" value={formatDateTime(student.updatedAt)} />
                   </dl>
@@ -358,7 +358,7 @@ export default function StudentProfilePage() {
                           {course.code.split("-")[0]}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <Link to={`/courses/${course.id}`} className="block truncate text-sm text-foreground hover:text-primary">
+                          <Link to={`/admin/courses/${course.id}`} className="block truncate text-sm text-foreground hover:text-primary">
                             {course.name}
                           </Link>
                           <p className="truncate text-xs text-muted-foreground">
@@ -456,7 +456,7 @@ export default function StudentProfilePage() {
                 label="Transport"
                 value={
                   student.transportRouteId ? (
-                    <Link to="/transportation" className="flex items-center gap-1.5 text-primary hover:underline">
+                    <Link to="/admin/transportation" className="flex items-center gap-1.5 text-primary hover:underline">
                       <Bus className="h-3.5 w-3.5" /> Route assigned
                     </Link>
                   ) : (
@@ -464,7 +464,7 @@ export default function StudentProfilePage() {
                   )
                 }
               />
-              <KeyValue label="Class" value={<Link to={`/classes/${student.classId}`} className="text-primary hover:underline">{student.grade} · {student.section}</Link>} />
+              <KeyValue label="Class" value={<Link to={`/admin/classes/${student.classId}`} className="text-primary hover:underline">{student.grade} · {student.section}</Link>} />
             </div>
           </Panel>
 
@@ -531,7 +531,7 @@ export default function StudentProfilePage() {
         student={student}
         classes={classes}
         branches={[
-          { value: "branch_main", label: "Northfield Main Campus" },
+          { value: "branch_main", label: "EEBSS Main Campus" },
           { value: "branch_riverside", label: "Riverside Campus" },
         ]}
         onOpenChange={setEditOpen}

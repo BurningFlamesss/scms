@@ -63,7 +63,7 @@ export default function EventDetailPage() {
     onSuccess: () => {
       toast.success("Event removed from the calendar");
       invalidate();
-      navigate("/events");
+      navigate("/admin/events");
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -78,7 +78,7 @@ export default function EventDetailPage() {
           title="That event no longer exists"
           description="It may have been deleted. Return to the calendar to see everything that is scheduled."
           primaryLabel="Back to events"
-          onPrimary={() => navigate("/events")}
+          onPrimary={() => navigate("/admin/events")}
           testId="event-not-found-empty"
         />
       </div>
@@ -116,7 +116,7 @@ export default function EventDetailPage() {
         actions={
           <>
             <Button asChild variant="ghost" size="sm" className="gap-1.5">
-              <Link to="/events" data-testid="event-detail-back">
+              <Link to="/admin/events" data-testid="event-detail-back">
                 <ArrowLeft className="h-3.5 w-3.5" /> All events
               </Link>
             </Button>

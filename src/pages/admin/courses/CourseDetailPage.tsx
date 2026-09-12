@@ -22,7 +22,7 @@ export default function CourseDetailPage() {
           title="Subject not found"
           description="This subject may have been removed from the catalogue."
           primaryLabel="Back to catalogue"
-          onPrimary={() => navigate("/courses")}
+          onPrimary={() => navigate("/admin/courses")}
         />
       </div>
     );
@@ -33,7 +33,7 @@ export default function CourseDetailPage() {
   return (
     <div data-testid="course-detail-page">
       <Button variant="ghost" size="sm" className="mb-3 gap-1.5 text-xs" asChild>
-        <Link to="/courses">
+        <Link to="/admin/courses">
           <ArrowLeft className="h-3.5 w-3.5" /> Courses & Subjects
         </Link>
       </Button>
@@ -92,7 +92,7 @@ export default function CourseDetailPage() {
                 {classes.map((cls) => (
                   <li key={cls.id}>
                     <Link
-                      to={`/classes/${cls.id}`}
+                      to={`/admin/classes/${cls.id}`}
                       className="block rounded-md border border-hairline bg-surface-2 px-2.5 py-2 text-xs text-foreground transition-colors hover:border-primary/40"
                     >
                       {cls.name}
@@ -117,7 +117,7 @@ export default function CourseDetailPage() {
                       name={`${teacher.firstName} ${teacher.lastName}`}
                       subtitle={`${teacher.designation} · ${teacher.department}`}
                       avatarUrl={teacher.avatarUrl}
-                      to={`/staff/${teacher.id}`}
+                      to={`/admin/staff/${teacher.id}`}
                     />
                   </li>
                 ))}

@@ -105,7 +105,7 @@ export function ModulePlaceholder({
               This module keeps its route, permissions and seeded records so the rest of the product stays coherent.
             </p>
             <Button asChild variant="outline" size="sm" className="gap-1.5">
-              <Link to="/overview" data-testid={`${testId}-to-overview`}>
+              <Link to="/admin/overview" data-testid={`${testId}-to-overview`}>
                 Back to Overview
               </Link>
             </Button>

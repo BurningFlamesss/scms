@@ -181,7 +181,7 @@ export default function GalleryPage() {
               >
                 <button
                   type="button"
-                  onClick={() => navigate(`/gallery/${album.id}`)}
+                  onClick={() => navigate(`/admin/gallery/${album.id}`)}
                   aria-label={`Open ${album.title}`}
                   data-testid={`gallery-album-open-${album.id}`}
                   className="relative block aspect-[4/3] w-full overflow-hidden bg-surface-2 focus-ring"
@@ -203,7 +203,7 @@ export default function GalleryPage() {
                 <div className="flex min-w-0 flex-1 flex-col p-3">
                   <div className="flex items-start justify-between gap-2">
                     <Link
-                      to={`/gallery/${album.id}`}
+                      to={`/admin/gallery/${album.id}`}
                       className="min-w-0 flex-1 rounded focus-ring"
                       data-testid={`gallery-album-link-${album.id}`}
                     >
@@ -224,7 +224,7 @@ export default function GalleryPage() {
                         <DropdownMenuContent align="end" className="w-48 bg-popover">
                           <DropdownMenuLabel className="truncate text-xs">{album.title}</DropdownMenuLabel>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem onClick={() => navigate(`/gallery/${album.id}`)}>
+                          <DropdownMenuItem onClick={() => navigate(`/admin/gallery/${album.id}`)}>
                             Open album
                           </DropdownMenuItem>
                           <DropdownMenuItem
@@ -292,7 +292,7 @@ export default function GalleryPage() {
           if (!open) setEditing(null);
         }}
         onSaved={(album) => {
-          if (!editing) navigate(`/gallery/${album.id}`);
+          if (!editing) navigate(`/admin/gallery/${album.id}`);
         }}
       />
 

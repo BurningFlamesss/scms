@@ -61,20 +61,20 @@ export default function StudentsPage() {
   const { actor, can } = useAuth();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [params, setParams] = useSearch();
+  const searchParams = (useSearch({ strict: false }) as Record<string, string | undefined>) || {};
 
   const [search, setSearch] = useState("");
   const [grade, setGrade] = useState("all");
   const [section, setSection] = useState("all");
-  const [status, setStatus] = useState(params.get("status") ?? "all");
+  const [status, setStatus] = useState(searchParams.status ?? "all");
   const [year, setYear] = useState("all");
   const [branch, setBranch] = useState("all");
   const [sort, setSort] = useState<SortState>({ key: "firstName", dir: "asc" });
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<string[]>([]);
 
-  const [formOpen, setFormOpen] = useState(params.get("new") === "1");
-  const [importOpen, setImportOpen] = useState(params.get("import") === "1");
+  const [formOpen, setFormOpen] = useState(searchParams.new === "1");
+  const [importOpen, setImportOpen] = useState(searchParams.import === "1");
   const [editing, setEditing] = useState<Student | null>(null);
   const [transferTarget, setTransferTarget] = useState<Student | null>(null);
   const [transferClassId, setTransferClassId] = useState("");
@@ -87,15 +87,20 @@ export default function StudentsPage() {
   } | null>(null);
 
   useEffect(() => {
-    if (params.get("new") === "1") setFormOpen(true);
-    if (params.get("import") === "1") setImportOpen(true);
-  }, [params]);
+    if (searchParams.new === "1") setFormOpen(true);
+    if (searchParams.import === "1") setImportOpen(true);
+  }, [searchParams.new, searchParams.import]);
 
   const clearParams = () => {
-    const next = new URLSearchParams(params);
-    next.delete("new");
-    next.delete("import");
-    setParams(next, { replace: true });
+    navigate({
+      search: (prev: Record<string, any>) => {
+        const next = { ...prev };
+        delete next.new;
+        delete next.import;
+        return next;
+      },
+      replace: true,
+    });
   };
 
   const options = useMemo(() => studentFilterOptions(), []);
