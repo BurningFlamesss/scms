@@ -77,6 +77,7 @@ import { Route as AdminNoticesIdEditRouteImport } from './routes/admin/notices.$
 import { Route as ApiWebsitePagesKeyUnpublishRouteImport } from './routes/api/website/pages/$key/unpublish'
 import { Route as ApiWebsitePagesKeyPublishRouteImport } from './routes/api/website/pages/$key/publish'
 import { Route as ApiWebsitePagesKeyBlocksRouteImport } from './routes/api/website/pages/$key/blocks'
+import { Route as ApiWebsitePagesKeySectionsSectionTypeRouteImport } from './routes/api/website/pages/$key/sections/$sectionType'
 import { Route as ApiWebsitePagesKeyBlocksBlockIdRouteImport } from './routes/api/website/pages/$key/blocks/$blockId'
 
 const UserRoute = UserRouteImport.update({
@@ -424,6 +425,12 @@ const ApiWebsitePagesKeyBlocksRoute =
     path: '/blocks',
     getParentRoute: () => ApiWebsitePagesKeyRoute,
   } as any)
+const ApiWebsitePagesKeySectionsSectionTypeRoute =
+  ApiWebsitePagesKeySectionsSectionTypeRouteImport.update({
+    id: '/sections/$sectionType',
+    path: '/sections/$sectionType',
+    getParentRoute: () => ApiWebsitePagesKeyRoute,
+  } as any)
 const ApiWebsitePagesKeyBlocksBlockIdRoute =
   ApiWebsitePagesKeyBlocksBlockIdRouteImport.update({
     id: '/$blockId',
@@ -501,6 +508,7 @@ export interface FileRoutesByFullPath {
   '/api/website/pages/$key/publish': typeof ApiWebsitePagesKeyPublishRoute
   '/api/website/pages/$key/unpublish': typeof ApiWebsitePagesKeyUnpublishRoute
   '/api/website/pages/$key/blocks/$blockId': typeof ApiWebsitePagesKeyBlocksBlockIdRoute
+  '/api/website/pages/$key/sections/$sectionType': typeof ApiWebsitePagesKeySectionsSectionTypeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -571,6 +579,7 @@ export interface FileRoutesByTo {
   '/api/website/pages/$key/publish': typeof ApiWebsitePagesKeyPublishRoute
   '/api/website/pages/$key/unpublish': typeof ApiWebsitePagesKeyUnpublishRoute
   '/api/website/pages/$key/blocks/$blockId': typeof ApiWebsitePagesKeyBlocksBlockIdRoute
+  '/api/website/pages/$key/sections/$sectionType': typeof ApiWebsitePagesKeySectionsSectionTypeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -643,6 +652,7 @@ export interface FileRoutesById {
   '/api/website/pages/$key/publish': typeof ApiWebsitePagesKeyPublishRoute
   '/api/website/pages/$key/unpublish': typeof ApiWebsitePagesKeyUnpublishRoute
   '/api/website/pages/$key/blocks/$blockId': typeof ApiWebsitePagesKeyBlocksBlockIdRoute
+  '/api/website/pages/$key/sections/$sectionType': typeof ApiWebsitePagesKeySectionsSectionTypeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -716,6 +726,7 @@ export interface FileRouteTypes {
     | '/api/website/pages/$key/publish'
     | '/api/website/pages/$key/unpublish'
     | '/api/website/pages/$key/blocks/$blockId'
+    | '/api/website/pages/$key/sections/$sectionType'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -786,6 +797,7 @@ export interface FileRouteTypes {
     | '/api/website/pages/$key/publish'
     | '/api/website/pages/$key/unpublish'
     | '/api/website/pages/$key/blocks/$blockId'
+    | '/api/website/pages/$key/sections/$sectionType'
   id:
     | '__root__'
     | '/'
@@ -857,6 +869,7 @@ export interface FileRouteTypes {
     | '/api/website/pages/$key/publish'
     | '/api/website/pages/$key/unpublish'
     | '/api/website/pages/$key/blocks/$blockId'
+    | '/api/website/pages/$key/sections/$sectionType'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1356,6 +1369,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiWebsitePagesKeyBlocksRouteImport
       parentRoute: typeof ApiWebsitePagesKeyRoute
     }
+    '/api/website/pages/$key/sections/$sectionType': {
+      id: '/api/website/pages/$key/sections/$sectionType'
+      path: '/sections/$sectionType'
+      fullPath: '/api/website/pages/$key/sections/$sectionType'
+      preLoaderRoute: typeof ApiWebsitePagesKeySectionsSectionTypeRouteImport
+      parentRoute: typeof ApiWebsitePagesKeyRoute
+    }
     '/api/website/pages/$key/blocks/$blockId': {
       id: '/api/website/pages/$key/blocks/$blockId'
       path: '/$blockId'
@@ -1596,12 +1616,15 @@ interface ApiWebsitePagesKeyRouteChildren {
   ApiWebsitePagesKeyBlocksRoute: typeof ApiWebsitePagesKeyBlocksRouteWithChildren
   ApiWebsitePagesKeyPublishRoute: typeof ApiWebsitePagesKeyPublishRoute
   ApiWebsitePagesKeyUnpublishRoute: typeof ApiWebsitePagesKeyUnpublishRoute
+  ApiWebsitePagesKeySectionsSectionTypeRoute: typeof ApiWebsitePagesKeySectionsSectionTypeRoute
 }
 
 const ApiWebsitePagesKeyRouteChildren: ApiWebsitePagesKeyRouteChildren = {
   ApiWebsitePagesKeyBlocksRoute: ApiWebsitePagesKeyBlocksRouteWithChildren,
   ApiWebsitePagesKeyPublishRoute: ApiWebsitePagesKeyPublishRoute,
   ApiWebsitePagesKeyUnpublishRoute: ApiWebsitePagesKeyUnpublishRoute,
+  ApiWebsitePagesKeySectionsSectionTypeRoute:
+    ApiWebsitePagesKeySectionsSectionTypeRoute,
 }
 
 const ApiWebsitePagesKeyRouteWithChildren =

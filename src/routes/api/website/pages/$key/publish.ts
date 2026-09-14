@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getCurrentUser } from '@/lib/auth'
 import { publishPage } from '@/lib/website-content'
+import type { WebsitePageKey } from '@/types'
 
 export const Route = createFileRoute('/api/website/pages/$key/publish')({
   server: {
@@ -17,7 +18,7 @@ export const Route = createFileRoute('/api/website/pages/$key/publish')({
           const actorData = actor || { id: user.id, name: user.name, role: user.role }
           
           const page = await publishPage(
-            key as "homepage" | "about" | "contact" | "other",
+            key as WebsitePageKey,
             actorData
           )
           

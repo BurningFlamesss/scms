@@ -311,6 +311,8 @@ enum WebsitePageKey {
   about
   contact
   other
+  faculty
+  login
 }
 
 enum WebsitePageStatus {
@@ -341,6 +343,13 @@ enum BlockType {
   faculty
   academics
   admissions_info
+  auth_visual
+  auth_intro
+  auth_form
+  auth_contact
+  faculty_header
+  faculty_leadership
+  faculty_directory
 }
 
 model WebsitePage {

@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getCurrentUser } from '@/lib/auth'
 import { addBlock, reorderBlocks, duplicateBlock } from '@/lib/website-content'
+import type { WebsitePageKey } from '@/types'
 
 export const Route = createFileRoute('/api/website/pages/$key/blocks')({
   server: {
@@ -19,19 +20,19 @@ export const Route = createFileRoute('/api/website/pages/$key/blocks')({
           let page
           if (type) {
             page = await addBlock(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               type,
               actorData
             )
           } else if (orderedIds) {
             page = await reorderBlocks(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               orderedIds,
               actorData
             )
           } else if (blockId) {
             page = await duplicateBlock(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               blockId,
               actorData
             )

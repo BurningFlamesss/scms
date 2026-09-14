@@ -1,6 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Copy, Mail, Phone, X } from "lucide-react";
+import { createFileRoute, useSearch } from "@tanstack/react-router";
+import { ArrowRight, type Copy, Mail, Phone, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { toast } from "sonner";
+import { str } from "#/components/cms/block-fields";
+import { CmsSectionBox } from "#/components/cms/CmsSectionBox";
+import { school } from "#/content/school";
+import { copyText } from "#/lib/calendar";
+import { getSectionFields, sectionDefaults } from "#/lib/cms-sections";
+import { facultyDirectoryDoc, personProfileDoc } from "#/lib/documents";
+import { faculty, facultyDepartments, leadership, people } from "#/lib/faculty";
+import { STAGGER } from "#/lib/motion";
+import { downloadOfficialPdf } from "#/lib/pdf";
+import { getWebsitePagePreviewServer } from "#/packages/content/server/content.ts";
+import { useWebsitePageContent } from "#/packages/school/hook.tsx";
 import {
   PageFrame,
   PageHeader,
@@ -14,19 +26,12 @@ import {
   SheetDescription,
   SheetTitle,
 } from "#/templates/modern/components/kit";
-import { toast } from "sonner";
 import { DownloadButton } from "#/templates/modern/components/shared/DownloadButton";
 import { EmptyState } from "#/templates/modern/components/shared/EmptyState";
 import { FilterChips } from "#/templates/modern/components/shared/FilterChips";
 import { MonogramAvatar } from "#/templates/modern/components/shared/MonogramAvatar";
 import { SearchField } from "#/templates/modern/components/shared/SearchField";
-import { faculty, facultyDepartments, leadership, people } from "#/lib/faculty";
-import { school } from "#/content/school";
-import { copyText } from "#/lib/calendar";
-import { facultyDirectoryDoc, personProfileDoc } from "#/lib/documents";
-import { STAGGER } from "#/lib/motion";
-import { downloadOfficialPdf } from "#/lib/pdf";
-import type { Person } from "#/types";
+import type { BlockType, Person } from "#/types";
 
 const QuickAction = ({
   icon: Icon,
@@ -51,10 +56,52 @@ const QuickAction = ({
 );
 
 export const Route = createFileRoute("/user/faculty-page-detail")({
-	component: RouteComponent,
+  loader: async ({ location }) => {
+    if (String(location.search.cms ?? "") === "1") {
+      const previewPage = await getWebsitePagePreviewServer({
+        data: { key: "faculty" },
+      });
+      return { previewPage };
+    }
+    return { previewPage: null };
+  },
+  component: RouteComponent,
 });
 
 function RouteComponent() {
+  const search =
+    (useSearch({ strict: false }) as Record<string, unknown>) || {};
+  const cms = search.cms;
+  const { previewPage } = Route.useLoaderData();
+  const publishedContent = useWebsitePageContent("faculty");
+  const preview = String(cms ?? "") === "1";
+  const facultyContent = preview ? previewPage : publishedContent;
+
+  const headerSection = {
+    ...sectionDefaults("faculty_header"),
+    ...getSectionFields(facultyContent?.blocks, "faculty_header"),
+  };
+  const leadershipSection = {
+    ...sectionDefaults("faculty_leadership"),
+    ...getSectionFields(facultyContent?.blocks, "faculty_leadership"),
+  };
+  const directorySection = {
+    ...sectionDefaults("faculty_directory"),
+    ...getSectionFields(facultyContent?.blocks, "faculty_directory"),
+  };
+
+  const onSelectSection = (sectionType: BlockType) => {
+    window.parent?.postMessage(
+      {
+        source: "scms-cms",
+        type: "select-section",
+        pageKey: "faculty",
+        sectionType,
+      },
+      "*",
+    );
+  };
+
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState<string>("all");
   const [selected, setSelected] = useState<Person | null>(null);
@@ -109,12 +156,18 @@ function RouteComponent() {
 
   return (
     <PageFrame testId="faculty-page">
-      <PageHeader
-        testId="faculty-page-header"
-        eyebrow="Administration"
-        title="Administration & Faculty"
-        subtitle="Every member of staff, with their qualification, the subjects they teach and the hours they keep an open door."
-        meta={[
+      <CmsSectionBox
+        preview={preview}
+        sectionType="faculty_header"
+        onSelect={onSelectSection}
+        testId="cms-section-hit-faculty_header"
+      >
+        <PageHeader
+          testId="faculty-page-header"
+          eyebrow={str(headerSection, "eyebrow")}
+          title={str(headerSection, "title")}
+          subtitle={str(headerSection, "subtitle")}
+          meta={[
           { label: "Total staff", value: String(people.length) },
           { label: "Leadership", value: String(leadership.length) },
           { label: "Departments", value: String(facultyDepartments.length) },
@@ -130,15 +183,23 @@ function RouteComponent() {
           />
         }
       />
+      </CmsSectionBox>
 
       {/* Leadership — six cards, each opening a full profile in the sidebar */}
       <Section testId="leadership-section">
-        <SectionHeading
-          eyebrow="Leadership"
-          title="Who runs what"
-          description="The six people who carry responsibility for the school. Select a card to see the full profile, office hours and contact details."
-          testId="leadership-title"
-        />
+        <CmsSectionBox
+          preview={preview}
+          sectionType="faculty_leadership"
+          onSelect={onSelectSection}
+          testId="cms-section-hit-faculty_leadership"
+        >
+          <SectionHeading
+            eyebrow={str(leadershipSection, "eyebrow")}
+            title={str(leadershipSection, "title")}
+            description={str(leadershipSection, "description")}
+            testId="leadership-title"
+          />
+        </CmsSectionBox>
 
         <ul
           data-testid="leadership-grid"
@@ -190,17 +251,24 @@ function RouteComponent() {
 
       {/* Directory */}
       <Section>
-        <SectionHeading
-          eyebrow="Directory"
-          title="Teaching and support faculty"
-          description="Search by name, subject or qualification, or narrow the list to a single department."
-          testId="directory-title"
-          aside={
-            <span className="t-meta" data-testid="faculty-result-count">
-              {filtered.length} of {faculty.length}
-            </span>
-          }
-        />
+        <CmsSectionBox
+          preview={preview}
+          sectionType="faculty_directory"
+          onSelect={onSelectSection}
+          testId="cms-section-hit-faculty_directory"
+        >
+          <SectionHeading
+            eyebrow={str(directorySection, "eyebrow")}
+            title={str(directorySection, "title")}
+            description={str(directorySection, "description")}
+            testId="directory-title"
+            aside={
+              <span className="t-meta" data-testid="faculty-result-count">
+                {filtered.length} of {faculty.length}
+              </span>
+            }
+          />
+        </CmsSectionBox>
 
         <div className="mt-7 grid gap-4 lg:grid-cols-[minmax(0,320px)_1fr] lg:items-start lg:gap-8">
           <SearchField

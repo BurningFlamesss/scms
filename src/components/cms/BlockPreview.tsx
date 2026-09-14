@@ -459,6 +459,60 @@ export function BlockPreview({ block, data, active = false, onSelect }: BlockPre
           </div>
         );
 
+      case "auth_visual":
+        return (
+          <div className="space-y-3">
+            {str(fields, "image") && (
+              <img
+                src={str(fields, "image")}
+                alt=""
+                className="aspect-[16/9] w-full rounded-lg border border-hairline object-cover"
+              />
+            )}
+            {str(fields, "eyebrow") && <p className="eyebrow-label">{str(fields, "eyebrow")}</p>}
+            <h2 className="font-display text-xl font-semibold leading-tight tracking-[-0.02em] text-foreground">
+              {str(fields, "headline", "Headline")}
+            </h2>
+            <Body>{str(fields, "subheadline")}</Body>
+          </div>
+        );
+
+      case "auth_intro":
+        return (
+          <div className="space-y-2">
+            {str(fields, "kicker") && <p className="eyebrow-label">{str(fields, "kicker")}</p>}
+            <SectionTitle>{str(fields, "title", "Welcome back.")}</SectionTitle>
+            <Body>{str(fields, "intro")}</Body>
+          </div>
+        );
+
+      case "auth_form":
+        return (
+          <div className="space-y-1.5">
+            {[
+              ["Email field label", "emailLabel"],
+              ["Password field label", "passwordLabel"],
+              ["Forgot password label", "forgotLabel"],
+              ["Submit button label", "submitLabel"],
+              ["Back link label", "backLabel"],
+            ].map(([label, key]) => (
+              <div key={key} className="flex items-center justify-between gap-3 border-b border-hairline pb-1.5 last:border-0">
+                <span className="text-xs text-muted-foreground">{label}</span>
+                <span className="min-w-0 truncate text-xs font-medium text-foreground">{String(str(fields, key) || "—")}</span>
+              </div>
+            ))}
+            <Body>{str(fields, "disclosure")}</Body>
+          </div>
+        );
+
+      case "auth_contact":
+        return (
+          <div className="space-y-1.5">
+            <p className="text-xs text-foreground">{str(fields, "title", "Don't have access?")}</p>
+            <p className="num text-[11px] text-muted-foreground">{str(fields, "linkLabel")} {str(fields, "linkHref")}</p>
+          </div>
+        );
+
       default:
         return <Body>This section has no preview yet.</Body>;
     }

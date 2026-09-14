@@ -1,5 +1,6 @@
+import { SECTION_DEFAULTS } from "@/lib/cms-sections";
 import { prisma } from "@/lib/prisma";
-import type { WebsitePage, BlockType, WebsitePageKey } from "@/types";
+import type { BlockType, WebsitePage, WebsitePageKey } from "@/types";
 
 function toWebsitePage(page: { 
   blocks: Array<{ id: string; type: string; label: string; visible: boolean; order: number; fields: unknown; updatedAt: Date; createdAt: Date }> 
@@ -57,6 +58,52 @@ export async function getPublishedPage(key: WebsitePageKey): Promise<WebsitePage
     include: { blocks: { where: { visible: true }, orderBy: { order: "asc" } } },
   });
   return page ? toWebsitePage(page) : null;
+}
+
+export async function saveSectionFields(
+  key: WebsitePageKey,
+  sectionType: BlockType,
+  fields: Record<string, unknown>,
+  actor: Actor,
+): Promise<WebsitePage> {
+  const page = await findPage(key);
+  const existing = page.blocks.find((b) => b.type === sectionType);
+
+  if (existing) {
+    await prisma.contentBlock.update({
+      where: { id: existing.id },
+      data: { fields: fields as any, updatedAt: new Date() },
+    });
+  } else {
+    const defaults = BLOCK_LIBRARY_DEFAULTS[sectionType];
+    if (!defaults) throw new Error("Unknown section type");
+    const maxOrder =
+      page.blocks.length > 0 ? Math.max(...page.blocks.map((b) => b.order)) : -1;
+
+    await prisma.contentBlock.create({
+      data: {
+        type: sectionType,
+        label: sectionType.charAt(0).toUpperCase() + sectionType.slice(1).replace(/_/g, " "),
+        visible: true,
+        order: maxOrder + 1,
+        fields: { ...defaults, ...fields } as any,
+        pageId: page.id,
+      },
+    });
+  }
+
+  await prisma.websitePage.update({
+    where: { key },
+    data: {
+      updatedAt: new Date(),
+      updatedBy: actor.name,
+      hasUnpublishedChanges: true,
+    },
+  });
+
+  const updatedPage = await getWebsitePage(key);
+  if (!updatedPage) throw new Error("Page not found after update");
+  return updatedPage;
 }
 
 async function findPage(key: WebsitePageKey): Promise<WebsitePage> {
@@ -209,6 +256,27 @@ const BLOCK_LIBRARY_DEFAULTS: Record<BlockType, Record<string, unknown>> = {
   faculty: { title: "Our faculty", body: "", highlightStaffIds: [] },
   mission_vision: { mission: "", vision: "", values: ["Curiosity", "Integrity"] },
   history: { title: "Our history", body: "", image: "", milestones: [{ year: "2000", title: "Milestone" }] },
+  auth_visual: {
+    image: "/public/schools/everest/landing-footage/frame_0001.jpeg",
+    eyebrow: "ScMS entrance",
+    headline: "The digital entrance to the school.",
+    subheadline: "One community / connected responsibly",
+  },
+  auth_intro: {
+    kicker: "SCHOOL MANAGEMENT SYSTEM",
+    title: "Welcome back.",
+    intro: "Enter the credentials issued by your school to continue.",
+  },
+  auth_form: {
+    backLabel: "Public website",
+    emailLabel: "Email",
+    passwordLabel: "Password",
+    forgotLabel: "Forgot password?",
+    submitLabel: "Sign in",
+    disclosure: "Frontend demonstration — no credentials are transmitted or stored.",
+  },
+  auth_contact: { title: "Don't have access?", linkLabel: "Contact the school", linkHref: "/contact" },
+  ...SECTION_DEFAULTS,
 };
 
 export async function addBlock(key: WebsitePageKey, type: BlockType, _actor: Actor): Promise<WebsitePage> {
@@ -336,10 +404,8 @@ export async function unpublishPage(key: WebsitePageKey, actor: Actor): Promise<
 
 export async function ensureDefaultPages(): Promise<void> {
   const defaultPages: { key: WebsitePageKey; title: string; path: string }[] = [
-    { key: "homepage", title: "Homepage", path: "/" },
-    { key: "about", title: "About", path: "/about" },
-    { key: "contact", title: "Contact", path: "/contact" },
-    { key: "other", title: "Other", path: "/other" },
+    { key: "faculty", title: "Faculty & Administration", path: "/user/faculty-page-detail" },
+    { key: "login", title: "Sign in", path: "/login-modern" },
   ];
 
   for (const page of defaultPages) {

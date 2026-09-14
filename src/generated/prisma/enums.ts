@@ -52,7 +52,9 @@ export const WebsitePageKey = {
   homepage: 'homepage',
   about: 'about',
   contact: 'contact',
-  other: 'other'
+  other: 'other',
+  faculty: 'faculty',
+  login: 'login'
 } as const
 
 export type WebsitePageKey = (typeof WebsitePageKey)[keyof typeof WebsitePageKey]
@@ -88,7 +90,14 @@ export const BlockType = {
   gallery_grid: 'gallery_grid',
   faculty: 'faculty',
   academics: 'academics',
-  admissions_info: 'admissions_info'
+  admissions_info: 'admissions_info',
+  auth_visual: 'auth_visual',
+  auth_intro: 'auth_intro',
+  auth_form: 'auth_form',
+  auth_contact: 'auth_contact',
+  faculty_header: 'faculty_header',
+  faculty_leadership: 'faculty_leadership',
+  faculty_directory: 'faculty_directory'
 } as const
 
 export type BlockType = (typeof BlockType)[keyof typeof BlockType]

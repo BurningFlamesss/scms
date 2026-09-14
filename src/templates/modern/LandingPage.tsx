@@ -15,6 +15,7 @@ export default function LandingPage() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		if (!containerRef.current) return;
 		const ctx = gsap.context(() => {
 			gsap.fromTo(
 				".hero-next-section",
@@ -45,54 +46,54 @@ export default function LandingPage() {
 				<Sidebar />
 				<main className="w-full">
 					<div ref={containerRef} className="relative h-[500vh]">
-						<div className="sticky top-0 h-screen w-full overflow-hidden">
-							<HeroCanvas scrollTrackRef={containerRef} />
-						</div>
-
-						<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-white rounded-3xl">
-							<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
-								<h2 className="text-8xl font-bold">
-									Established in purpose.
-									<br />
-									Contemporary in outlook.
-								</h2>
-								<div>
-									<p className="text-lg leading-normal mb-8">
-										Everest English Boarding Higher Secondary School is a learning
-										institution in Nepal built around a simple conviction: students
-										thrive when expectations are clear, relationships are strong,
-										and curiosity has room to become practice.
-									</p>
-									<dl className="border-t border-gray-300">
-										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-											<dt className="text-xs uppercase">Institution</dt>
-											<dd className="text-md font-medium">
-												Everest English Boarding Higher Secondary School
-											</dd>
-										</div>
-										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-											<dt className="text-xs uppercase">Learning Spaces</dt>
-											<dd className="text-md font-medium">
-												Everest Building + Canon Building
-											</dd>
-										</div>
-										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-											<dt className="text-xs uppercase">Streams</dt>
-											<dd className="text-md font-medium">
-												Science (Computer/Biology), Management
-											</dd>
-										</div>
-										<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
-											<dt className="text-xs uppercase">Labs</dt>
-											<dd className="text-md font-medium">
-												Computer, Biology, Physics, Chemistry
-											</dd>
-										</div>
-									</dl>
-								</div>
+							<div className="sticky top-0 h-screen w-full overflow-hidden">
+								<HeroCanvas scrollTrackRef={containerRef} />
 							</div>
-						</section>
-					</div>
+
+							<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-white rounded-3xl">
+								<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
+									<h2 className="text-8xl font-bold">
+										Established in purpose.
+										<br />
+										Contemporary in outlook.
+									</h2>
+									<div>
+										<p className="text-lg leading-normal mb-8">
+											Everest English Boarding Higher Secondary School is a learning
+											institution in Nepal built around a simple conviction: students
+											thrive when expectations are clear, relationships are strong,
+											and curiosity has room to become practice.
+										</p>
+										<dl className="border-t border-gray-300">
+											<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+												<dt className="text-xs uppercase">Institution</dt>
+												<dd className="text-md font-medium">
+													Everest English Boarding Higher Secondary School
+												</dd>
+											</div>
+											<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+												<dt className="text-xs uppercase">Learning Spaces</dt>
+												<dd className="text-md font-medium">
+													Everest Building + Canon Building
+												</dd>
+											</div>
+											<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+												<dt className="text-xs uppercase">Streams</dt>
+												<dd className="text-md font-medium">
+													Science (Computer/Biology), Management
+												</dd>
+											</div>
+											<div className="grid grid-cols-[140px_1fr] gap-5 p-4.5 border-b border-gray-300">
+												<dt className="text-xs uppercase">Labs</dt>
+												<dd className="text-md font-medium">
+													Computer, Biology, Physics, Chemistry
+												</dd>
+											</div>
+										</dl>
+									</div>
+								</div>
+							</section>
+						</div>
 				</main>
 
 				<footer className="bg-black pb-10 pt-32.5 text-white">

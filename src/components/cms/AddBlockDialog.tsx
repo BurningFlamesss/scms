@@ -18,11 +18,12 @@ interface AddBlockDialogProps {
   onOpenChange: (open: boolean) => void;
   onAdd: (type: BlockType) => void;
   busy?: boolean;
+  hideTypes?: BlockType[];
 }
 
 const GROUP_ORDER: ("Layout" | "Content" | "Dynamic" | "Contact")[] = ["Layout", "Content", "Dynamic", "Contact"];
 
-export function AddBlockDialog({ open, onOpenChange, onAdd, busy = false }: AddBlockDialogProps) {
+export function AddBlockDialog({ open, onOpenChange, onAdd, busy = false, hideTypes = [] }: AddBlockDialogProps) {
   const [query, setQuery] = useState("");
 
   const grouped = useMemo(() => {
@@ -32,10 +33,11 @@ export function AddBlockDialog({ open, onOpenChange, onAdd, busy = false }: AddB
       items: BLOCK_LIBRARY.filter(
         (item) =>
           item.group === group &&
+          !hideTypes.includes(item.type) &&
           (!term || `${item.label} ${item.description}`.toLowerCase().includes(term)),
       ),
     })).filter((entry) => entry.items.length > 0);
-  }, [query]);
+  }, [query, hideTypes]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

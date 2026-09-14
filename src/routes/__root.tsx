@@ -50,15 +50,19 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     return { session };
   },
   async loader() {
-    const [config, homepageContent, sidebarContent] = await Promise.all([
+    const [config, facultyContent, loginContent, sidebarContent] = await Promise.all([
       getSchoolConfigServer({ data: { identifier: "everest" } }),
-      getWebsitePageServer({ data: { key: "homepage" } }),
+      getWebsitePageServer({ data: { key: "faculty" } }),
+      getWebsitePageServer({ data: { key: "login" } }),
       getSchoolContentServer({ data: { identifier: "everest" } }),
     ]);
 
     const content: Record<string, unknown> = { sidebar: sidebarContent?.sidebar };
-    if (homepageContent) {
-      Object.assign(content, homepageContent);
+    if (facultyContent) {
+      content.faculty = facultyContent;
+    }
+    if (loginContent) {
+      content.login = loginContent;
     }
 
     return {

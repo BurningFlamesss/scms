@@ -536,7 +536,14 @@ export type BlockType =
   | "gallery_grid"
   | "faculty"
   | "academics"
-  | "admissions_info";
+  | "admissions_info"
+  | "auth_visual"
+  | "auth_intro"
+  | "auth_form"
+  | "auth_contact"
+  | "faculty_header"
+  | "faculty_leadership"
+  | "faculty_directory";
 
 export interface ContentBlock {
   id: string;
@@ -548,7 +555,7 @@ export interface ContentBlock {
   updatedAt: string;
 }
 
-export type WebsitePageKey = "homepage" | "about" | "contact" | "other";
+export type WebsitePageKey = "homepage" | "about" | "contact" | "other" | "faculty" | "login";
 
 export type WebsitePageStatus = "draft" | "published";
 

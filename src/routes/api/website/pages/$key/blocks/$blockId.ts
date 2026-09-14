@@ -6,6 +6,7 @@ import {
   moveBlock,
   deleteBlock,
 } from '@/lib/website-content'
+import type { WebsitePageKey } from '@/types'
 
 export const Route = createFileRoute('/api/website/pages/$key/blocks/$blockId')({
   server: {
@@ -24,20 +25,20 @@ export const Route = createFileRoute('/api/website/pages/$key/blocks/$blockId')(
           let page
           if (direction) {
             page = await moveBlock(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               blockId,
               direction,
               actorData
             )
           } else if (visibility !== undefined) {
             page = await toggleBlockVisibility(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               blockId,
               actorData
             )
           } else if (fields) {
             page = await updateBlockFields(
-              key as "homepage" | "about" | "contact" | "other",
+              key as WebsitePageKey,
               blockId,
               fields,
               actorData
@@ -64,7 +65,7 @@ export const Route = createFileRoute('/api/website/pages/$key/blocks/$blockId')(
           const actorData = actor || { id: user.id, name: user.name, role: user.role }
           
           const page = await deleteBlock(
-            key as "homepage" | "about" | "contact" | "other",
+            key as WebsitePageKey,
             blockId,
             actorData
           )

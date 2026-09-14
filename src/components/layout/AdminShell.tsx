@@ -43,7 +43,7 @@ export function AdminShell() {
 
   return (
     <TooltipProvider delayDuration={120}>
-      <div className="flex min-h-screen bg-gray-50">
+      <div className="flex min-h-screen bg-background">
         <div
           className={`hidden shrink-0 transition-[width] duration-240 ease-standard lg:block ${
             collapsed ? "w-[72px]" : "w-[272px]"
@@ -55,7 +55,7 @@ export function AdminShell() {
         </div>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetContent side="left" className="w-[288px] border-gray-200 bg-white p-0">
+          <SheetContent side="left" className="w-[288px] border-border bg-sidebar p-0">
             <Sidebar collapsed={false} mobile onNavigate={() => setMobileOpen(false)} />
           </SheetContent>
         </Sheet>

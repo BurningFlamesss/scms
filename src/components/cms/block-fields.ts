@@ -212,7 +212,36 @@ export const BLOCK_FIELDS: Record<BlockType, FieldDef[]> = {
       ],
     },
   ],
+  // The sign-in page is composed from these four section types; each one maps
+  // to a region of the auth layout (visual column, panel intro, form, footer).
+  auth_visual: [
+    { key: "image", label: "Image", kind: "image" },
+    { key: "eyebrow", label: "Eyebrow", kind: "text" },
+    { key: "headline", label: "Headline", kind: "text" },
+    { key: "subheadline", label: "Supporting text", kind: "textarea" },
+  ],
+  auth_intro: [
+    { key: "kicker", label: "Kicker", kind: "text" },
+    { key: "title", label: "Title", kind: "text" },
+    { key: "intro", label: "Intro", kind: "textarea" },
+  ],
+  auth_form: [
+    { key: "backLabel", label: "Back link label", kind: "text" },
+    { key: "emailLabel", label: "Email field label", kind: "text" },
+    { key: "passwordLabel", label: "Password field label", kind: "text" },
+    { key: "forgotLabel", label: "Forgot password label", kind: "text" },
+    { key: "submitLabel", label: "Submit button label", kind: "text" },
+    { key: "disclosure", label: "Disclosure text", kind: "textarea" },
+  ],
+  auth_contact: [
+    { key: "title", label: "Title", kind: "text" },
+    { key: "linkLabel", label: "Link label", kind: "text" },
+    { key: "linkHref", label: "Link", kind: "url", placeholder: "/contact" },
+  ],
 };
+
+/** Section types that only make sense on the sign-in page. */
+export const AUTH_BLOCK_TYPES: BlockType[] = ["auth_visual", "auth_intro", "auth_form", "auth_contact"];
 
 // -------------------------------------------------------------- style presets
 

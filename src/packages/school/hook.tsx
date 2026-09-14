@@ -14,8 +14,10 @@ export function useSyncContentStore() {
     }
     if (loaderData?.content) {
       const { sidebar, ...pageContent } = loaderData.content;
-      if (Object.keys(pageContent).length > 0) {
-        setWebsitePage("homepage", pageContent as WebsitePageContent);
+      for (const [key, page] of Object.entries(pageContent)) {
+        if (page) {
+          setWebsitePage(key, page as WebsitePageContent);
+        }
       }
       if (sidebar) {
         setSchoolContent(sidebar as SchoolContent["sidebar"]);
@@ -38,4 +40,28 @@ export function useSchoolContent() {
   return {
     sidebar: storeContent?.sidebar ?? loaderContent?.sidebar,
   };
+}
+
+export type ManagedPageKey = "faculty" | "login";
+
+/**
+ * Returns the published WebsitePage for a managed page key (with its rendered
+ * blocks) when one exists, so public routes can be driven from the admin CMS.
+ * Falls back to null so pages keep their static design until content is
+ * published.
+ */
+export function useWebsitePageContent(key: ManagedPageKey): WebsitePageContent | null {
+  const loaderContent = RootRoute.useLoaderData({
+    select: (data) => data.content[key] as WebsitePageContent | undefined,
+  });
+
+  if (
+    loaderContent &&
+    loaderContent.status === "published" &&
+    Array.isArray(loaderContent.blocks) &&
+    loaderContent.blocks.length > 0
+  ) {
+    return loaderContent;
+  }
+  return null;
 }

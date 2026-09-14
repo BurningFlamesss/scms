@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getWebsitePage, updatePageSeo } from '@/lib/website-content'
 import { getCurrentUser } from '@/lib/auth'
+import type { WebsitePageKey } from '@/types'
 
 export const Route = createFileRoute('/api/website/pages/$key')({
   server: {
@@ -8,7 +9,7 @@ export const Route = createFileRoute('/api/website/pages/$key')({
       GET: async ({ params }) => {
         try {
           const { key } = params
-          const page = await getWebsitePage(key as "homepage" | "about" | "contact" | "other")
+          const page = await getWebsitePage(key as WebsitePageKey)
           
           if (!page) {
             return Response.json({ error: 'Page not found' }, { status: 404 })
@@ -30,7 +31,7 @@ export const Route = createFileRoute('/api/website/pages/$key')({
           const { seo, actor } = body
           
           const page = await updatePageSeo(
-            key as "homepage" | "about" | "contact" | "other",
+            key as WebsitePageKey,
             seo,
             actor || { id: user.id, name: user.name, role: user.role }
           )

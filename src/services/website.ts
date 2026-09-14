@@ -200,6 +200,50 @@ export const BLOCK_LIBRARY: {
     group: "Content",
     defaults: { title: "Our history", body: "", image: "", milestones: [{ year: "2000", title: "Milestone" }] },
   },
+  {
+    type: "auth_visual",
+    label: "Sign-in visual",
+    description: "The large image panel with eyebrow, headline and supporting text.",
+    group: "Layout",
+    defaults: {
+      image: "/public/schools/everest/landing-footage/frame_0001.jpeg",
+      eyebrow: "ScMS entrance",
+      headline: "The digital entrance to the school.",
+      subheadline: "One community / connected responsibly",
+    },
+  },
+  {
+    type: "auth_intro",
+    label: "Sign-in intro",
+    description: "Kicker, title and intro line above the sign-in form.",
+    group: "Content",
+    defaults: {
+      kicker: "SCHOOL MANAGEMENT SYSTEM",
+      title: "Welcome back.",
+      intro: "Enter the credentials issued by your school to continue.",
+    },
+  },
+  {
+    type: "auth_form",
+    label: "Sign-in form",
+    description: "Labels and copy used by the sign-in form.",
+    group: "Content",
+    defaults: {
+      backLabel: "Public website",
+      emailLabel: "Email",
+      passwordLabel: "Password",
+      forgotLabel: "Forgot password?",
+      submitLabel: "Sign in",
+      disclosure: "Frontend demonstration — no credentials are transmitted or stored.",
+    },
+  },
+  {
+    type: "auth_contact",
+    label: "Sign-in contact",
+    description: "The 'Don't have access?' line under the form.",
+    group: "Contact",
+    defaults: { title: "Don't have access?", linkLabel: "Contact the school", linkHref: "/contact" },
+  },
 ];
 
 export async function listWebsitePages(): Promise<WebsitePage[]> {
