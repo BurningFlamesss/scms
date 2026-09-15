@@ -167,7 +167,7 @@ export default function PaymentsPage() {
       </div>
 
       <Tabs value={tab} onValueChange={(value: string) => setParam("tab", value)} className="mb-4">
-        <TabsList data-testid="payments-tabs">
+        <TabsList className="h-9" data-testid="payments-tabs">
           {TABS.map((item) => (
             <TabsTrigger key={item.value} value={item.value} data-testid={`payments-tab-${item.value}`}>
               {item.label}

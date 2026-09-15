@@ -1,17 +1,12 @@
 import { useCanvasVideo } from "#/hooks/useCanvasVideo.ts";
-import { useSchoolContent } from "#/packages/school/hook.tsx";
-import { Link } from "@tanstack/react-router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { NoticeDialog } from "#/components/common/NoticeDialog";
-import Sidebar from "./Sidebar";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LandingPage() {
-	const { sidebar } = useSchoolContent();
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -43,8 +38,6 @@ export default function LandingPage() {
 	return (
 		<>
 			<div className="relative min-h-screen">
-				<Sidebar />
-				<main className="w-full">
 					<div ref={containerRef} className="relative h-[500vh]">
 							<div className="sticky top-0 h-screen w-full overflow-hidden">
 								<HeroCanvas scrollTrackRef={containerRef} />
@@ -94,60 +87,6 @@ export default function LandingPage() {
 								</div>
 							</section>
 						</div>
-				</main>
-
-				<footer className="bg-black pb-10 pt-32.5 text-white">
-					<div className="mx-8">
-						<div className="flex items-end justify-between gap-7.5">
-							<p className="m-0 text-[10px] uppercase tracking-[0.14em] text-muted">
-								Reach the Highest Point
-							</p>
-							<Link
-								className="group inline-flex items-center gap-5.5 text-[clamp(62px,7vw,110px)] leading-[0.9] no-underline"
-								to="/contact"
-							>
-								<span>With Everest</span>
-								<ArrowUpRight className="h-11 w-11 text-yellow-400 transition-transform duration-220 ease-in group-hover:translate-x-1.25 group-hover:-translate-y-1.25" />
-							</Link>
-						</div>
-
-						<div className="mb-10.5 mt-13.5 h-px bg-gray-700" />
-
-						<div className="grid grid-cols-[2fr_1fr_1.5fr_1fr] gap-15">
-							{sidebar?.logo ? <img src={sidebar.logo} alt="" /> : null}
-
-							<div className="flex flex-col gap-2.5 text-xs">
-								<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
-									Explore
-								</span>
-								{["Home", "About", "Contact", "Signup"].map((item) => (
-									<Link
-										key={item}
-										to={item}
-										className="text-white no-underline transition-colors hover:text-yellow-400"
-									>
-										{item}
-									</Link>
-								))}
-							</div>
-
-							<div className="flex flex-col gap-2.5 text-xs">
-								<span className="mb-2 text-[9px] uppercase tracking-[0.12em] text-yellow-400">
-									Institution
-								</span>
-								<p className="m-0 leading-normal text-muted">Nepal</p>
-								<p className="m-0 leading-normal text-muted">
-									School Administrator
-								</p>
-							</div>
-
-							<div className="flex flex-col items-end justify-between text-[9px] text-muted">
-								<span>SCMS / Everest</span>
-								<span>{new Date().getFullYear()}</span>
-							</div>
-						</div>
-					</div>
-				</footer>
 			</div>
 			<NoticeDialog />
 		</>

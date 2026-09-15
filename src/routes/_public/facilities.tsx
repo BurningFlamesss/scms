@@ -12,7 +12,6 @@ import { Eyebrow, Statement, Rule } from '#/templates/modern/components/Text';
 import { facilities, facilitiesIntro } from '#/content/facilities';
 import { photos } from '#/content/images';
 import type { Facility } from '#/types';
-import Sidebar from "#/templates/modern/Sidebar.tsx";
 
 /**
  * Each facility is a full-height panel. The photograph inside it is a
@@ -88,14 +87,13 @@ function FacilityPanel({ facility, n }: { facility: Facility; n: number }) {
   );
 }
 
-export const Route = createFileRoute("/facilities")({
+export const Route = createFileRoute("/_public/facilities")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
   return (
     <>
-      <Sidebar />
       <Section testId='facilities-intro'>
         <Container>
           <Eyebrow className='mb-4'>{facilitiesIntro.eyebrow}</Eyebrow>

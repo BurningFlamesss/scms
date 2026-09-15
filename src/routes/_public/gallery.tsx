@@ -13,7 +13,6 @@ import { Eyebrow } from '#/templates/modern/components/Text';
 import { duration, easing } from '#/templates/modern/components/tokens';
 import { albums, galleryCategories, galleryIntro, galleryYears, totalPhotos } from '#/content/gallery';
 import type { Album, Img } from '#/content/types';
-import Sidebar from "#/templates/modern/Sidebar.tsx";
 
 /** Deliberately varied tile sizes on a strict 12-column base. */
 const SPANS = [
@@ -27,7 +26,7 @@ const SPANS = [
   'lg:col-span-4',
 ];
 
-export const Route = createFileRoute('/gallery')({
+export const Route = createFileRoute('/_public/gallery')({
   component: RouteComponent,
 })
 
@@ -61,7 +60,6 @@ export default function RouteComponent() {
 
   return (
     <>
-      <Sidebar />
       {/* Contact-sheet header: a dense wall of thumbnails behind the count. */}
       <header className='relative overflow-hidden border-b-hair border-n-200' data-testid='gallery-header'>
         <div

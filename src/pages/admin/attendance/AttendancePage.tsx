@@ -146,8 +146,8 @@ export default function AttendancePage() {
           ))}
       </div>
 
-      <Tabs value={view} onValueChange={(value: string) => setParam("view", value)} className="mb-5">
-        <TabsList data-testid="attendance-view-tabs">
+      <Tabs value={view} onValueChange={(value: string) => setParam("view", value)} className="mb-4">
+        <TabsList className="h-9" data-testid="attendance-view-tabs">
           {VIEWS.map((item) => (
             <TabsTrigger key={item.value} value={item.value} data-testid={`attendance-view-${item.value}`}>
               {item.label}

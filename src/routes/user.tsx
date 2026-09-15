@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Outlet } from "@tanstack/react-router";
-import Sidebar from "#/templates/modern/Sidebar.tsx";
+import { PageShell } from "#/templates/modern/components/layout/PageShell";
 
 export const Route = createFileRoute("/user")({
   component: RouteComponent,
@@ -8,9 +8,8 @@ export const Route = createFileRoute("/user")({
 
 function RouteComponent() {
   return (
-    <>
-      <Sidebar />
+    <PageShell>
       <Outlet />
-    </>
+    </PageShell>
   );
 }

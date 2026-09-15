@@ -72,7 +72,7 @@ export default function RouteComponent() {
             </span>
           ))}
         </div>
-        <Container className='relative py-24'>
+        <Container className='relative py-section lg:py-section-lg'>
           <Eyebrow className='mb-4'>{galleryIntro.eyebrow}</Eyebrow>
           <div className='grid items-end gap-8 lg:grid-cols-12'>
             <div className='lg:col-span-8'>

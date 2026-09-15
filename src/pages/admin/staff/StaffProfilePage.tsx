@@ -63,7 +63,7 @@ export default function StaffProfilePage() {
           <img src={member.avatarUrl} alt="" className="h-16 w-16 shrink-0 rounded-xl border border-hairline" />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-display text-xl font-semibold tracking-[-0.02em]" data-testid="staff-name">
+              <h1 className="font-display text-xl font-semibold tracking-[-0.02em] text-foreground" data-testid="staff-name">
                 {member.firstName} {member.lastName}
               </h1>
               <StatusBadge value={member.employmentStatus} testId="staff-profile-status" />

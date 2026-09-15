@@ -4,6 +4,7 @@ import { SidebarNav } from './SidebarNav';
 import { NoticeTicker } from './NoticeTicker';
 import { Footer } from './Footer';
 import { SkipLink } from './SkipLink';
+import { cn } from '#/lib/utils';
 
 type NavCtx = { collapsed: boolean; setCollapsed: (v: boolean) => void };
 const Ctx = createContext<NavCtx>({ collapsed: false, setCollapsed: () => {} });
@@ -34,7 +35,7 @@ export function PageShell({
     <Ctx.Provider value={{ collapsed, setCollapsed }}>
       <SkipLink />
       <SidebarNav collapsed={collapsed} setCollapsed={setCollapsed} />
-      <div className='min-h-svh pt-topbar lg:pt-0'>
+      <div className={cn('min-h-svh pt-topbar lg:pt-0', variant === 'default' && 'lg:pl-[var(--nav-w)]')}>
         {variant === 'default' ? (
           <div className='u-container'>
             <NoticeTicker />

@@ -115,6 +115,9 @@
   --radius-lip: 40px;
   --radius-pill: 999px;
 
+  --spacing-section: 80px;
+  --spacing-section-lg: 128px;
+
   --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-state: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -548,7 +551,7 @@
 
     /* Layout metrics (named, non-spacing) */
     .w-nav {
-        width: 320px;
+        width: var(--nav-w, 320px);
     }
 
     .w-tap {
@@ -610,19 +613,20 @@
 
     .eyebrow-label {
         font-family: var(--font-label, "Manrope", sans-serif);
-        font-size: 10px;
+        font-size: clamp(11px, 10.667px + 0.093vw, 12px);
+        line-height: 1.2;
         font-weight: 500;
         text-transform: uppercase;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.12em;
     }
 
     /* Admin panel surfaces */
     .panel {
-        @apply bg-card text-card-foreground border border-border rounded-xl;
+        @apply bg-card text-card-foreground border border-hairline/60 rounded-xl;
     }
 
     .panel-header {
-        @apply flex items-center justify-between gap-3 border-b border-border px-5 py-4;
+        @apply flex items-center justify-between gap-3 border-b border-hairline/50 px-5 py-4;
     }
 
     .panel-title {

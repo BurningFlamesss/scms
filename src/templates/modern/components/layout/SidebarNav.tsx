@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useRouterState } from '@tanstack/react-router';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { ChevronLeft, ChevronRight, ChevronDown, Menu, X, LogIn } from 'lucide-react';
+import { ChevronDown, Menu, X, LogIn } from 'lucide-react';
 import { duration, easing } from '../tokens';
 import { school } from '#/content/school';
+import { useSchoolContent } from '#/packages/school/hook.tsx';
 import { cn } from '#/lib/utils';
 import { Crest } from './Crest';
 
@@ -176,15 +177,32 @@ function NavLinks({
 }
 
 function Wordmark({ collapsed }: { collapsed: boolean }) {
+  const { sidebar } = useSchoolContent();
+  const logo = sidebar?.logo;
   return (
-    <Link to='/' className='flex items-center gap-4 px-6 py-6' data-testid='nav-home'>
-      <Crest size={collapsed ? 36 : 48} tone={crestTone} />
+    <Link
+      to='/'
+      className={cn('flex min-w-0 items-center gap-4 py-6', collapsed ? 'justify-center px-2' : 'px-6')}
+      data-testid='nav-home'
+    >
+      {logo ? (
+        <img
+          src={logo}
+          alt=''
+          className={cn(
+            'shrink-0 rounded-r-ui bg-white object-contain p-1',
+            collapsed ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      ) : (
+        <Crest size={collapsed ? 36 : 48} tone={crestTone} />
+      )}
       {collapsed ? null : (
-        <span className='flex flex-col leading-none'>
+        <span className='flex min-w-0 flex-col leading-none'>
           {school.wordmark.map((w, i) => (
             <span
               key={w}
-              className={cn('u-display text-primary-foreground', i === 0 ? 'text-[22px]' : 'text-[11px] tracking-[0.08em]')}
+              className={cn('u-display whitespace-nowrap text-primary-foreground', i === 0 ? 'text-[22px]' : 'text-[11px] tracking-[0.08em]')}
             >
               {w}
             </span>
@@ -198,10 +216,11 @@ function Wordmark({ collapsed }: { collapsed: boolean }) {
 
 function TaglineStrip({ collapsed }: { collapsed: boolean }) {
   if (collapsed) return <div className='h-2 bg-accent' aria-hidden='true' />;
-  const t = school.tagline;
+  const { sidebar } = useSchoolContent();
+  const tagline = sidebar?.tagline || school.tagline.placeholder;
   return (
     <div className='bg-accent px-6 py-3' data-testid='nav-tagline'>
-      <p className='u-label text-black'>{t.value || t.placeholder}</p>
+      <p className='u-label truncate text-black'>{tagline}</p>
     </div>
   );
 }
@@ -209,7 +228,7 @@ function TaglineStrip({ collapsed }: { collapsed: boolean }) {
 function PortalBlock({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) {
   return (
     <Link
-      to='/activate'
+      to='/login'
       onClick={onNavigate}
       data-testid='nav-login'
       className={cn(
@@ -238,6 +257,8 @@ export function SidebarNav({
   setCollapsed: (v: boolean) => void;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { sidebar } = useSchoolContent();
+  const logo = sidebar?.logo;
   const [sheetOpen, setSheetOpen] = useState(false);
   // Two distinct triggers: one collapses the desktop rail, one opens the mobile
   // sheet. They must not share a ref or the second mount clobbers the first.
@@ -271,33 +292,45 @@ export function SidebarNav({
         aria-label='Main'
         id='sidebar-nav-desktop'
         data-testid='sidebar-nav'
-        className='fixed inset-y-0 left-0 z-nav hidden w-nav flex-col bg-primary lg:flex'
+        className='fixed inset-y-0 left-0 z-nav hidden w-nav flex-col overflow-hidden bg-primary transition-[width] duration-standard ease-state lg:flex'
       >
-        <Wordmark collapsed={collapsed} />
+        <div className='flex w-full items-start justify-between gap-2'>
+          <Wordmark collapsed={collapsed} />
+          <button
+            ref={collapseRef}
+            type='button'
+            onClick={() => setCollapsed(!collapsed)}
+            aria-expanded={!collapsed}
+            aria-controls='sidebar-nav-desktop'
+            aria-label={collapsed ? 'Open the navigation panel' : 'Close the navigation panel'}
+            data-testid='nav-collapse-toggle'
+            className='mr-3 mt-[18px] inline-flex h-tap w-tap shrink-0 items-center justify-center self-start rounded-ui text-primary-foreground/70 transition-colors duration-micro ease-state hover:bg-white/10 hover:text-primary-foreground'
+          >
+            {collapsed ? (
+              <Menu aria-hidden='true' size={20} />
+            ) : (
+              <X aria-hidden='true' size={20} />
+            )}
+          </button>
+        </div>
         <TaglineStrip collapsed={collapsed} />
         <div className='mt-6 flex-1 overflow-y-auto u-no-scrollbar'>
           <NavLinks collapsed={collapsed} pathname={pathname} />
         </div>
-        <button
-          ref={collapseRef}
-          type='button'
-          onClick={() => setCollapsed(!collapsed)}
-          aria-expanded={!collapsed}
-          aria-controls='sidebar-nav-desktop'
-          data-testid='nav-collapse-toggle'
-          className='mx-6 mb-4 inline-flex h-tap items-center justify-center gap-2 self-start rounded-ui border border-border/30 px-3 text-primary-foreground hover:border-primary-foreground'
-        >
-          {collapsed ? <ChevronRight aria-hidden='true' size={16} /> : <ChevronLeft aria-hidden='true' size={16} />}
-          <span className='sr-only'>{collapsed ? 'Expand the navigation panel' : 'Collapse the navigation panel'}</span>
-        </button>
         <PortalBlock collapsed={collapsed} />
       </nav>
 
       {/* Mobile top bar */}
       <div className='fixed inset-x-0 top-0 z-nav flex h-topbar items-center justify-between bg-primary px-4 lg:hidden'>
-        <Link to='/' className='flex items-center gap-3' data-testid='nav-home-mobile'>
-          <Crest size={28} tone={crestTone} />
-          <span className='u-display text-[15px] text-primary-foreground'>EVEREST</span>
+        <Link to='/' className='flex min-w-0 items-center gap-3' data-testid='nav-home-mobile'>
+          {logo ? (
+            <img src={logo} alt='' className='h-8 w-8 shrink-0 rounded-md bg-white object-contain p-0.5' />
+          ) : (
+            <Crest size={28} tone={crestTone} />
+          )}
+          <span className='u-display truncate text-[15px] text-primary-foreground'>
+            {school.shortEn ?? school.nameEn}
+          </span>
         </Link>
         <button
           ref={sheetTriggerRef}

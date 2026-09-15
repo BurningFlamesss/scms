@@ -6,7 +6,7 @@ const PUBLIC_CACHE_HEADERS = () => ({
   "CDN-Cache-Control": "max-age=3600, stale-while-revalidate=86400",
 });
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_public/")({
   component: Home,
   headers: PUBLIC_CACHE_HEADERS,
 });

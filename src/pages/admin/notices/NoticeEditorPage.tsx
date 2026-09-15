@@ -212,7 +212,7 @@ export default function NoticeEditorPage() {
       <div className="grid gap-5 lg:grid-cols-3">
         <div className="space-y-5 lg:col-span-2">
           <Tabs defaultValue="write">
-            <TabsList className="mb-3 h-9" data-testid="notice-editor-tabs">
+            <TabsList className="mb-4 h-9" data-testid="notice-editor-tabs">
               <TabsTrigger value="write" className="h-7 px-3 text-xs" data-testid="notice-editor-tab-write">
                 Write
               </TabsTrigger>

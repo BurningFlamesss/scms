@@ -201,7 +201,7 @@ export default function EventDetailPage() {
 
           <Panel title="Participants" description={`${formatNumber(totalParticipants)} people expected`} testId="event-detail-participants">
             {event.participants.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No participant groups have been assigned yet.</p>
+              <EmptyState compact title="No participant groups assigned" description="Add student groups so attendance can be taken against this event." />
             ) : (
               <ul className="divide-y divide-hairline">
                 {event.participants.map((group) => (

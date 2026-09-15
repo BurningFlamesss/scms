@@ -40,7 +40,7 @@ export default function CourseDetailPage() {
 
       <div className="panel mb-5 p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <h1 className="font-display text-xl font-semibold tracking-[-0.02em]" data-testid="course-name">
+          <h1 className="font-display text-xl font-semibold tracking-[-0.02em] text-foreground" data-testid="course-name">
             {course.name}
           </h1>
           <StatusBadge value={course.isElective ? "internal" : "normal"} label={course.isElective ? "Elective" : "Core"} dot={false} />
@@ -123,7 +123,7 @@ export default function CourseDetailPage() {
                 ))}
               </ul>
             ) : (
-              <p className="text-sm text-muted-foreground">No teachers assigned yet.</p>
+              <EmptyState compact title="No teachers assigned yet" description="Assign teaching staff to this subject once the timetable is confirmed." />
             )}
           </Panel>
 

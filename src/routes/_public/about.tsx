@@ -90,7 +90,7 @@ function MilestoneRows() {
   );
 }
 
-export const Route = createFileRoute("/about")({
+export const Route = createFileRoute("/_public/about")({
 	component: RouteComponent,
 });
 

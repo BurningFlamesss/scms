@@ -62,7 +62,7 @@ export function Footer() {
               ['/calendar', 'Academic calendar'],
               ['/activate', 'Activate portal account'],
             ].map(([to, label]) => (
-              <Link key={to} to={to} className='u-label w-fit text-white hover:text-yellow transition-colors'>
+              <Link key={to} to={to === '/activate' ? '/login' : to} className='u-label w-fit text-white hover:text-yellow transition-colors'>
                 {label}
               </Link>
             ))}
@@ -73,9 +73,6 @@ export function Footer() {
             >
               Contact and enquiry
             </a>
-            <Link to='/styleguide' className='u-label w-fit text-white hover:text-yellow transition-colors'>
-              Style guide
-            </Link>
           </nav>
 
           <div className='flex scroll-mt-24 flex-col gap-3' id='contact' data-testid='footer-contact'>

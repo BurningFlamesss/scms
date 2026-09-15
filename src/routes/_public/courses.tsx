@@ -15,9 +15,8 @@ import { coursesIntro, eligibility, levels, plusTwoStreams } from '#/content/cou
 import { formatNpr } from '#/lib/fees';
 import { cn } from '#/lib/utils';
 import type { QuizStreamId, Subject } from '#/content/types';
-import Sidebar from "#/templates/modern/Sidebar.tsx";
 
-export const Route = createFileRoute("/courses")({
+export const Route = createFileRoute("/_public/courses")({
 	component: RouteComponent,
 });
 
@@ -95,7 +94,6 @@ export default function RouteComponent() {
 
   return (
     <>
-      <Sidebar />
       <Section testId='courses-intro'>
         <Container>
           <Eyebrow className='mb-4'>{coursesIntro.eyebrow}</Eyebrow>

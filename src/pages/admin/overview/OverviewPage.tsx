@@ -44,8 +44,8 @@ const ATTENDANCE_STATES = [
 ] as const;
 
 const TONE_RING: Record<string, string> = {
-  accent: "text-accent bg-accent/12",
-  warning: "text-warning bg-warning/15",
+  accent: "text-accent bg-accent/14",
+  warning: "text-warning bg-warning/18",
   critical: "text-destructive bg-destructive/12",
   neutral: "text-muted-foreground bg-muted",
 };
@@ -552,7 +552,7 @@ export default function OverviewPage() {
                   return (
                     <li key={row.grade} className="flex items-center gap-3">
                       <span className="w-8 shrink-0 text-xs font-medium text-muted-foreground">{row.grade}</span>
-                      <span className="h-2 flex-1 overflow-hidden rounded-full bg-surface-2">
+                      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-2">
                         <span
                           className={cn("block h-full rounded-full", pct > 92 ? "bg-accent" : "bg-primary")}
                           style={{ width: `${Math.min(100, pct)}%` }}

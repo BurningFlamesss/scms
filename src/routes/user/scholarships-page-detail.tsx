@@ -633,7 +633,7 @@ function RouteComponent() {
         ) : null}
       </div>
 
-      <Separator className="mt-20" />
+      <Separator className="mt-section lg:mt-section-lg" />
       <p className="t-meta mt-6 max-w-measure leading-relaxed">
         {school.name}, {school.fullAddress}. {school.affiliation}. Registration
         number {school.regNo}.

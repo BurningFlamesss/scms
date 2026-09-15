@@ -32,23 +32,25 @@ export function CmsSectionBox({
 
 	return (
 		<div
-			className={`group relative outline-2 outline-dashed outline-accent/40 ${className}`}
+			className={`group relative ${className}`}
 			data-cms-section={sectionType}
 		>
-			{children}
+			<div
+				className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] outline-2 outline-dashed -outline-offset-1 outline-accent/35 transition-colors duration-150 group-hover:outline-accent/70"
+				aria-hidden="true"
+			/>
 			<button
 				type="button"
 				onClick={() => onSelect(sectionType)}
-				title={`Edit: ${sectionLabel(sectionType)}`}
+				title={`Edit ${sectionLabel(sectionType)}`}
 				aria-label={`Edit ${sectionLabel(sectionType)}`}
 				data-testid={testId ?? `cms-section-hit-${sectionType}`}
-				className="pointer-events-auto absolute inset-0 z-20 flex cursor-pointer items-start justify-start p-2.5"
+				className="pointer-events-auto absolute right-2 top-2 z-20 inline-flex items-center gap-1.5 rounded-md border border-accent/60 bg-background px-2.5 py-1 font-mono text-[11px] uppercase leading-none tracking-wide text-accent shadow-sm transition-colors duration-150 hover:border-accent hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
 			>
-				<span className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-2.5 py-1 font-mono text-[11px] uppercase leading-none tracking-wide text-accent opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100">
-					<Pencil className="h-3 w-3" aria-hidden="true" />
-					{sectionLabel(sectionType)}
-				</span>
+				<Pencil className="h-3 w-3" aria-hidden="true" />
+				{sectionLabel(sectionType)}
 			</button>
+			{children}
 		</div>
 	);
 }

@@ -186,8 +186,8 @@ export default function InvoiceDetailPage() {
         }
       />
 
-      <div className="grid gap-5 lg:grid-cols-12">
-        <div className="space-y-5 lg:col-span-8">
+      <div className="grid gap-5 lg:grid-cols-3">
+        <div className="space-y-5 lg:col-span-2">
           <Panel eyebrow="Balance" title="Amounts" testId="invoice-amounts-panel">
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-lg border border-hairline bg-surface-2 px-3 py-2.5">
@@ -221,7 +221,7 @@ export default function InvoiceDetailPage() {
                 <span>{paidShare(invoice)}% collected</span>
                 <span className="num">{payments.filter((p) => p.status === "succeeded").length} receipts</span>
               </div>
-              <span className="mt-1.5 block h-2 overflow-hidden rounded-full bg-surface-2">
+              <span className="mt-1.5 block h-1.5 overflow-hidden rounded-full bg-surface-2">
                 <span
                   className={cn(
                     "block h-full rounded-full transition-transform duration-200",
@@ -335,7 +335,7 @@ export default function InvoiceDetailPage() {
           </Panel>
         </div>
 
-        <div className="space-y-5 lg:col-span-4">
+        <div className="space-y-5 lg:col-span-1">
           <Panel eyebrow="Student" title="Billed to" testId="invoice-student-panel">
             {student ? (
               <>

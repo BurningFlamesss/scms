@@ -137,7 +137,7 @@ export const Section = ({
   testId?: string;
 }) => (
   <section
-    className={`mt-20 sm:mt-24 ${className}`}
+    className={`mt-section lg:mt-section-lg ${className}`}
     data-testid={testId}
   >
     {children}

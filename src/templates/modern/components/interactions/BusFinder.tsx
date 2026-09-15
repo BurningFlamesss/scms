@@ -11,6 +11,32 @@ import { TRANSPORT_EMAIL } from '#/content/school';
 import { findPickup } from '#/lib/pickup';
 import { formatNpr } from '#/lib/fees';
 
+/** Parse an SVG `M/L` polyline into numeric points. */
+function pathPoints(path: string): Array<[number, number]> {
+  const nums = path.match(/-?\d+(?:\.\d+)?/g)?.map(Number) ?? [];
+  const pts: Array<[number, number]> = [];
+  for (let i = 0; i + 1 < nums.length; i += 2) pts.push([nums[i], nums[i + 1]]);
+  return pts;
+}
+
+/** Position on a polyline at a 0..1 fraction of its total length. */
+function pointOnPath(points: Array<[number, number]>, t: number): { x: number; y: number } {
+  if (points.length < 2) return { x: points[0]?.[0] ?? 0, y: points[0]?.[1] ?? 0 };
+  const segLen = points.slice(0, -1).map((_, i) => Math.hypot(points[i + 1][0] - points[i][0], points[i + 1][1] - points[i][1]));
+  const total = segLen.reduce((sum, l) => sum + l, 0);
+  if (total === 0) return { x: points[0][0], y: points[0][1] };
+  let target = Math.min(1, Math.max(0, t)) * total;
+  for (let i = 0; i < segLen.length; i++) {
+    if (target <= segLen[i]) {
+      const f = segLen[i] === 0 ? 0 : target / segLen[i];
+      return { x: points[i][0] + (points[i + 1][0] - points[i][0]) * f, y: points[i][1] + (points[i + 1][1] - points[i][1]) * f };
+    }
+    target -= segLen[i];
+  }
+  const last = points[points.length - 1];
+  return { x: last[0], y: last[1] };
+}
+
 /**
  * SIGNATURE INTERACTION - Facilities
  * Bus route and pickup finder. Search leads; the diagram only confirms. The
@@ -25,6 +51,21 @@ export function BusFinder() {
   const matches = useMemo(() => findPickup(q), [q]);
   const best = matches[0] ?? null;
   const searched = q.trim().length >= 2;
+
+  const routePoints = useMemo(() => (best ? pathPoints(best.route.path) : []), [best]);
+  const stopPositions = useMemo(
+    () =>
+      best
+        ? best.route.stops.map((_, i) =>
+            pointOnPath(routePoints, routePoints.length > 1 ? i / Math.max(best.route.stops.length - 1, 1) : 0),
+          )
+        : [],
+    [best, routePoints],
+  );
+  const linePath = useMemo(
+    () => (routePoints.length > 1 ? 'M ' + routePoints.map((p) => p[0] + ' ' + p[1]).join(' L ') : ''),
+    [routePoints],
+  );
 
   return (
     <div className='flex flex-col gap-8' data-testid='bus-finder' id='transport'>
@@ -176,10 +217,9 @@ export function BusFinder() {
               transition={{ duration: (reduced ? 160 : duration.routeDraw) / 1000, ease: easing.entrance }}
               style={{ transformOrigin: 'left center' }}
             >
-              <path d={best!.route.path} fill='none' stroke='var(--c-gray-300)' strokeWidth='2' />
+              <path d={linePath} fill='none' stroke='var(--c-gray-300)' strokeWidth='2' />
               {best!.route.stops.map((s, i) => {
-                const x = 30 + (i * 660) / (best!.route.stops.length - 1);
-                const y = 120 - i * 6;
+                const { x, y } = stopPositions[i];
                 const isMatch = s.id === best!.stop.id;
                 return (
                   <g key={s.id}>

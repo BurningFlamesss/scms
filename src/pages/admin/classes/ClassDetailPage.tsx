@@ -47,7 +47,7 @@ export default function ClassDetailPage() {
       <div className="panel mb-5 p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="min-w-0 flex-1">
-            <h1 className="font-display text-xl font-semibold tracking-[-0.02em]" data-testid="class-name">
+            <h1 className="font-display text-xl font-semibold tracking-[-0.02em] text-foreground" data-testid="class-name">
               {cls.name}
             </h1>
             <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-muted-foreground">
@@ -179,7 +179,7 @@ export default function ClassDetailPage() {
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">No class teacher assigned yet.</p>
+              <EmptyState compact title="No class teacher assigned yet" description="Nominate a member of staff to oversee this class." />
             )}
           </Panel>
 

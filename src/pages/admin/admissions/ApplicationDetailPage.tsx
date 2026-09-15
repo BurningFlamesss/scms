@@ -214,8 +214,8 @@ export default function ApplicationDetailPage() {
         }
       />
 
-      <div className="grid gap-5 lg:grid-cols-12">
-        <div className="space-y-5 lg:col-span-8">
+      <div className="grid gap-5 lg:grid-cols-3">
+        <div className="space-y-5 lg:col-span-2">
           {canManage && (
             <Panel
               eyebrow="Decision"
@@ -342,7 +342,7 @@ export default function ApplicationDetailPage() {
           </Panel>
         </div>
 
-        <div className="space-y-5 lg:col-span-4">
+        <div className="space-y-5 lg:col-span-1">
           <Panel eyebrow="Assessment" title="Review summary" testId="application-assessment-panel">
             <div className="space-y-3">
               <div className="rounded-lg border border-hairline bg-surface-2 px-3 py-2.5">
@@ -427,7 +427,7 @@ export default function ApplicationDetailPage() {
       </div>
 
       <Dialog open={infoOpen} onOpenChange={setInfoOpen}>
-        <DialogContent className="border-hairline bg-popover sm:max-w-md" data-testid="application-info-dialog">
+        <DialogContent className="bg-popover sm:max-w-md" data-testid="application-info-dialog">
           <DialogHeader>
             <DialogTitle className="font-display">Request more information</DialogTitle>
             <DialogDescription>

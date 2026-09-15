@@ -442,7 +442,7 @@ function RouteComponent() {
           <Reveal key={`spotlight-${spotlight.id}`} delay={STAGGER}>
             <article
               data-testid="featured-block"
-              className="mt-20 overflow-hidden rounded-card border border-border bg-card shadow-sm"
+              className="mt-section overflow-hidden rounded-card border border-border bg-card shadow-sm lg:mt-section-lg"
             >
               <div className="grid lg:grid-cols-[1fr_0.8fr]">
                 <div className="border-l-2 border-accent/35 p-6 sm:p-8">

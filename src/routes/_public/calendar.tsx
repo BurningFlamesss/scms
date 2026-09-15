@@ -33,7 +33,6 @@ import { countdownLabel, eventsInTerm, eventsOnBs, nextOfKind, today } from '#/l
 import { downloadIcs } from '#/lib/calendar';
 import { cn } from '#/lib/utils';
 import type { EventKind } from '#/content/types';
-import Sidebar from "#/templates/modern/Sidebar.tsx";
 
 const KINDS: EventKind[] = ['exam', 'holiday', 'festival', 'event', 'admission'];
 
@@ -58,7 +57,7 @@ const KIND_TEXT: Record<EventKind, string> = {
   admission: 'text-brand-deep',
 };
 
-export const Route = createFileRoute("/calendar")({
+export const Route = createFileRoute("/_public/calendar")({
 	component: RouteComponent,
 });
 
@@ -148,7 +147,6 @@ function RouteComponent() {
 
   return (
     <>
-      <Sidebar />
       <Section testId='calendar-intro'>
         <Container>
           <Eyebrow className='mb-4'>{calendarIntro.eyebrow}</Eyebrow>

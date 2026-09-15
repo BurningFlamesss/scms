@@ -238,6 +238,24 @@ export const BLOCK_FIELDS: Record<BlockType, FieldDef[]> = {
     { key: "linkLabel", label: "Link label", kind: "text" },
     { key: "linkHref", label: "Link", kind: "url", placeholder: "/contact" },
   ],
+  // The faculty & administration page sections: header plus the two heading
+  // strips above the leadership cards and the directory. The cards and rows
+  // under them stay data-driven (managed on the Teachers & Staffs tab).
+  faculty_header: [
+    { key: "eyebrow", label: "Eyebrow", kind: "text" },
+    { key: "title", label: "Title", kind: "text" },
+    { key: "subtitle", label: "Subtitle", kind: "textarea" },
+  ],
+  faculty_leadership: [
+    { key: "eyebrow", label: "Eyebrow", kind: "text" },
+    { key: "title", label: "Title", kind: "text" },
+    { key: "description", label: "Intro copy", kind: "textarea" },
+  ],
+  faculty_directory: [
+    { key: "eyebrow", label: "Eyebrow", kind: "text" },
+    { key: "title", label: "Title", kind: "text" },
+    { key: "description", label: "Intro copy", kind: "textarea" },
+  ],
 };
 
 /** Section types that only make sense on the sign-in page. */

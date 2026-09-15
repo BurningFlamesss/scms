@@ -296,7 +296,7 @@ export default function RouteComponent() {
             </table>
           </div>
 
-          <div className='mt-24'>
+          <div className='mt-section lg:mt-section-lg'>
             <FeeEstimator />
           </div>
         </Container>

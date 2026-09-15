@@ -345,7 +345,7 @@ export default function AlbumDetailPage() {
           if (!open) setStaged([]);
         }}
       >
-        <DialogContent className="max-h-[90vh] overflow-y-auto border-hairline bg-popover sm:max-w-2xl" data-testid="album-upload-dialog">
+        <DialogContent className="max-h-[90vh] overflow-y-auto bg-popover sm:max-w-2xl" data-testid="album-upload-dialog">
           <DialogHeader>
             <DialogTitle className="font-display">Upload to “{album.title}”</DialogTitle>
             <DialogDescription>
@@ -476,7 +476,7 @@ export default function AlbumDetailPage() {
 
       {/* Caption ---------------------------------------------------------- */}
       <Dialog open={Boolean(captionTarget)} onOpenChange={(open) => !open && setCaptionTarget(null)}>
-        <DialogContent className="border-hairline bg-popover sm:max-w-md" data-testid="album-caption-dialog">
+        <DialogContent className="bg-popover sm:max-w-md" data-testid="album-caption-dialog">
           <DialogHeader>
             <DialogTitle className="font-display">Edit caption</DialogTitle>
             <DialogDescription>
