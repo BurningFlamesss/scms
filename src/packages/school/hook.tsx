@@ -3,6 +3,7 @@ import { Route as RootRoute } from "#/routes/__root";
 import { useContentStoreActions, useSchoolConfig as useSchoolConfigStore, useSchoolContent as useSchoolContentStore } from "#/stores/contentStore.ts";
 import type { WebsitePageContent } from "#/lib/website-content-loader";
 import type { SchoolContent } from "#/types/school";
+import type { Notice, Person, Scholarship } from "#/types";
 
 export function useSyncContentStore() {
   const loaderData = RootRoute.useLoaderData();
@@ -15,7 +16,10 @@ export function useSyncContentStore() {
     if (loaderData?.content) {
       const { sidebar, ...pageContent } = loaderData.content;
       for (const [key, page] of Object.entries(pageContent)) {
-        if (page) {
+        // Only managed WebsitePage payloads belong in the websitePages map;
+        // collection arrays (facultyMembers/notices/scholarships) are read
+        // straight from the loader via their dedicated hooks.
+        if (page && (key === "faculty" || key === "login")) {
           setWebsitePage(key, page as WebsitePageContent);
         }
       }
@@ -64,4 +68,35 @@ export function useWebsitePageContent(key: ManagedPageKey): WebsitePageContent |
     return loaderContent;
   }
   return null;
+}
+
+/**
+ * Public faculty directory loaded from the database by the root loader.
+ * Null when the collection has not been seeded, so pages fall back to their
+ * static data.
+ */
+export function useFacultyDirectory(): Person[] | null {
+  return (
+    RootRoute.useLoaderData({
+      select: (data) => data.content.facultyMembers as Person[] | undefined,
+    }) ?? null
+  );
+}
+
+/** Public notice board loaded from the database. */
+export function useNotices(): Notice[] | null {
+  return (
+    RootRoute.useLoaderData({
+      select: (data) => data.content.notices as Notice[] | undefined,
+    }) ?? null
+  );
+}
+
+/** Public scholarship schemes loaded from the database. */
+export function useScholarships(): Scholarship[] | null {
+  return (
+    RootRoute.useLoaderData({
+      select: (data) => data.content.scholarships as Scholarship[] | undefined,
+    }) ?? null
+  );
 }

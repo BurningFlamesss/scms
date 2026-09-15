@@ -18,10 +18,11 @@ import {
 import { DownloadButton } from "#/templates/modern/components/shared/DownloadButton";
 import { EmptyState } from "#/templates/modern/components/shared/EmptyState";
 import { FilterChips } from "#/templates/modern/components/shared/FilterChips";
-import { noticeCategories, notices } from "#/lib/notices";
+import { notices as staticNotices } from "#/lib/notices";
 import { formatAd, relativeDay } from "#/lib/dates";
 import { noticeDoc } from "#/lib/documents";
 import { downloadOfficialPdf } from "#/lib/pdf";
+import { useNotices } from "#/packages/school/hook.tsx";
 import type { Notice } from "#/types";
 
 const Chip = ({ children }: { children: React.ReactNode }) => (
@@ -177,6 +178,14 @@ export const Route = createFileRoute("/user/notices-page-detail")({
 });
 
 function RouteComponent() {
+  // Notices are served from the database (seeded from src/lib/notices); the
+  // static list is the fallback when the collection is empty.
+  const dbNotices = useNotices();
+  const notices = dbNotices && dbNotices.length > 0 ? dbNotices : staticNotices;
+  const noticeCategories = Array.from(
+    new Set(notices.map((n) => n.category)),
+  ).sort();
+
   const [category, setCategory] = useState<string>("all");
   const [open, setOpen] = useState<Notice | null>(null);
 
@@ -186,12 +195,12 @@ function RouteComponent() {
   const pinned = useMemo(() => {
     const flagged = notices.filter((n) => n.pinned).sort(byDateDesc);
     return flagged[0] ?? [...notices].sort(byDateDesc)[0];
-  }, []);
+  }, [notices]);
 
   /** Everything else, newest first. */
   const rest = useMemo(
     () => notices.filter((n) => n.id !== pinned.id).sort(byDateDesc),
-    [pinned.id],
+    [notices, pinned.id],
   );
 
   const filtered = useMemo(
@@ -211,7 +220,7 @@ function RouteComponent() {
           count: rest.filter((n) => n.category === c).length,
         })),
     ],
-    [rest],
+    [rest, noticeCategories],
   );
 
   return (

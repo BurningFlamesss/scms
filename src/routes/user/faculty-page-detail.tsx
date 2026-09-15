@@ -8,11 +8,11 @@ import { school } from "#/content/school";
 import { copyText } from "#/lib/calendar";
 import { getSectionFields, sectionDefaults } from "#/lib/cms-sections";
 import { facultyDirectoryDoc, personProfileDoc } from "#/lib/documents";
-import { faculty, facultyDepartments, leadership, people } from "#/lib/faculty";
+import { people as staticPeople } from "#/lib/faculty";
 import { STAGGER } from "#/lib/motion";
 import { downloadOfficialPdf } from "#/lib/pdf";
 import { getWebsitePagePreviewServer } from "#/packages/content/server/content.ts";
-import { useWebsitePageContent } from "#/packages/school/hook.tsx";
+import { useFacultyDirectory, useWebsitePageContent } from "#/packages/school/hook.tsx";
 import {
   PageFrame,
   PageHeader,
@@ -102,6 +102,18 @@ function RouteComponent() {
     );
   };
 
+  // Faculty data is served from the database (seeded from src/lib/faculty);
+  // the static list is only the fallback when the collection is empty.
+  const dbPeople = useFacultyDirectory();
+  const people = dbPeople && dbPeople.length > 0 ? dbPeople : staticPeople;
+  const leadership = people
+    .filter((person) => person.leadership)
+    .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
+  const faculty = people.filter((person) => !person.leadership);
+  const facultyDepartments = Array.from(
+    new Set(people.map((person) => person.department)),
+  ).sort();
+
   const [query, setQuery] = useState("");
   const [department, setDepartment] = useState<string>("all");
   const [selected, setSelected] = useState<Person | null>(null);
@@ -124,7 +136,7 @@ function RouteComponent() {
         .toLowerCase()
         .includes(needle);
     });
-  }, [query, department]);
+  }, [query, department, faculty]);
 
   const chipOptions = useMemo(
     () => [
@@ -137,7 +149,7 @@ function RouteComponent() {
           count: faculty.filter((p) => p.department === dept).length,
         })),
     ],
-    [],
+    [faculty, facultyDepartments],
   );
 
   const handleCopy = async (value: string, description: string) => {

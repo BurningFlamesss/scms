@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React, { useMemo, useState } from "react";
+import { levels, pageCopy } from "#/lib/site";
 import { Chip } from "#/templates/modern/components/Chip";
 import { Segmented } from "#/templates/modern/components/Segmented";
-import { levels, pageCopy } from "#/lib/site";
 
 export const Route = createFileRoute("/user/courses-alt")({
 	component: RouteComponent,
@@ -97,24 +97,30 @@ function RouteComponent() {
 				<h2>COMPARE TWO DIRECTIONS.</h2>
 				<div className="comparison-pickers">
 					<Segmented
-						items={plus.streams.map((x) => x.name)}
+						label="Left stream"
+						options={plus.streams.map((x) => ({
+							value: x.name,
+							label: x.name,
+						}))}
 						value={left}
 						onChange={(v) => {
 							setLeft(v);
 							if (v === right)
 								setRight(v === "Science" ? "Management" : "Science");
 						}}
-						id="left-stream"
 					/>
 					<Segmented
-						items={plus.streams.map((x) => x.name)}
+						label="Right stream"
+						options={plus.streams.map((x) => ({
+							value: x.name,
+							label: x.name,
+						}))}
 						value={right}
 						onChange={(v) => {
 							setRight(v);
 							if (v === left)
 								setLeft(v === "Science" ? "Management" : "Science");
 						}}
-						id="right-stream"
 					/>
 				</div>
 				<div className="diff">

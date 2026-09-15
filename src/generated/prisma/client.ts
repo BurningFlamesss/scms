@@ -116,3 +116,20 @@ export type WebsitePage = Prisma.WebsitePageModel
  * 
  */
 export type ContentBlock = Prisma.ContentBlockModel
+/**
+ * Model FacultyMember
+ * Public faculty directory. Mirrors the frontend Person shape so the
+ * faculty-page-detail route is driven from the database instead of static files.
+ */
+export type FacultyMember = Prisma.FacultyMemberModel
+/**
+ * Model Notice
+ * Public notice-board content, mirroring the frontend Notice shape. Complex
+ * fields (paragraphs, bullets, tables, attachments) are stored as JSON.
+ */
+export type Notice = Prisma.NoticeModel
+/**
+ * Model Scholarship
+ * Public scholarship schemes, mirroring the frontend Scholarship shape.
+ */
+export type Scholarship = Prisma.ScholarshipModel

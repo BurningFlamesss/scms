@@ -3,6 +3,7 @@ import { setResponseHeaders } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { prisma } from "#/lib/prisma";
 import type { WebsitePageContent } from "#/lib/website-content-loader";
+import type { Notice, Person, Scholarship } from "#/types";
 import type {
 	SchoolConfig,
 	SchoolContent,
@@ -164,22 +165,59 @@ export const getSchoolContentServer = createServerFn({ method: "GET" })
 		});
 		if (!org) return null;
 
-		const sidebarContent: SidebarContent = {
-			logo: org.logo ?? "",
-			tagline: org.description ?? "",
-			collapsible: {
-				about: { id: "about", label: "About", href: "/about" },
-				courses: { id: "courses", label: "Courses", href: "/courses" },
-				facilities: {
-					id: "facilities",
-					label: "Facilities",
-					href: "/facilities",
-				},
-				gallery: { id: "gallery", label: "Gallery", href: "/gallery" },
-				moreInfo: { id: "moreInfo", label: "More Info" },
-				contact: { id: "contact", label: "Contact", href: "/contact" },
+	const sidebarContent: SidebarContent = {
+		logo: org.logo ?? "",
+		tagline: org.description ?? "",
+		collapsible: {
+			about: {
+				id: "about",
+				label: "About Everest",
+				href: "/about",
+				children: [
+					{ id: "about-alt", label: "About (Alt)", href: "/user/about-alt" },
+					{ id: "about-detail", label: "About (Detail)", href: "/user/about-page-detail" },
+					{ id: "faculty", label: "Faculty", href: "/user/faculty-page-detail" },
+					{ id: "calendar", label: "Calendar", href: "/calendar" },
+				],
 			},
-		};
+			courses: {
+				id: "courses",
+				label: "Courses",
+				href: "/courses",
+				children: [
+					{ id: "courses-alt", label: "Courses (Alt)", href: "/user/courses-alt" },
+					{ id: "courses-detail", label: "Courses (Detail)", href: "/user/courses-page-detail" },
+				],
+			},
+			facilities: {
+				id: "facilities",
+				label: "Facilities",
+				href: "/facilities",
+				children: [
+					{ id: "facilities-alt", label: "Facilities (Alt)", href: "/user/facilities-alt" },
+					{ id: "facilities-detail", label: "Facilities (Detail)", href: "/user/facilities-page-detail" },
+				],
+			},
+			gallery: { id: "gallery", label: "Gallery", href: "/gallery" },
+			moreInfo: {
+				id: "moreInfo",
+				label: "More Info",
+				children: [
+					{ id: "notices", label: "Notices", href: "/user/notices-page-detail" },
+					{ id: "scholarships", label: "Scholarships", href: "/user/scholarships-page-detail" },
+				],
+			},
+			contact: {
+				id: "contact",
+				label: "Contact",
+				href: "/contact",
+				children: [
+					{ id: "contact-alt", label: "Contact (Alt)", href: "/user/contact-alt" },
+					{ id: "contact-detail", label: "Contact (Detail)", href: "/user/contact-page-detail" },
+				],
+			},
+		},
+	};
 
 		const content: SchoolContent = {
 			sidebar: sidebarContent,
@@ -200,3 +238,167 @@ export const getAllPublishedPagesServer = createServerFn({
 	});
 	return pages.map(toWebsitePageContent);
 });
+
+// ---------------------------------------------------------------------------
+// Public content collections (faculty / notices / scholarships). These power
+// the /user/*-page-detail routes from the database, mirroring the static
+// src/lib types so the pages can fall back to their static data when the
+// collection has not been seeded yet.
+// ---------------------------------------------------------------------------
+
+interface FacultyMemberRow {
+	slug: string;
+	name: string;
+	role: string;
+	department: string;
+	qualification: string;
+	experience: string;
+	subjects: unknown;
+	email: string;
+	extension: string;
+	officeHours: string;
+	bio: string;
+	joined: string;
+	leadership: boolean;
+	rank: number | null;
+}
+
+function toPerson(row: FacultyMemberRow): Person {
+	return {
+		id: row.slug,
+		name: row.name,
+		role: row.role,
+		department: row.department as Person["department"],
+		qualification: row.qualification,
+		experience: row.experience,
+		subjects: Array.isArray(row.subjects) ? (row.subjects as string[]) : [],
+		email: row.email,
+		extension: row.extension,
+		officeHours: row.officeHours,
+		bio: row.bio,
+		joined: row.joined,
+		leadership: row.leadership || undefined,
+		rank: row.rank ?? undefined,
+	};
+}
+
+interface NoticeRow {
+	ref: string;
+	title: string;
+	category: string;
+	dateAd: string;
+	dateBs: string;
+	audience: string;
+	issuedBy: string;
+	summary: string;
+	body: unknown;
+	bullets: unknown;
+	table: unknown;
+	attachments: unknown;
+	pinned: boolean;
+}
+
+function toNotice(row: NoticeRow): Notice {
+	return {
+		id: row.ref,
+		ref: row.ref,
+		title: row.title,
+		category: row.category as Notice["category"],
+		dateAd: row.dateAd,
+		dateBs: row.dateBs,
+		audience: row.audience,
+		issuedBy: row.issuedBy,
+		summary: row.summary,
+		body: Array.isArray(row.body) ? (row.body as string[]) : [],
+		bullets: Array.isArray(row.bullets) ? (row.bullets as string[]) : undefined,
+		table: row.table ? (row.table as Notice["table"]) : undefined,
+		attachments: Array.isArray(row.attachments)
+			? (row.attachments as Notice["attachments"])
+			: [],
+		pinned: row.pinned || undefined,
+	};
+}
+
+interface ScholarshipRow {
+	ref: string;
+	name: string;
+	nepaliName: string;
+	category: string;
+	coverage: number;
+	award: string;
+	amountNpr: number;
+	seats: number;
+	deadlineAd: string;
+	deadlineBs: string;
+	appliesTo: string;
+	summary: string;
+	description: string;
+	eligibility: unknown;
+	benefits: unknown;
+	documents: unknown;
+	process: unknown;
+	renewal: string;
+	contact: string;
+	spotlight: boolean;
+}
+
+function toScholarship(row: ScholarshipRow): Scholarship {
+	return {
+		id: row.ref,
+		ref: row.ref,
+		name: row.name,
+		nepaliName: row.nepaliName,
+		category: row.category as Scholarship["category"],
+		coverage: row.coverage,
+		award: row.award,
+		amountNpr: row.amountNpr,
+		seats: row.seats,
+		deadlineAd: row.deadlineAd,
+		deadlineBs: row.deadlineBs,
+		appliesTo: row.appliesTo,
+		summary: row.summary,
+		description: row.description,
+		eligibility: Array.isArray(row.eligibility)
+			? (row.eligibility as Scholarship["eligibility"])
+			: [],
+		benefits: Array.isArray(row.benefits) ? (row.benefits as string[]) : [],
+		documents: Array.isArray(row.documents) ? (row.documents as string[]) : [],
+		process: Array.isArray(row.process) ? (row.process as string[]) : [],
+		renewal: row.renewal,
+		contact: row.contact,
+		spotlight: row.spotlight || undefined,
+	};
+}
+
+/** Public faculty directory, sorted leadership-first by rank. */
+export const getFacultyMembersServer = createServerFn({
+	method: "GET",
+}).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	const rows = await prisma.facultyMember.findMany({
+		orderBy: [{ leadership: "desc" }, { rank: "asc" }, { order: "asc" }],
+	});
+	return rows.map(toPerson);
+});
+
+/** Public notice board, pinned first then newest date first. */
+export const getNoticesServer = createServerFn({ method: "GET" }).handler(
+	async () => {
+		setResponseHeaders(PUBLIC_CACHE_HEADERS);
+		const rows = await prisma.notice.findMany({
+			orderBy: [{ pinned: "desc" }, { dateAd: "desc" }],
+		});
+		return rows.map(toNotice);
+	},
+);
+
+/** Public scholarship schemes in their editorial (seed) order. */
+export const getScholarshipsServer = createServerFn({ method: "GET" }).handler(
+	async () => {
+		setResponseHeaders(PUBLIC_CACHE_HEADERS);
+		const rows = await prisma.scholarship.findMany({
+			orderBy: { order: "asc" },
+		});
+		return rows.map(toScholarship);
+	},
+);

@@ -65,7 +65,10 @@ export const ModelName = {
   Invite: 'Invite',
   GuardianInvite: 'GuardianInvite',
   WebsitePage: 'WebsitePage',
-  ContentBlock: 'ContentBlock'
+  ContentBlock: 'ContentBlock',
+  FacultyMember: 'FacultyMember',
+  Notice: 'Notice',
+  Scholarship: 'Scholarship'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -299,6 +302,83 @@ export const ContentBlockScalarFieldEnum = {
 export type ContentBlockScalarFieldEnum = (typeof ContentBlockScalarFieldEnum)[keyof typeof ContentBlockScalarFieldEnum]
 
 
+export const FacultyMemberScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  role: 'role',
+  department: 'department',
+  qualification: 'qualification',
+  experience: 'experience',
+  subjects: 'subjects',
+  email: 'email',
+  extension: 'extension',
+  officeHours: 'officeHours',
+  bio: 'bio',
+  joined: 'joined',
+  leadership: 'leadership',
+  rank: 'rank',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FacultyMemberScalarFieldEnum = (typeof FacultyMemberScalarFieldEnum)[keyof typeof FacultyMemberScalarFieldEnum]
+
+
+export const NoticeScalarFieldEnum = {
+  id: 'id',
+  ref: 'ref',
+  title: 'title',
+  category: 'category',
+  dateAd: 'dateAd',
+  dateBs: 'dateBs',
+  audience: 'audience',
+  issuedBy: 'issuedBy',
+  summary: 'summary',
+  body: 'body',
+  bullets: 'bullets',
+  table: 'table',
+  attachments: 'attachments',
+  pinned: 'pinned',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoticeScalarFieldEnum = (typeof NoticeScalarFieldEnum)[keyof typeof NoticeScalarFieldEnum]
+
+
+export const ScholarshipScalarFieldEnum = {
+  id: 'id',
+  ref: 'ref',
+  name: 'name',
+  nepaliName: 'nepaliName',
+  category: 'category',
+  coverage: 'coverage',
+  award: 'award',
+  amountNpr: 'amountNpr',
+  seats: 'seats',
+  deadlineAd: 'deadlineAd',
+  deadlineBs: 'deadlineBs',
+  appliesTo: 'appliesTo',
+  summary: 'summary',
+  description: 'description',
+  eligibility: 'eligibility',
+  benefits: 'benefits',
+  documents: 'documents',
+  process: 'process',
+  renewal: 'renewal',
+  contact: 'contact',
+  spotlight: 'spotlight',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ScholarshipScalarFieldEnum = (typeof ScholarshipScalarFieldEnum)[keyof typeof ScholarshipScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -312,6 +392,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

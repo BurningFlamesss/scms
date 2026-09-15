@@ -10,10 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteImport } from './routes/user'
-import { Route as LoginModernRouteImport } from './routes/login-modern'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as PublicRouteImport } from './routes/_public'
+import { Route as OnboardRouteImport } from './routes/_onboard'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as UserScholarshipsPageDetailRouteImport } from './routes/user/scholarships-page-detail'
@@ -59,6 +59,7 @@ import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicCalendarRouteImport } from './routes/_public/calendar'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as OnboardSignupRouteImport } from './routes/_onboard/signup'
+import { Route as OnboardLoginModernRouteImport } from './routes/_onboard/login-modern'
 import { Route as ApiWebsitePagesRouteImport } from './routes/api/website/pages'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminStudentsIdRouteImport } from './routes/admin/students.$id'
@@ -86,11 +87,6 @@ const UserRoute = UserRouteImport.update({
   path: '/user',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginModernRoute = LoginModernRouteImport.update({
-  id: '/login-modern',
-  path: '/login-modern',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -103,6 +99,10 @@ const AdminRoute = AdminRouteImport.update({
 } as any)
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardRoute = OnboardRouteImport.update({
+  id: '/_onboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -328,9 +328,14 @@ const PublicAboutRoute = PublicAboutRouteImport.update({
   getParentRoute: () => PublicRoute,
 } as any)
 const OnboardSignupRoute = OnboardSignupRouteImport.update({
-  id: '/_onboard/signup',
+  id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => OnboardRoute,
+} as any)
+const OnboardLoginModernRoute = OnboardLoginModernRouteImport.update({
+  id: '/login-modern',
+  path: '/login-modern',
+  getParentRoute: () => OnboardRoute,
 } as any)
 const ApiWebsitePagesRoute = ApiWebsitePagesRouteImport.update({
   id: '/api/website/pages',
@@ -393,9 +398,9 @@ const AdminAdmissionsIdRoute = AdminAdmissionsIdRouteImport.update({
   getParentRoute: () => AdminAdmissionsRoute,
 } as any)
 const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
-  id: '/_onboard/activate/$token',
+  id: '/activate/$token',
   path: '/activate/$token',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => OnboardRoute,
 } as any)
 const ApiWebsitePagesKeyRoute = ApiWebsitePagesKeyRouteImport.update({
   id: '/$key',
@@ -447,8 +452,8 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
-  '/login-modern': typeof LoginModernRoute
   '/user': typeof UserRouteWithChildren
+  '/login-modern': typeof OnboardLoginModernRoute
   '/signup': typeof OnboardSignupRoute
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
@@ -516,9 +521,10 @@ export interface FileRoutesByFullPath {
   '/api/website/pages/$key/sections/$sectionType': typeof ApiWebsitePagesKeySectionsSectionTypeRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof PublicIndexRoute
   '/login': typeof LoginRoute
-  '/login-modern': typeof LoginModernRoute
   '/user': typeof UserRouteWithChildren
+  '/login-modern': typeof OnboardLoginModernRoute
   '/signup': typeof OnboardSignupRoute
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
@@ -562,7 +568,6 @@ export interface FileRoutesByTo {
   '/user/login-modern': typeof UserLoginModernRoute
   '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
   '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
-  '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/admin/admissions/$id': typeof AdminAdmissionsIdRoute
@@ -588,11 +593,12 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_onboard': typeof OnboardRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
-  '/login-modern': typeof LoginModernRoute
   '/user': typeof UserRouteWithChildren
+  '/_onboard/login-modern': typeof OnboardLoginModernRoute
   '/_onboard/signup': typeof OnboardSignupRoute
   '/_public/about': typeof PublicAboutRoute
   '/_public/calendar': typeof PublicCalendarRoute
@@ -666,8 +672,8 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
-    | '/login-modern'
     | '/user'
+    | '/login-modern'
     | '/signup'
     | '/about'
     | '/calendar'
@@ -735,9 +741,10 @@ export interface FileRouteTypes {
     | '/api/website/pages/$key/sections/$sectionType'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/login'
-    | '/login-modern'
     | '/user'
+    | '/login-modern'
     | '/signup'
     | '/about'
     | '/calendar'
@@ -781,7 +788,6 @@ export interface FileRouteTypes {
     | '/user/login-modern'
     | '/user/notices-page-detail'
     | '/user/scholarships-page-detail'
-    | '/'
     | '/admin'
     | '/activate/$token'
     | '/admin/admissions/$id'
@@ -806,11 +812,12 @@ export interface FileRouteTypes {
     | '/api/website/pages/$key/sections/$sectionType'
   id:
     | '__root__'
+    | '/_onboard'
     | '/_public'
     | '/admin'
     | '/login'
-    | '/login-modern'
     | '/user'
+    | '/_onboard/login-modern'
     | '/_onboard/signup'
     | '/_public/about'
     | '/_public/calendar'
@@ -880,13 +887,11 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  OnboardRoute: typeof OnboardRouteWithChildren
   PublicRoute: typeof PublicRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
   LoginRoute: typeof LoginRoute
-  LoginModernRoute: typeof LoginModernRoute
   UserRoute: typeof UserRouteWithChildren
-  OnboardSignupRoute: typeof OnboardSignupRoute
-  OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiWebsitePagesRoute: typeof ApiWebsitePagesRouteWithChildren
   ApiWebsitePageKeyRoute: typeof ApiWebsitePageKeyRoute
@@ -899,13 +904,6 @@ declare module '@tanstack/react-router' {
       path: '/user'
       fullPath: '/user'
       preLoaderRoute: typeof UserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login-modern': {
-      id: '/login-modern'
-      path: '/login-modern'
-      fullPath: '/login-modern'
-      preLoaderRoute: typeof LoginModernRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -927,6 +925,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_onboard': {
+      id: '/_onboard'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof OnboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -1242,7 +1247,14 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof OnboardSignupRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof OnboardRoute
+    }
+    '/_onboard/login-modern': {
+      id: '/_onboard/login-modern'
+      path: '/login-modern'
+      fullPath: '/login-modern'
+      preLoaderRoute: typeof OnboardLoginModernRouteImport
+      parentRoute: typeof OnboardRoute
     }
     '/api/website/pages': {
       id: '/api/website/pages'
@@ -1333,7 +1345,7 @@ declare module '@tanstack/react-router' {
       path: '/activate/$token'
       fullPath: '/activate/$token'
       preLoaderRoute: typeof OnboardActivateTokenRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof OnboardRoute
     }
     '/api/website/pages/$key': {
       id: '/api/website/pages/$key'
@@ -1393,6 +1405,21 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface OnboardRouteChildren {
+  OnboardLoginModernRoute: typeof OnboardLoginModernRoute
+  OnboardSignupRoute: typeof OnboardSignupRoute
+  OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
+}
+
+const OnboardRouteChildren: OnboardRouteChildren = {
+  OnboardLoginModernRoute: OnboardLoginModernRoute,
+  OnboardSignupRoute: OnboardSignupRoute,
+  OnboardActivateTokenRoute: OnboardActivateTokenRoute,
+}
+
+const OnboardRouteWithChildren =
+  OnboardRoute._addFileChildren(OnboardRouteChildren)
 
 interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
@@ -1674,13 +1701,11 @@ const ApiWebsitePagesRouteWithChildren = ApiWebsitePagesRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  OnboardRoute: OnboardRouteWithChildren,
   PublicRoute: PublicRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
   LoginRoute: LoginRoute,
-  LoginModernRoute: LoginModernRoute,
   UserRoute: UserRouteWithChildren,
-  OnboardSignupRoute: OnboardSignupRoute,
-  OnboardActivateTokenRoute: OnboardActivateTokenRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiWebsitePagesRoute: ApiWebsitePagesRouteWithChildren,
   ApiWebsitePageKeyRoute: ApiWebsitePageKeyRoute,

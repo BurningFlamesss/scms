@@ -1,19 +1,18 @@
-import { createFileRoute } from "@tanstack/react-router";
-import React from "react";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDownRight } from "lucide-react";
+import React from "react";
+import { useSectionProgress } from "#/lib/motion";
+import { frames, pageCopy, pillars, stats, voices } from "#/lib/site";
+import { Button } from "#/templates/modern/components/Button";
 import {
 	CardStack,
 	FrameSequence,
 	LedgerCount,
 	MagneticHover,
+	RailFill,
 	RevealUp,
 	SheetRise,
-	RailFill,
 } from "#/templates/modern/components/motion";
-import { useSectionProgress } from "#/lib/motion";
-import { Button } from "#/templates/modern/components/Button";
-import { frames, pageCopy, pillars, stats, voices } from "#/lib/site";
 
 export const Route = createFileRoute("/user/home-page")({
 	component: RouteComponent,
@@ -24,7 +23,7 @@ function RouteComponent() {
 	return (
 		<>
 			<section className="hero" aria-label="A day at Everest">
-				<FrameSequence frames={frames} />
+				<FrameSequence frames={frames} progress={progress} />
 				<div className="hero-title">
 					<p>{pageCopy.home.eyebrow}</p>
 					<h1>
@@ -37,7 +36,9 @@ function RouteComponent() {
 					</h1>
 				</div>
 			</section>
-			<SheetRise>
+			<SheetRise
+				backdrop={(p) => <FrameSequence frames={frames} progress={p} />}
+			>
 				<div className="home-intro content">
 					<RevealUp>
 						<p className="eyebrow">{pageCopy.home.eyebrow}</p>
@@ -77,8 +78,8 @@ function RouteComponent() {
 					</div>
 				</div>
 				<div className="content pillar-section">
-					<CardStack>
-						{pillars.map((p) => (
+					<CardStack
+						items={pillars.map((p) => (
 							<MagneticHover key={p.id}>
 								<Link
 									to={p.href}
@@ -103,7 +104,7 @@ function RouteComponent() {
 								</Link>
 							</MagneticHover>
 						))}
-					</CardStack>
+					/>
 				</div>
 				<section className="voices content" ref={ref}>
 					<RailFill progress={progress} axis="x" />

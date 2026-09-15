@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React, { useEffect, useState } from "react";
-import { Button } from "#/templates/modern/components/kit";
-import { Field } from "#/templates/modern/components/Field";
-import { Segmented } from "#/templates/modern/components/Segmented";
 import { departments, pageCopy, school } from "#/lib/site";
+import { Field } from "#/templates/modern/components/Field";
+import { Button } from "#/templates/modern/components/kit";
+import { Segmented } from "#/templates/modern/components/Segmented";
+
 const kathmandu = () =>
 	new Intl.DateTimeFormat("en-GB", {
 		timeZone: "Asia/Kathmandu",
@@ -85,10 +86,15 @@ function RouteComponent() {
 				<form onSubmit={(e) => e.preventDefault()} data-testid="contact-form">
 					<h2>DIRECT YOUR ENQUIRY</h2>
 					<Segmented
-						items={["Admissions", "Accounts", "Principal's Office", "General"]}
+						label="Direct your enquiry"
+						options={[
+							"Admissions",
+							"Accounts",
+							"Principal's Office",
+							"General",
+						].map((v) => ({ value: v, label: v }))}
 						value={route}
 						onChange={setRoute}
-						id="enquiry-route"
 					/>
 					<Field
 						label="Full name"

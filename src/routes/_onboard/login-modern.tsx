@@ -7,7 +7,7 @@ import {
 } from "#/packages/school/hook.tsx";
 import type { BlockType } from "#/types";
 
-export const Route = createFileRoute("/login-modern")({
+export const Route = createFileRoute("/_onboard/login-modern")({
 	loader: async ({ location }) => {
 		if (String(location.search.cms ?? "") === "1") {
 			const previewPage = await getWebsitePagePreviewServer({

@@ -25,11 +25,7 @@ import {
 import { toast } from "sonner";
 import { DownloadButton } from "#/templates/modern/components/shared/DownloadButton";
 import { FilterChips } from "#/templates/modern/components/shared/FilterChips";
-import {
-  scholarshipCategories,
-  scholarships,
-  totalScholarshipSeats,
-} from "#/lib/scholarships";
+import { scholarships as staticScholarships } from "#/lib/scholarships";
 import { school } from "#/content/school";
 import { downloadIcs } from "#/lib/calendar";
 import { countdownTo, daysUntil, formatAd, formatNpr } from "#/lib/dates";
@@ -40,6 +36,7 @@ import {
 } from "#/lib/documents";
 import { STAGGER } from "#/lib/motion";
 import { downloadOfficialPdf } from "#/lib/pdf";
+import { useScholarships } from "#/packages/school/hook.tsx";
 import type { Scholarship } from "#/types";
 
 const Countdown = ({ deadline }: { deadline: string }) => {
@@ -446,13 +443,28 @@ export const Route = createFileRoute("/user/scholarships-page-detail")({
 });
 
 function RouteComponent() {
+  // Schemes are served from the database (seeded from src/lib/scholarships);
+  // the static list is the fallback when the collection is empty.
+  const dbScholarships = useScholarships();
+  const scholarships =
+    dbScholarships && dbScholarships.length > 0
+      ? dbScholarships
+      : staticScholarships;
+  const scholarshipCategories = Array.from(
+    new Set(scholarships.map((s) => s.category)),
+  ).sort();
+  const totalScholarshipSeats = scholarships.reduce(
+    (sum, s) => sum + s.seats,
+    0,
+  );
+
   const [category, setCategory] = useState<string>("all");
   const [activeId, setActiveId] = useState<string>(scholarships[0].id);
 
   const filtered = useMemo(() => {
     if (category === "all") return scholarships;
     return scholarships.filter((s) => s.category === category);
-  }, [category]);
+  }, [category, scholarships]);
 
   const active = useMemo(
     () => filtered.find((s) => s.id === activeId) ?? filtered[0],
@@ -468,7 +480,7 @@ function RouteComponent() {
         count: scholarships.filter((s) => s.category === c).length,
       })),
     ],
-    [],
+    [scholarships, scholarshipCategories],
   );
 
   const nextDeadline = useMemo(() => {
@@ -476,7 +488,7 @@ function RouteComponent() {
       .filter((s) => daysUntil(s.deadlineAd) >= 0)
       .sort((a, b) => daysUntil(a.deadlineAd) - daysUntil(b.deadlineAd));
     return upcoming[0];
-  }, []);
+  }, [scholarships]);
 
   const handleCategory = (next: string) => {
     setCategory(next);

@@ -3,6 +3,9 @@ config({ path: '.env.local' });
 
 import { serverEnv } from '#/env/server.js';
 import { PrismaClient } from '../src/generated/prisma/client.js'
+import { people } from '#/lib/faculty';
+import { notices } from '#/lib/notices';
+import { scholarships } from '#/lib/scholarships';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -154,6 +157,9 @@ async function main() {
 
   // Seed default website pages from content.json
   await seedWebsitePages(user.id, user.name, contentFile.pages);
+
+  // Seed the public content collections that drive the -page-detail routes
+  await seedPublicCollections();
 }
 
 async function seedTestUsers(organizationId: string, branchId: string) {
@@ -265,6 +271,81 @@ async function seedWebsitePages(authorId: string, authorName: string, pages: Rec
 
     console.log(`  ✓ ${pageData.title} (${pageData.key})`);
   }
+}
+
+async function seedPublicCollections() {
+  console.log('🌱 Seeding public content collections...');
+
+  await prisma.facultyMember.deleteMany({});
+  await prisma.facultyMember.createMany({
+    data: people.map((person, index) => ({
+      slug: person.id,
+      name: person.name,
+      role: person.role,
+      department: person.department,
+      qualification: person.qualification,
+      experience: person.experience,
+      subjects: person.subjects,
+      email: person.email,
+      extension: person.extension,
+      officeHours: person.officeHours,
+      bio: person.bio,
+      joined: person.joined,
+      leadership: Boolean(person.leadership),
+      rank: person.rank ?? null,
+      order: index,
+    })),
+  });
+  console.log(`  ✓ ${people.length} faculty members`);
+
+  await prisma.notice.deleteMany({});
+  await prisma.notice.createMany({
+    data: notices.map((notice, index) => ({
+      ref: notice.ref,
+      title: notice.title,
+      category: notice.category,
+      dateAd: notice.dateAd,
+      dateBs: notice.dateBs,
+      audience: notice.audience,
+      issuedBy: notice.issuedBy,
+      summary: notice.summary,
+      body: notice.body,
+      bullets: notice.bullets,
+      table: notice.table,
+      attachments: notice.attachments,
+      pinned: Boolean(notice.pinned),
+      order: index,
+    })),
+  });
+  console.log(`  ✓ ${notices.length} notices`);
+
+  await prisma.scholarship.deleteMany({});
+  await prisma.scholarship.createMany({
+    data: scholarships.map((scholarship, index) => ({
+      ref: scholarship.ref,
+      name: scholarship.name,
+      nepaliName: scholarship.nepaliName,
+      category: scholarship.category,
+      coverage: scholarship.coverage,
+      award: scholarship.award,
+      amountNpr: scholarship.amountNpr,
+      seats: scholarship.seats,
+      deadlineAd: scholarship.deadlineAd,
+      deadlineBs: scholarship.deadlineBs,
+      appliesTo: scholarship.appliesTo,
+      summary: scholarship.summary,
+      description: scholarship.description,
+      eligibility: scholarship.eligibility,
+      benefits: scholarship.benefits,
+      documents: scholarship.documents,
+      process: scholarship.process,
+      renewal: scholarship.renewal,
+      contact: scholarship.contact,
+      spotlight: Boolean(scholarship.spotlight),
+      order: index,
+    })),
+  });
+  console.log(`  ✓ ${scholarships.length} scholarships`);
 }
 
 main()
