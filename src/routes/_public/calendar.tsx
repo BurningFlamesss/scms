@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ChevronLeft, ChevronRight, CalendarPlus } from 'lucide-react';
-import { Container, Section } from '#/templates/modern/components/layout/PageShell';
+import { PageFrame, PageHeader, Section as ChromeSection } from '#/templates/modern/components/chrome/PageFrame';
 import { RoutineViewer } from '#/templates/modern/components/utilities/RoutineViewer';
 import { DownloadsCentre } from '#/templates/modern/components/utilities/DownloadsCentre';
 import { Segmented } from '#/templates/modern/components/Segmented';
 import { Button } from '#/templates/modern/components/Button';
-import { Eyebrow, Statement, WidgetCaption } from '#/templates/modern/components/Text';
+import { WidgetCaption } from '#/templates/modern/components/Text';
 import { duration, easing } from '#/templates/modern/components/tokens';
 import {
   ACADEMIC_YEAR_BS,
@@ -146,21 +146,17 @@ function RouteComponent() {
   const todayAd = today();
 
   return (
-    <>
-      <Section testId='calendar-intro'>
-        <Container>
-          <Eyebrow className='mb-4'>{calendarIntro.eyebrow}</Eyebrow>
-          <div className='grid items-end gap-8 lg:grid-cols-12'>
-            <div className='lg:col-span-8'>
-              <Statement as='h1' lines={calendarIntro.statement} />
-            </div>
-            <p className='max-w-measure text-body-l text-n-600 lg:col-span-4'>{calendarIntro.support}</p>
-          </div>
-
-          <div
-            className='mt-16 grid gap-px border-hair border-n-200 bg-n-200 sm:grid-cols-2'
-            data-testid='calendar-counters'
-          >
+    <PageFrame>
+      <PageHeader 
+        eyebrow={calendarIntro.eyebrow}
+        title={calendarIntro.statement.join(" ")}
+        lead={calendarIntro.support}
+      />
+      <ChromeSection testId='calendar-intro'>
+        <div
+          className='grid gap-px border-hair border-n-200 bg-n-200 sm:grid-cols-2'
+          data-testid='calendar-counters'
+        >
             {[
               { label: 'Next holiday', ev: nextHoliday },
               { label: 'Next examination', ev: nextExam },
@@ -181,11 +177,11 @@ function RouteComponent() {
               </div>
             ))}
           </div>
-        </Container>
-      </Section>
+        
+      </ChromeSection>
 
-      <Section testId='calendar-grid-section' className='pt-0'>
-        <Container>
+      <ChromeSection testId='calendar-grid-section' className='pt-0'>
+        
           <div className='flex flex-col gap-6'>
             <WidgetCaption>
               Both calendars are always shown; the toggle only chooses which one leads.
@@ -446,11 +442,11 @@ function RouteComponent() {
               ))}
             </div>
           </div>
-        </Container>
-      </Section>
+        
+      </ChromeSection>
 
-      <Section testId='calendar-list' className='bg-n-50' labelledBy='allnotices-heading'>
-        <Container>
+      <ChromeSection testId='calendar-list' className='bg-n-50'>
+        
           <h2 id='allnotices-heading' className='u-display mb-8 text-display-l text-ink'>
             Every date this session
           </h2>
@@ -472,20 +468,20 @@ function RouteComponent() {
                 </li>
               ))}
           </ul>
-        </Container>
-      </Section>
+        
+      </ChromeSection>
 
-      <Section testId='calendar-routine'>
-        <Container>
+      <ChromeSection testId='calendar-routine'>
+        
           <RoutineViewer />
-        </Container>
-      </Section>
+        
+      </ChromeSection>
 
-      <Section testId='calendar-downloads' className='bg-n-50'>
-        <Container>
+      <ChromeSection testId='calendar-downloads' className='bg-n-50'>
+        
           <DownloadsCentre />
-        </Container>
-      </Section>
-    </>
+        
+      </ChromeSection>
+    </PageFrame>
   );
 }

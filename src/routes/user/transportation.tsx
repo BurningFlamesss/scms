@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Container, Section } from '#/templates/modern/components/layout/PageShell';
+import { PageFrame, PageHeader, Section } from "#/templates/modern/components/chrome/PageFrame";
 import { BusFinder } from '#/templates/modern/components/interactions/BusFinder';
-import { RevealUp } from '#/templates/modern/components/motion';
 
 export const Route = createFileRoute("/user/transportation")({
   component: RouteComponent,
@@ -9,12 +8,15 @@ export const Route = createFileRoute("/user/transportation")({
 
 function RouteComponent() {
   return (
-    <Container className="pt-24 pb-16">
+    <PageFrame>
+      <PageHeader 
+        eyebrow="TRANSPORTATION"
+        title="Bus route and pickup finder"
+        lead="Three routes cover the valley from Hemja in the north-west to Birauta in the south."
+      />
       <Section className="mb-16">
-        <RevealUp>
-          <BusFinder />
-        </RevealUp>
+        <BusFinder />
       </Section>
-    </Container>
+    </PageFrame>
   );
 }

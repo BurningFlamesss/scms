@@ -551,7 +551,7 @@
 
     /* Layout metrics (named, non-spacing) */
     .w-nav {
-        width: var(--nav-w, 320px);
+        width: var(--nav-w, 240px);
     }
 
     .w-tap {

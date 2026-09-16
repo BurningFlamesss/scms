@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React, { useEffect, useState } from "react";
 import { AlertCircle } from "lucide-react";
-import { departments, pageCopy, school } from "#/lib/site";
+import { departments, school } from "#/lib/site";
 import { Button } from "#/templates/modern/components/kit";
 import { Segmented } from "#/templates/modern/components/Segmented";
 import { Input } from "#/templates/modern/components/Input";

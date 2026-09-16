@@ -1,5 +1,7 @@
 /** Minimal RFC-5545 generator so deadlines can be saved to any calendar app. */
 
+import type { CalEvent } from '../content/types';
+
 export interface CalendarEvent {
   uid: string;
   title: string;
@@ -55,8 +57,20 @@ export function buildIcs(event: CalendarEvent): string {
   return lines.join("\r\n");
 }
 
-export function downloadIcs(event: CalendarEvent, fileName: string): string {
-  const blob = new Blob([buildIcs(event)], {
+export function downloadIcs(events: CalendarEvent | CalEvent | CalEvent[], fileName: string): string {
+  const arr = Array.isArray(events) ? events : [events];
+  const mapped: CalendarEvent[] = arr.map((e) => {
+    if ('uid' in e) return e as CalendarEvent;
+    const ce = e as CalEvent;
+    return {
+      uid: ce.id,
+      title: ce.title,
+      description: ce.detail ?? ce.title,
+      date: ce.date.ad,
+    };
+  });
+  const icsContent = mapped.map(buildIcs).join("\r\n");
+  const blob = new Blob([icsContent], {
     type: "text/calendar;charset=utf-8",
   });
   const url = URL.createObjectURL(blob);
@@ -98,9 +112,8 @@ export async function copyText(value: string): Promise<boolean> {
 
 import { calendarEvents } from '../content/calendar';
 import { terms } from '../content/calendar';
-import { countdownTo, daysUntil, formatAd } from './dates';
-import { bsToAd, adToBs } from './nepaliDate';
-import type { EventKind, CalEvent } from '../content/types';
+import { countdownTo } from './dates';
+import type { EventKind } from '../content/types';
 
 /** Returns "X days Y hours" or "Closed" for a deadline. */
 export function countdownLabel(deadlineAd: string): string {

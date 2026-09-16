@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Container, Section } from '#/templates/modern/components/layout/PageShell';
+import { PageFrame, PageHeader, Section } from "#/templates/modern/components/chrome/PageFrame";
 import { ResultsChart } from '#/templates/modern/components/utilities/ResultsChart';
-import { Eyebrow } from '#/templates/modern/components/Text';
-import { RevealUp } from '#/templates/modern/components/motion';
 
 export const Route = createFileRoute("/user/result")({
   component: RouteComponent,
@@ -10,12 +8,15 @@ export const Route = createFileRoute("/user/result")({
 
 function RouteComponent() {
   return (
-    <Container className="pt-24 pb-16">
-      <Section className="mb-16">
-        <RevealUp>
+    <PageFrame>
+      <PageHeader 
+        eyebrow="RESULT"
+        title="Board results"
+        lead="Division splits over the last five sessions for secondary education exams."
+      />
+      <Section className="mb-16 mt-8">
           <ResultsChart />
-        </RevealUp>
       </Section>
-    </Container>
+    </PageFrame>
   );
 }

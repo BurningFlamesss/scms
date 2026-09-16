@@ -60,23 +60,40 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		return { session };
 	},
 	async loader() {
+		// Wrap DB requests with a timeout to prevent infinite hanging when DB is asleep/down
+		const withTimeout = <T,>(promise: Promise<T>, ms = 4000): Promise<T> =>
+			Promise.race([
+				promise,
+				new Promise<T>((_, reject) =>
+					setTimeout(() => reject(new Error("Loader query timeout")), ms)
+				),
+			]);
+
 		const [
-			config,
-			facultyContent,
-			loginContent,
-			sidebarContent,
-			facultyMembers,
-			notices,
-			scholarships,
-		] = await Promise.all([
-			getSchoolConfigServer({ data: { identifier: "everest" } }),
-			getWebsitePageServer({ data: { key: "faculty" } }),
-			getWebsitePageServer({ data: { key: "login" } }),
-			getSchoolContentServer({ data: { identifier: "everest" } }),
-			getFacultyMembersServer(),
-			getNoticesServer(),
-			getScholarshipsServer(),
+			configResult,
+			facultyContentResult,
+			loginContentResult,
+			sidebarContentResult,
+			facultyMembersResult,
+			noticesResult,
+			scholarshipsResult,
+		] = await Promise.allSettled([
+			withTimeout(getSchoolConfigServer({ data: { identifier: "everest" } })),
+			withTimeout(getWebsitePageServer({ data: { key: "faculty" } })),
+			withTimeout(getWebsitePageServer({ data: { key: "login" } })),
+			withTimeout(getSchoolContentServer({ data: { identifier: "everest" } })),
+			withTimeout(getFacultyMembersServer()),
+			withTimeout(getNoticesServer()),
+			withTimeout(getScholarshipsServer()),
 		]);
+
+		const config = configResult.status === "fulfilled" ? configResult.value : null;
+		const facultyContent = facultyContentResult.status === "fulfilled" ? facultyContentResult.value : null;
+		const loginContent = loginContentResult.status === "fulfilled" ? loginContentResult.value : null;
+		const sidebarContent = sidebarContentResult.status === "fulfilled" ? sidebarContentResult.value : null;
+		const facultyMembers = facultyMembersResult.status === "fulfilled" ? facultyMembersResult.value : null;
+		const notices = noticesResult.status === "fulfilled" ? noticesResult.value : null;
+		const scholarships = scholarshipsResult.status === "fulfilled" ? scholarshipsResult.value : null;
 
 		const content: Record<string, unknown> = {
 			sidebar: sidebarContent?.sidebar,
@@ -102,7 +119,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			content,
 		};
 	},
-	head: ({ loaderData }) => ({
+	head: () => ({
 		meta: [
 			{
 				charSet: "utf-8",
@@ -112,10 +129,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: loaderData?.config?.seo?.title ?? "SCMS",
-			},
-			{
-				"aria-description": loaderData?.config?.seo?.description ?? "",
+				title: "Everest English Boarding Secondary School",
 			},
 		],
 		links: [

@@ -57,17 +57,21 @@ export const PageHeader = ({
   eyebrow,
   title,
   subtitle,
+  lead,
   meta,
   actions,
-  testId,
+  testId = "page-header",
 }: {
   eyebrow: string;
-  title: string;
-  subtitle: string;
+  title: ReactNode;
+  subtitle?: string;
+  lead?: string;
   meta?: MetaItem[];
   actions?: ReactNode;
-  testId: string;
-}) => (
+  testId?: string;
+}) => {
+  const sub = subtitle || lead;
+  return (
   <header className="pt-12 sm:pt-16" data-testid={testId}>
     <Reveal>
       <p className="t-eyebrow" data-testid={`${testId}-eyebrow`}>
@@ -79,12 +83,14 @@ export const PageHeader = ({
       >
         {title}
       </h1>
-      <p
-        className="mt-5 max-w-[58ch] font-sans text-[15px] leading-[1.65] text-muted-foreground sm:text-base"
-        data-testid={`${testId}-subtitle`}
-      >
-        {subtitle}
-      </p>
+      {sub && (
+        <p
+          className="mt-5 max-w-[58ch] font-sans text-[15px] leading-[1.65] text-muted-foreground sm:text-base"
+          data-testid={`${testId}-subtitle`}
+        >
+          {sub}
+        </p>
+      )}
     </Reveal>
 
     {(meta && meta.length > 0) || actions ? (
@@ -118,7 +124,8 @@ export const PageHeader = ({
       <div className="mt-10 border-t border-rule" />
     )}
   </header>
-);
+  );
+};
 
 /**
  * A distinct, clearly delimited page section.

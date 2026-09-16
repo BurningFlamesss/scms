@@ -1,8 +1,9 @@
 import { ArrowDownRight, ArrowRight } from "lucide-react";
 import { useImageReveal, useReveal } from "#/hooks/useReveal.ts";
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 
-export function SectionLabel({ number, children, inverse = false, testId }) {
+export function SectionLabel({ number, children, inverse = false, testId }: { number: string; children: ReactNode; inverse?: boolean; testId?: string }) {
   return (
     <div
       className={`section-label ${inverse ? "section-label--inverse" : ""}`}
@@ -15,7 +16,7 @@ export function SectionLabel({ number, children, inverse = false, testId }) {
   );
 }
 
-export function Reveal({ children, className = "", delay = 0 }) {
+export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const ref = useReveal({ delay });
   return (
     <div ref={ref} className={`reveal ${className}`}>
@@ -24,7 +25,7 @@ export function Reveal({ children, className = "", delay = 0 }) {
   );
 }
 
-export function ImageReveal({ src, alt, className = "", caption, eager = false, testId }) {
+export function ImageReveal({ src, alt, className = "", caption, eager = false, testId }: { src: string; alt: string; className?: string; caption?: string; eager?: boolean; testId?: string }) {
   const ref = useImageReveal();
   return (
     <figure ref={ref} className={`image-reveal ${className}`} data-testid={testId || "image-reveal"}>
@@ -34,7 +35,7 @@ export function ImageReveal({ src, alt, className = "", caption, eager = false, 
   );
 }
 
-export function ArrowLink({ to, href, children, inverse = false, testId = "arrow-link" }) {
+export function ArrowLink({ to, href, children, inverse = false, testId = "arrow-link" }: { to?: string; href?: string; children: ReactNode; inverse?: boolean; testId?: string }) {
   const content = (
     <>
       <span>{children}</span>
@@ -53,7 +54,7 @@ export function ArrowLink({ to, href, children, inverse = false, testId = "arrow
   );
 }
 
-export function PageHero({ eyebrow, title, intro, index, children, compact = false }) {
+export function PageHero({ eyebrow, title, intro, index, children, compact = false }: { eyebrow: string; title: ReactNode; intro: string; index: string; children?: ReactNode; compact?: boolean }) {
   return (
     <section className={`page-hero ${compact ? "page-hero--compact" : ""}`}>
       <div className="page-shell">
@@ -73,7 +74,7 @@ export function PageHero({ eyebrow, title, intro, index, children, compact = fal
   );
 }
 
-export function SectionHeading({ kicker, children, className = "" }) {
+export function SectionHeading({ kicker, children, className = "" }: { kicker?: string; children: ReactNode; className?: string }) {
   return (
     <div className={`section-heading ${className}`}>
       {kicker ? <span>{kicker}</span> : null}
