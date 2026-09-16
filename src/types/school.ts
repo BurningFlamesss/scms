@@ -31,6 +31,7 @@ export interface SidebarContent {
 	logo: string;
 	tagline: string;
 	collapsible: {
+		home: ItemDetail;
 		about: ItemDetail;
 		courses: ItemDetail;
 		facilities: ItemDetail;

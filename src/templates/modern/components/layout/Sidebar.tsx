@@ -173,10 +173,10 @@ export function Sidebar() {
 			className="size-16 rounded-full bg-white object-contain p-1"
 		/>
 	) : (
-		<Crest
-			size={64}
-			tone={crestTone}
-			title="The Everest English Boarding Secondary School crest"
+		<img
+			src={"../../../../../schools/everest/logo.png"}
+			alt="School logo"
+			className="h-16"
 		/>
 	);
 
@@ -225,17 +225,17 @@ export function Sidebar() {
 						data-testid="nav-home"
 					>
 						{logoMark}
-						<span className="text-lg font-bold uppercase tracking-wide">
+						{/* <span className="text-lg font-bold uppercase tracking-wide">
 							<span className="text-primary-foreground">Everest</span>
 							<span className="text-accent">School</span>
-						</span>
+						</span> */}
 					</Link>
-					<span
+					{/* <span
 						className="w-full bg-accent py-2 text-center text-accent-foreground font-medium"
 						data-testid="nav-tagline"
 					>
 						{sidebar.tagline}
-					</span>
+					</span> */}
 				</header>
 
 				<nav

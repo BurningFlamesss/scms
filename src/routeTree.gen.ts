@@ -16,25 +16,20 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as OnboardRouteImport } from './routes/_onboard'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
+import { Route as UserTransportationRouteImport } from './routes/user/transportation'
 import { Route as UserScholarshipsPageDetailRouteImport } from './routes/user/scholarships-page-detail'
+import { Route as UserResultRouteImport } from './routes/user/result'
 import { Route as UserNoticesPageDetailRouteImport } from './routes/user/notices-page-detail'
 import { Route as UserLoginModernRouteImport } from './routes/user/login-modern'
 import { Route as UserHomePageRouteImport } from './routes/user/home-page'
 import { Route as UserGalleryRouteImport } from './routes/user/gallery'
 import { Route as UserFacultyPageDetailRouteImport } from './routes/user/faculty-page-detail'
 import { Route as UserFacilitiesPageDetailRouteImport } from './routes/user/facilities-page-detail'
-import { Route as UserFacilitiesAltRouteImport } from './routes/user/facilities-alt'
-import { Route as UserFacilitiesRouteImport } from './routes/user/facilities'
 import { Route as UserCoursesPageDetailRouteImport } from './routes/user/courses-page-detail'
-import { Route as UserCoursesAltRouteImport } from './routes/user/courses-alt'
-import { Route as UserCoursesRouteImport } from './routes/user/courses'
+import { Route as UserCourseFinderRouteImport } from './routes/user/course-finder'
 import { Route as UserContactPageDetailRouteImport } from './routes/user/contact-page-detail'
-import { Route as UserContactAltRouteImport } from './routes/user/contact-alt'
 import { Route as UserContactRouteImport } from './routes/user/contact'
 import { Route as UserCalendarRouteImport } from './routes/user/calendar'
-import { Route as UserAboutPageDetailRouteImport } from './routes/user/about-page-detail'
-import { Route as UserAboutAltRouteImport } from './routes/user/about-alt'
-import { Route as UserAboutRouteImport } from './routes/user/about'
 import { Route as AdminWebsiteRouteImport } from './routes/admin/website'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminTransportationRouteImport } from './routes/admin/transportation'
@@ -53,13 +48,10 @@ import { Route as AdminAdmissionsRouteImport } from './routes/admin/admissions'
 import { Route as AdminActivityRouteImport } from './routes/admin/activity'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
 import { Route as PublicGalleryRouteImport } from './routes/_public/gallery'
-import { Route as PublicFacilitiesRouteImport } from './routes/_public/facilities'
-import { Route as PublicCoursesRouteImport } from './routes/_public/courses'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicCalendarRouteImport } from './routes/_public/calendar'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as OnboardSignupRouteImport } from './routes/_onboard/signup'
-import { Route as OnboardLoginModernRouteImport } from './routes/_onboard/login-modern'
 import { Route as ApiWebsitePagesRouteImport } from './routes/api/website/pages'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminStudentsIdRouteImport } from './routes/admin/students.$id'
@@ -115,12 +107,22 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any)
+const UserTransportationRoute = UserTransportationRouteImport.update({
+  id: '/transportation',
+  path: '/transportation',
+  getParentRoute: () => UserRoute,
+} as any)
 const UserScholarshipsPageDetailRoute =
   UserScholarshipsPageDetailRouteImport.update({
     id: '/scholarships-page-detail',
     path: '/scholarships-page-detail',
     getParentRoute: () => UserRoute,
   } as any)
+const UserResultRoute = UserResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => UserRoute,
+} as any)
 const UserNoticesPageDetailRoute = UserNoticesPageDetailRouteImport.update({
   id: '/notices-page-detail',
   path: '/notices-page-detail',
@@ -152,39 +154,19 @@ const UserFacilitiesPageDetailRoute =
     path: '/facilities-page-detail',
     getParentRoute: () => UserRoute,
   } as any)
-const UserFacilitiesAltRoute = UserFacilitiesAltRouteImport.update({
-  id: '/facilities-alt',
-  path: '/facilities-alt',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserFacilitiesRoute = UserFacilitiesRouteImport.update({
-  id: '/facilities',
-  path: '/facilities',
-  getParentRoute: () => UserRoute,
-} as any)
 const UserCoursesPageDetailRoute = UserCoursesPageDetailRouteImport.update({
   id: '/courses-page-detail',
   path: '/courses-page-detail',
   getParentRoute: () => UserRoute,
 } as any)
-const UserCoursesAltRoute = UserCoursesAltRouteImport.update({
-  id: '/courses-alt',
-  path: '/courses-alt',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserCoursesRoute = UserCoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
+const UserCourseFinderRoute = UserCourseFinderRouteImport.update({
+  id: '/course-finder',
+  path: '/course-finder',
   getParentRoute: () => UserRoute,
 } as any)
 const UserContactPageDetailRoute = UserContactPageDetailRouteImport.update({
   id: '/contact-page-detail',
   path: '/contact-page-detail',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserContactAltRoute = UserContactAltRouteImport.update({
-  id: '/contact-alt',
-  path: '/contact-alt',
   getParentRoute: () => UserRoute,
 } as any)
 const UserContactRoute = UserContactRouteImport.update({
@@ -195,21 +177,6 @@ const UserContactRoute = UserContactRouteImport.update({
 const UserCalendarRoute = UserCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserAboutPageDetailRoute = UserAboutPageDetailRouteImport.update({
-  id: '/about-page-detail',
-  path: '/about-page-detail',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserAboutAltRoute = UserAboutAltRouteImport.update({
-  id: '/about-alt',
-  path: '/about-alt',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserAboutRoute = UserAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
   getParentRoute: () => UserRoute,
 } as any)
 const AdminWebsiteRoute = AdminWebsiteRouteImport.update({
@@ -302,16 +269,6 @@ const PublicGalleryRoute = PublicGalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => PublicRoute,
 } as any)
-const PublicFacilitiesRoute = PublicFacilitiesRouteImport.update({
-  id: '/facilities',
-  path: '/facilities',
-  getParentRoute: () => PublicRoute,
-} as any)
-const PublicCoursesRoute = PublicCoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
-  getParentRoute: () => PublicRoute,
-} as any)
 const PublicContactRoute = PublicContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -330,11 +287,6 @@ const PublicAboutRoute = PublicAboutRouteImport.update({
 const OnboardSignupRoute = OnboardSignupRouteImport.update({
   id: '/signup',
   path: '/signup',
-  getParentRoute: () => OnboardRoute,
-} as any)
-const OnboardLoginModernRoute = OnboardLoginModernRouteImport.update({
-  id: '/login-modern',
-  path: '/login-modern',
   getParentRoute: () => OnboardRoute,
 } as any)
 const ApiWebsitePagesRoute = ApiWebsitePagesRouteImport.update({
@@ -453,13 +405,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/user': typeof UserRouteWithChildren
-  '/login-modern': typeof OnboardLoginModernRoute
   '/signup': typeof OnboardSignupRoute
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
-  '/courses': typeof PublicCoursesRoute
-  '/facilities': typeof PublicFacilitiesRoute
   '/gallery': typeof PublicGalleryRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
@@ -478,25 +427,20 @@ export interface FileRoutesByFullPath {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/about': typeof UserAboutRoute
-  '/user/about-alt': typeof UserAboutAltRoute
-  '/user/about-page-detail': typeof UserAboutPageDetailRoute
   '/user/calendar': typeof UserCalendarRoute
   '/user/contact': typeof UserContactRoute
-  '/user/contact-alt': typeof UserContactAltRoute
   '/user/contact-page-detail': typeof UserContactPageDetailRoute
-  '/user/courses': typeof UserCoursesRoute
-  '/user/courses-alt': typeof UserCoursesAltRoute
+  '/user/course-finder': typeof UserCourseFinderRoute
   '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities': typeof UserFacilitiesRoute
-  '/user/facilities-alt': typeof UserFacilitiesAltRoute
   '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
   '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
   '/user/gallery': typeof UserGalleryRoute
   '/user/home-page': typeof UserHomePageRoute
   '/user/login-modern': typeof UserLoginModernRoute
   '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
+  '/user/result': typeof UserResultRoute
   '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
+  '/user/transportation': typeof UserTransportationRoute
   '/admin/': typeof AdminIndexRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/admin/admissions/$id': typeof AdminAdmissionsIdRoute
@@ -524,13 +468,10 @@ export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/login': typeof LoginRoute
   '/user': typeof UserRouteWithChildren
-  '/login-modern': typeof OnboardLoginModernRoute
   '/signup': typeof OnboardSignupRoute
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
-  '/courses': typeof PublicCoursesRoute
-  '/facilities': typeof PublicFacilitiesRoute
   '/gallery': typeof PublicGalleryRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
@@ -549,25 +490,20 @@ export interface FileRoutesByTo {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/about': typeof UserAboutRoute
-  '/user/about-alt': typeof UserAboutAltRoute
-  '/user/about-page-detail': typeof UserAboutPageDetailRoute
   '/user/calendar': typeof UserCalendarRoute
   '/user/contact': typeof UserContactRoute
-  '/user/contact-alt': typeof UserContactAltRoute
   '/user/contact-page-detail': typeof UserContactPageDetailRoute
-  '/user/courses': typeof UserCoursesRoute
-  '/user/courses-alt': typeof UserCoursesAltRoute
+  '/user/course-finder': typeof UserCourseFinderRoute
   '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities': typeof UserFacilitiesRoute
-  '/user/facilities-alt': typeof UserFacilitiesAltRoute
   '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
   '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
   '/user/gallery': typeof UserGalleryRoute
   '/user/home-page': typeof UserHomePageRoute
   '/user/login-modern': typeof UserLoginModernRoute
   '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
+  '/user/result': typeof UserResultRoute
   '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
+  '/user/transportation': typeof UserTransportationRoute
   '/admin': typeof AdminIndexRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/admin/admissions/$id': typeof AdminAdmissionsIdRoute
@@ -598,13 +534,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/user': typeof UserRouteWithChildren
-  '/_onboard/login-modern': typeof OnboardLoginModernRoute
   '/_onboard/signup': typeof OnboardSignupRoute
   '/_public/about': typeof PublicAboutRoute
   '/_public/calendar': typeof PublicCalendarRoute
   '/_public/contact': typeof PublicContactRoute
-  '/_public/courses': typeof PublicCoursesRoute
-  '/_public/facilities': typeof PublicFacilitiesRoute
   '/_public/gallery': typeof PublicGalleryRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
@@ -623,25 +556,20 @@ export interface FileRoutesById {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/about': typeof UserAboutRoute
-  '/user/about-alt': typeof UserAboutAltRoute
-  '/user/about-page-detail': typeof UserAboutPageDetailRoute
   '/user/calendar': typeof UserCalendarRoute
   '/user/contact': typeof UserContactRoute
-  '/user/contact-alt': typeof UserContactAltRoute
   '/user/contact-page-detail': typeof UserContactPageDetailRoute
-  '/user/courses': typeof UserCoursesRoute
-  '/user/courses-alt': typeof UserCoursesAltRoute
+  '/user/course-finder': typeof UserCourseFinderRoute
   '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities': typeof UserFacilitiesRoute
-  '/user/facilities-alt': typeof UserFacilitiesAltRoute
   '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
   '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
   '/user/gallery': typeof UserGalleryRoute
   '/user/home-page': typeof UserHomePageRoute
   '/user/login-modern': typeof UserLoginModernRoute
   '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
+  '/user/result': typeof UserResultRoute
   '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
+  '/user/transportation': typeof UserTransportationRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_onboard/activate/$token': typeof OnboardActivateTokenRoute
@@ -673,13 +601,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/user'
-    | '/login-modern'
     | '/signup'
     | '/about'
     | '/calendar'
     | '/contact'
-    | '/courses'
-    | '/facilities'
     | '/gallery'
     | '/admin/$'
     | '/admin/activity'
@@ -698,25 +623,20 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/about'
-    | '/user/about-alt'
-    | '/user/about-page-detail'
     | '/user/calendar'
     | '/user/contact'
-    | '/user/contact-alt'
     | '/user/contact-page-detail'
-    | '/user/courses'
-    | '/user/courses-alt'
+    | '/user/course-finder'
     | '/user/courses-page-detail'
-    | '/user/facilities'
-    | '/user/facilities-alt'
     | '/user/facilities-page-detail'
     | '/user/faculty-page-detail'
     | '/user/gallery'
     | '/user/home-page'
     | '/user/login-modern'
     | '/user/notices-page-detail'
+    | '/user/result'
     | '/user/scholarships-page-detail'
+    | '/user/transportation'
     | '/admin/'
     | '/activate/$token'
     | '/admin/admissions/$id'
@@ -744,13 +664,10 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/user'
-    | '/login-modern'
     | '/signup'
     | '/about'
     | '/calendar'
     | '/contact'
-    | '/courses'
-    | '/facilities'
     | '/gallery'
     | '/admin/$'
     | '/admin/activity'
@@ -769,25 +686,20 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/about'
-    | '/user/about-alt'
-    | '/user/about-page-detail'
     | '/user/calendar'
     | '/user/contact'
-    | '/user/contact-alt'
     | '/user/contact-page-detail'
-    | '/user/courses'
-    | '/user/courses-alt'
+    | '/user/course-finder'
     | '/user/courses-page-detail'
-    | '/user/facilities'
-    | '/user/facilities-alt'
     | '/user/facilities-page-detail'
     | '/user/faculty-page-detail'
     | '/user/gallery'
     | '/user/home-page'
     | '/user/login-modern'
     | '/user/notices-page-detail'
+    | '/user/result'
     | '/user/scholarships-page-detail'
+    | '/user/transportation'
     | '/admin'
     | '/activate/$token'
     | '/admin/admissions/$id'
@@ -817,13 +729,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/user'
-    | '/_onboard/login-modern'
     | '/_onboard/signup'
     | '/_public/about'
     | '/_public/calendar'
     | '/_public/contact'
-    | '/_public/courses'
-    | '/_public/facilities'
     | '/_public/gallery'
     | '/admin/$'
     | '/admin/activity'
@@ -842,25 +751,20 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/about'
-    | '/user/about-alt'
-    | '/user/about-page-detail'
     | '/user/calendar'
     | '/user/contact'
-    | '/user/contact-alt'
     | '/user/contact-page-detail'
-    | '/user/courses'
-    | '/user/courses-alt'
+    | '/user/course-finder'
     | '/user/courses-page-detail'
-    | '/user/facilities'
-    | '/user/facilities-alt'
     | '/user/facilities-page-detail'
     | '/user/faculty-page-detail'
     | '/user/gallery'
     | '/user/home-page'
     | '/user/login-modern'
     | '/user/notices-page-detail'
+    | '/user/result'
     | '/user/scholarships-page-detail'
+    | '/user/transportation'
     | '/_public/'
     | '/admin/'
     | '/_onboard/activate/$token'
@@ -948,11 +852,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/user/transportation': {
+      id: '/user/transportation'
+      path: '/transportation'
+      fullPath: '/user/transportation'
+      preLoaderRoute: typeof UserTransportationRouteImport
+      parentRoute: typeof UserRoute
+    }
     '/user/scholarships-page-detail': {
       id: '/user/scholarships-page-detail'
       path: '/scholarships-page-detail'
       fullPath: '/user/scholarships-page-detail'
       preLoaderRoute: typeof UserScholarshipsPageDetailRouteImport
+      parentRoute: typeof UserRoute
+    }
+    '/user/result': {
+      id: '/user/result'
+      path: '/result'
+      fullPath: '/user/result'
+      preLoaderRoute: typeof UserResultRouteImport
       parentRoute: typeof UserRoute
     }
     '/user/notices-page-detail': {
@@ -997,20 +915,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserFacilitiesPageDetailRouteImport
       parentRoute: typeof UserRoute
     }
-    '/user/facilities-alt': {
-      id: '/user/facilities-alt'
-      path: '/facilities-alt'
-      fullPath: '/user/facilities-alt'
-      preLoaderRoute: typeof UserFacilitiesAltRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/facilities': {
-      id: '/user/facilities'
-      path: '/facilities'
-      fullPath: '/user/facilities'
-      preLoaderRoute: typeof UserFacilitiesRouteImport
-      parentRoute: typeof UserRoute
-    }
     '/user/courses-page-detail': {
       id: '/user/courses-page-detail'
       path: '/courses-page-detail'
@@ -1018,18 +922,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserCoursesPageDetailRouteImport
       parentRoute: typeof UserRoute
     }
-    '/user/courses-alt': {
-      id: '/user/courses-alt'
-      path: '/courses-alt'
-      fullPath: '/user/courses-alt'
-      preLoaderRoute: typeof UserCoursesAltRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/courses': {
-      id: '/user/courses'
-      path: '/courses'
-      fullPath: '/user/courses'
-      preLoaderRoute: typeof UserCoursesRouteImport
+    '/user/course-finder': {
+      id: '/user/course-finder'
+      path: '/course-finder'
+      fullPath: '/user/course-finder'
+      preLoaderRoute: typeof UserCourseFinderRouteImport
       parentRoute: typeof UserRoute
     }
     '/user/contact-page-detail': {
@@ -1037,13 +934,6 @@ declare module '@tanstack/react-router' {
       path: '/contact-page-detail'
       fullPath: '/user/contact-page-detail'
       preLoaderRoute: typeof UserContactPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/contact-alt': {
-      id: '/user/contact-alt'
-      path: '/contact-alt'
-      fullPath: '/user/contact-alt'
-      preLoaderRoute: typeof UserContactAltRouteImport
       parentRoute: typeof UserRoute
     }
     '/user/contact': {
@@ -1058,27 +948,6 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/user/calendar'
       preLoaderRoute: typeof UserCalendarRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/about-page-detail': {
-      id: '/user/about-page-detail'
-      path: '/about-page-detail'
-      fullPath: '/user/about-page-detail'
-      preLoaderRoute: typeof UserAboutPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/about-alt': {
-      id: '/user/about-alt'
-      path: '/about-alt'
-      fullPath: '/user/about-alt'
-      preLoaderRoute: typeof UserAboutAltRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/about': {
-      id: '/user/about'
-      path: '/about'
-      fullPath: '/user/about'
-      preLoaderRoute: typeof UserAboutRouteImport
       parentRoute: typeof UserRoute
     }
     '/admin/website': {
@@ -1207,20 +1076,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicGalleryRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_public/facilities': {
-      id: '/_public/facilities'
-      path: '/facilities'
-      fullPath: '/facilities'
-      preLoaderRoute: typeof PublicFacilitiesRouteImport
-      parentRoute: typeof PublicRoute
-    }
-    '/_public/courses': {
-      id: '/_public/courses'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof PublicCoursesRouteImport
-      parentRoute: typeof PublicRoute
-    }
     '/_public/contact': {
       id: '/_public/contact'
       path: '/contact'
@@ -1247,13 +1102,6 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof OnboardSignupRouteImport
-      parentRoute: typeof OnboardRoute
-    }
-    '/_onboard/login-modern': {
-      id: '/_onboard/login-modern'
-      path: '/login-modern'
-      fullPath: '/login-modern'
-      preLoaderRoute: typeof OnboardLoginModernRouteImport
       parentRoute: typeof OnboardRoute
     }
     '/api/website/pages': {
@@ -1407,13 +1255,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface OnboardRouteChildren {
-  OnboardLoginModernRoute: typeof OnboardLoginModernRoute
   OnboardSignupRoute: typeof OnboardSignupRoute
   OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
 }
 
 const OnboardRouteChildren: OnboardRouteChildren = {
-  OnboardLoginModernRoute: OnboardLoginModernRoute,
   OnboardSignupRoute: OnboardSignupRoute,
   OnboardActivateTokenRoute: OnboardActivateTokenRoute,
 }
@@ -1425,8 +1271,6 @@ interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
   PublicCalendarRoute: typeof PublicCalendarRoute
   PublicContactRoute: typeof PublicContactRoute
-  PublicCoursesRoute: typeof PublicCoursesRoute
-  PublicFacilitiesRoute: typeof PublicFacilitiesRoute
   PublicGalleryRoute: typeof PublicGalleryRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
@@ -1435,8 +1279,6 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
   PublicCalendarRoute: PublicCalendarRoute,
   PublicContactRoute: PublicContactRoute,
-  PublicCoursesRoute: PublicCoursesRoute,
-  PublicFacilitiesRoute: PublicFacilitiesRoute,
   PublicGalleryRoute: PublicGalleryRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
@@ -1611,47 +1453,37 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface UserRouteChildren {
-  UserAboutRoute: typeof UserAboutRoute
-  UserAboutAltRoute: typeof UserAboutAltRoute
-  UserAboutPageDetailRoute: typeof UserAboutPageDetailRoute
   UserCalendarRoute: typeof UserCalendarRoute
   UserContactRoute: typeof UserContactRoute
-  UserContactAltRoute: typeof UserContactAltRoute
   UserContactPageDetailRoute: typeof UserContactPageDetailRoute
-  UserCoursesRoute: typeof UserCoursesRoute
-  UserCoursesAltRoute: typeof UserCoursesAltRoute
+  UserCourseFinderRoute: typeof UserCourseFinderRoute
   UserCoursesPageDetailRoute: typeof UserCoursesPageDetailRoute
-  UserFacilitiesRoute: typeof UserFacilitiesRoute
-  UserFacilitiesAltRoute: typeof UserFacilitiesAltRoute
   UserFacilitiesPageDetailRoute: typeof UserFacilitiesPageDetailRoute
   UserFacultyPageDetailRoute: typeof UserFacultyPageDetailRoute
   UserGalleryRoute: typeof UserGalleryRoute
   UserHomePageRoute: typeof UserHomePageRoute
   UserLoginModernRoute: typeof UserLoginModernRoute
   UserNoticesPageDetailRoute: typeof UserNoticesPageDetailRoute
+  UserResultRoute: typeof UserResultRoute
   UserScholarshipsPageDetailRoute: typeof UserScholarshipsPageDetailRoute
+  UserTransportationRoute: typeof UserTransportationRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
-  UserAboutRoute: UserAboutRoute,
-  UserAboutAltRoute: UserAboutAltRoute,
-  UserAboutPageDetailRoute: UserAboutPageDetailRoute,
   UserCalendarRoute: UserCalendarRoute,
   UserContactRoute: UserContactRoute,
-  UserContactAltRoute: UserContactAltRoute,
   UserContactPageDetailRoute: UserContactPageDetailRoute,
-  UserCoursesRoute: UserCoursesRoute,
-  UserCoursesAltRoute: UserCoursesAltRoute,
+  UserCourseFinderRoute: UserCourseFinderRoute,
   UserCoursesPageDetailRoute: UserCoursesPageDetailRoute,
-  UserFacilitiesRoute: UserFacilitiesRoute,
-  UserFacilitiesAltRoute: UserFacilitiesAltRoute,
   UserFacilitiesPageDetailRoute: UserFacilitiesPageDetailRoute,
   UserFacultyPageDetailRoute: UserFacultyPageDetailRoute,
   UserGalleryRoute: UserGalleryRoute,
   UserHomePageRoute: UserHomePageRoute,
   UserLoginModernRoute: UserLoginModernRoute,
   UserNoticesPageDetailRoute: UserNoticesPageDetailRoute,
+  UserResultRoute: UserResultRoute,
   UserScholarshipsPageDetailRoute: UserScholarshipsPageDetailRoute,
+  UserTransportationRoute: UserTransportationRoute,
 }
 
 const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)

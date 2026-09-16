@@ -169,53 +169,25 @@ export const getSchoolContentServer = createServerFn({ method: "GET" })
 		logo: org.logo ?? "",
 		tagline: org.description ?? "",
 		collapsible: {
-			about: {
-				id: "about",
-				label: "About Everest",
-				href: "/about",
-				children: [
-					{ id: "about-alt", label: "About (Alt)", href: "/user/about-alt" },
-					{ id: "about-detail", label: "About (Detail)", href: "/user/about-page-detail" },
-					{ id: "faculty", label: "Faculty", href: "/user/faculty-page-detail" },
-					{ id: "calendar", label: "Calendar", href: "/calendar" },
-				],
-			},
-			courses: {
-				id: "courses",
-				label: "Courses",
-				href: "/courses",
-				children: [
-					{ id: "courses-alt", label: "Courses (Alt)", href: "/user/courses-alt" },
-					{ id: "courses-detail", label: "Courses (Detail)", href: "/user/courses-page-detail" },
-				],
-			},
-			facilities: {
-				id: "facilities",
-				label: "Facilities",
-				href: "/facilities",
-				children: [
-					{ id: "facilities-alt", label: "Facilities (Alt)", href: "/user/facilities-alt" },
-					{ id: "facilities-detail", label: "Facilities (Detail)", href: "/user/facilities-page-detail" },
-				],
-			},
-			gallery: { id: "gallery", label: "Gallery", href: "/gallery" },
+			home: { id: "home", label: "HOME", href: "/" },
+			about: { id: "about", label: "ABOUT", href: "/about" },
+			courses: { id: "courses", label: "COURSES", href: "/user/courses-page-detail" },
+			facilities: { id: "facilities", label: "FACILITIES", href: "/user/facilities-page-detail" },
+			gallery: { id: "gallery", label: "GALLERY", href: "/gallery" },
 			moreInfo: {
 				id: "moreInfo",
 				label: "More Info",
 				children: [
+					{ id: "faculty", label: "Faculty", href: "/user/faculty-page-detail" },
 					{ id: "notices", label: "Notices", href: "/user/notices-page-detail" },
 					{ id: "scholarships", label: "Scholarships", href: "/user/scholarships-page-detail" },
+					{ id: "calendar", label: "Calendar", href: "/calendar" },
+					{ id: "transportation", label: "Transportation", href: "/user/transportation" },
+					{ id: "result", label: "Result", href: "/user/result" },
+					{ id: "course-finder", label: "Course Finder", href: "/user/course-finder" },
 				],
 			},
-			contact: {
-				id: "contact",
-				label: "Contact",
-				href: "/contact",
-				children: [
-					{ id: "contact-alt", label: "Contact (Alt)", href: "/user/contact-alt" },
-					{ id: "contact-detail", label: "Contact (Detail)", href: "/user/contact-page-detail" },
-				],
-			},
+			contact: { id: "contact", label: "CONTACT", href: "/contact" },
 		},
 	};
 
