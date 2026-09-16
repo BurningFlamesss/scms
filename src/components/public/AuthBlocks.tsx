@@ -57,7 +57,7 @@ function AuthIntro({
 			<span className="auth-kicker">
 				{str(fields, "kicker", "SCHOOL MANAGEMENT SYSTEM")}
 			</span>
-			<h1 id="login-title">{str(fields, "title", "Welcome back.")}</h1>
+			<h1 id="login-title" className="t-page-title text-foreground">{str(fields, "title", "Welcome back.")}</h1>
 			<p className="auth-intro" style={{ color: "var(--c-black)" }}>
 				{str(
 					fields,

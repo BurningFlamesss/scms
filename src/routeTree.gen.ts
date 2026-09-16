@@ -20,6 +20,7 @@ import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as PublicCalendarRouteImport } from './routes/_public/calendar'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
 import { Route as PublicGalleryRouteImport } from './routes/_public/gallery'
+import { Route as PublicResourcesRouteImport } from './routes/_public/resources'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
 import { Route as AdminActivityRouteImport } from './routes/admin/activity'
@@ -125,6 +126,11 @@ const PublicContactRoute = PublicContactRouteImport.update({
 const PublicGalleryRoute = PublicGalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicResourcesRoute = PublicResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => PublicRoute,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -410,6 +416,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
   '/gallery': typeof PublicGalleryRoute
+  '/resources': typeof PublicResourcesRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -473,6 +480,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
   '/gallery': typeof PublicGalleryRoute
+  '/resources': typeof PublicResourcesRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -539,6 +547,7 @@ export interface FileRoutesById {
   '/_public/calendar': typeof PublicCalendarRoute
   '/_public/contact': typeof PublicContactRoute
   '/_public/gallery': typeof PublicGalleryRoute
+  '/_public/resources': typeof PublicResourcesRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -606,6 +615,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/gallery'
+    | '/resources'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -669,6 +679,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/gallery'
+    | '/resources'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -734,6 +745,7 @@ export interface FileRouteTypes {
     | '/_public/calendar'
     | '/_public/contact'
     | '/_public/gallery'
+    | '/_public/resources'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -878,6 +890,13 @@ declare module '@tanstack/react-router' {
       path: '/gallery'
       fullPath: '/gallery'
       preLoaderRoute: typeof PublicGalleryRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/resources': {
+      id: '/_public/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof PublicResourcesRouteImport
       parentRoute: typeof PublicRoute
     }
     '/admin/': {
@@ -1282,6 +1301,7 @@ interface PublicRouteChildren {
   PublicCalendarRoute: typeof PublicCalendarRoute
   PublicContactRoute: typeof PublicContactRoute
   PublicGalleryRoute: typeof PublicGalleryRoute
+  PublicResourcesRoute: typeof PublicResourcesRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
@@ -1290,6 +1310,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicCalendarRoute: PublicCalendarRoute,
   PublicContactRoute: PublicContactRoute,
   PublicGalleryRoute: PublicGalleryRoute,
+  PublicResourcesRoute: PublicResourcesRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 

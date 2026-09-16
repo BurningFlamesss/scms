@@ -25,14 +25,15 @@ export function Chip({
       aria-pressed={selected}
       data-testid={testId}
       className={cn(
-        'u-label inline-flex min-h-tap items-center gap-2 rounded-pill border-hair px-4 transition-colors duration-micro ease-state',
+        "inline-flex min-h-[36px] items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-fast",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         selected
-          ? 'border-ink bg-ink text-paper'
-          : 'border-n-300 bg-transparent text-n-600 hover:border-ink hover:text-ink',
+          ? "border-accent/40 bg-accent/12 font-medium text-foreground"
+          : "border-border bg-background text-muted-foreground hover:bg-secondary hover:text-foreground",
         className,
       )}
     >
-      {selected ? <Check aria-hidden='true' size={12} strokeWidth={3} /> : null}
+      {selected ? <Check aria-hidden='true' size={14} className="text-accent" /> : null}
       {children}
     </button>
   );

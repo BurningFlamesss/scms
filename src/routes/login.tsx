@@ -6,6 +6,7 @@ import {
 	useWebsitePageContent,
 } from "#/packages/school/hook.tsx";
 import type { BlockType } from "#/types";
+import { PageShell } from "#/templates/modern/components/layout/PageShell";
 
 export const Route = createFileRoute("/login")({
 	loader: async ({ location }) => {
@@ -43,11 +44,13 @@ export default function RouteComponent() {
 	};
 
 	return (
-		<AuthPage
-			blocks={loginPage?.blocks ?? null}
-			orgName={config.organization.name}
-			preview={preview}
-			onSelectSection={onSelectSection}
-		/>
+		<PageShell>
+			<AuthPage
+				blocks={loginPage?.blocks ?? null}
+				orgName={config.organization.name}
+				preview={preview}
+				onSelectSection={onSelectSection}
+			/>
+		</PageShell>
 	);
 }

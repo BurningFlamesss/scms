@@ -36,15 +36,15 @@ export function Segmented<T extends string>({
   };
 
   return (
-    <div className={cn('flex flex-col gap-2', className)}>
-      <span id={id} className='u-label text-n-600'>
+    <div className={cn('flex flex-col gap-3', className)}>
+      <span id={id} className='t-eyebrow text-muted-foreground'>
         {label}
       </span>
       <div
         role='radiogroup'
         aria-labelledby={id}
         data-testid={testId}
-        className='inline-flex flex-wrap gap-px rounded-ui border-hair border-n-300 bg-n-300 p-px'
+        className='flex flex-wrap gap-2'
       >
         {options.map((o, i) => {
           const active = o.value === value;
@@ -59,6 +59,7 @@ export function Segmented<T extends string>({
               aria-checked={active}
               tabIndex={active ? 0 : -1}
               data-testid={testId ? testId + '-' + o.value : undefined}
+              data-active={active}
               onClick={() => onChange(o.value)}
               onKeyDown={(e) => {
                 if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -69,15 +70,14 @@ export function Segmented<T extends string>({
                   move(-1, i);
                 }
               }}
-              className={cn(
-                'u-label inline-flex items-center justify-center gap-2 transition-colors duration-micro ease-state',
-                size === 'md' ? 'min-h-tap px-4' : 'min-h-[36px] px-3',
-                active ? 'bg-ink text-paper' : 'bg-paper text-n-600 hover:text-ink',
-                i === 0 && 'rounded-l-[10px]',
-                i === options.length - 1 && 'rounded-r-[10px]',
-              )}
+              className={[
+                "inline-flex min-h-[36px] items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-fast",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                active
+                  ? "border-accent/40 bg-accent/12 font-medium text-foreground"
+                  : "border-border bg-background text-muted-foreground hover:bg-secondary hover:text-foreground",
+              ].join(" ")}
             >
-              {active ? <Check aria-hidden='true' size={12} strokeWidth={3} /> : null}
               {o.label}
             </button>
           );

@@ -132,7 +132,7 @@ export function Sidebar() {
 	const pathname = useRouterState({ select: (s) => s.location.pathname });
 	const reduced = useReducedMotion();
 
-	const isAdmin = pathname.startsWith("/admin") || pathname === "/login";
+	const isAdmin = pathname.startsWith("/admin");
 
 	const [isOpen, setIsOpen] = useState(() => pathname === "/");
 	const [pinned, setPinned] = useState(false);
@@ -185,20 +185,12 @@ export function Sidebar() {
 			Dashboard Coming Soon!
 		</div>
 	) : (
-		<>
-			<Link
-				to="/signup"
-				className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer text-accent-foreground hover:bg-yellow-dark"
-			>
-				Signup
-			</Link>
-			<Link
+		<Link
 				to="/login"
-				className="bg-primary flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl text-primary-foreground"
+				className="bg-primary flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl text-primary-foreground hover:bg-primary/90"
 			>
 				Login
 			</Link>
-		</>
 	);
 
 	const navLinks = (

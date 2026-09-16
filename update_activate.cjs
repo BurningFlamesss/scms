@@ -1,4 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+const fs = require('fs');
+const file = 'src/routes/_onboard/activate.tsx';
+
+const content = `import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AlertCircle, ArrowLeft, LoaderCircle } from "lucide-react";
@@ -53,15 +56,15 @@ function RouteComponent() {
                 <span className="auth-kicker">
                     {pageCopy.activate.eyebrow}
                 </span>
-                <h1 id="activate-title" className="t-page-title text-foreground">
-                   {pageCopy.activate.title.split('\n').map((line, i) => (
+                <h1 id="activate-title">
+                   {pageCopy.activate.title.split('\\n').map((line, i) => (
                       <span key={i}>{line}<br /></span>
                    ))}
                 </h1>
                 <p className="auth-intro" style={{ color: "var(--c-black)" }}>{pageCopy.activate.support}</p>
              </header>
             <form onSubmit={submit} className="auth-form" noValidate>
-              <div className={`form-control ${error ? "form-control--error" : ""}`}>
+              <div className={\`form-control \${error ? "form-control--error" : ""}\`}>
                 <Label htmlFor="activate-token" style={{ color: "var(--c-black)" }}>Activation Code</Label>
                 <Input
                   id="activate-token"
@@ -87,3 +90,6 @@ function RouteComponent() {
     </section>
   );
 }
+`;
+
+fs.writeFileSync(file, content);

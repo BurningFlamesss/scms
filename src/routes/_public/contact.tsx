@@ -41,7 +41,7 @@ function RouteComponent() {
 			<section className="contact-layout content">
 				<aside>
 					<p className="devanagari">{school.nepali}</p>
-					<h2>{school.name}</h2>
+					<h2 className="t-page-title text-foreground">{school.name}</h2>
 					<p>{school.address}</p>
 					<div className="time-card">
 						<strong data-testid="contact-open-state">
@@ -74,7 +74,7 @@ function RouteComponent() {
 					</a>
 				</aside>
 				<form onSubmit={(e) => e.preventDefault()} data-testid="contact-form">
-					<h2>DIRECT YOUR ENQUIRY</h2>
+					<h2 className="t-h2 text-foreground">DIRECT YOUR ENQUIRY</h2>
 					<Segmented
 						label="Direct your enquiry"
 						options={[
@@ -189,12 +189,12 @@ function RouteComponent() {
 				></iframe>
 			</section>
 			<section className="departments content">
-				<h2>WHO TO ASK</h2>
+				<h2 className="t-h2 text-foreground">WHO TO ASK</h2>
 				<div>
 					{departments.map((d) => (
 						<article key={d.id} data-testid={`department-${d.id}`}>
 							<span>{d.name}</span>
-							<h3>{d.contact}</h3>
+							<h3 className="font-display text-xl text-foreground font-semibold">{d.contact}</h3>
 							<a href={`mailto:${d.email}`}>{d.email}</a>
 							<p>{d.hours}</p>
 						</article>

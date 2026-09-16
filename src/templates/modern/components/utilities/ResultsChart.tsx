@@ -31,19 +31,19 @@ export function ResultsChart() {
         {
           label: 'Distinction',
           data: rows.map((r) => r.distinction),
-          backgroundColor: color.brand,
+          backgroundColor: color.red,
           borderWidth: 0,
         },
         {
           label: 'First division',
           data: rows.map((r) => r.firstDivision),
-          backgroundColor: color.accent,
+          backgroundColor: color.yellow,
           borderWidth: 0,
         },
         {
           label: 'Second division',
           data: rows.map((r) => r.secondDivision),
-          backgroundColor: color.action,
+          backgroundColor: color.gray300,
           borderWidth: 0,
         },
       ],
@@ -58,13 +58,13 @@ export function ResultsChart() {
       x: {
         stacked: true,
         grid: { display: false },
-        ticks: { color: color.neutral600, font: { family: font.label, size: 11 } },
-        border: { color: color.neutral300 },
+        ticks: { color: color.gray600, font: { family: font.label, size: 11 } },
+        border: { color: color.gray300 },
       },
       y: {
         stacked: true,
-        grid: { color: color.neutral100 },
-        ticks: { color: color.neutral600, font: { family: font.label, size: 11 } },
+        grid: { color: color.gray100 },
+        ticks: { color: color.gray600, font: { family: font.label, size: 11 } },
         border: { display: false },
       },
     },
@@ -72,14 +72,14 @@ export function ResultsChart() {
       legend: {
         position: 'bottom',
         labels: {
-          color: color.neutral600,
+          color: color.gray600,
           font: { family: font.label, size: 11 },
           boxWidth: 10,
           boxHeight: 10,
         },
       },
       tooltip: {
-        backgroundColor: color.ink,
+        backgroundColor: color.black,
         titleFont: { family: font.label, size: 11 },
         bodyFont: { family: font.body, size: 13 },
         padding: 12,

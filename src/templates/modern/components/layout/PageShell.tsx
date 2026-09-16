@@ -17,11 +17,9 @@ export function PageShell({
 				variant === "default" && "lg:pl-[var(--nav-w)]",
 			)}
 		>
-			{variant === "default" ? (
-				<div className="u-container">
-					<NoticeTicker />
-				</div>
-			) : null}
+			<div className={variant === "default" ? "u-container" : ""}>
+				<NoticeTicker />
+			</div>
 			<main id="main" tabIndex={-1} className="outline-none">
 				{children}
 			</main>
