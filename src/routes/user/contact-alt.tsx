@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React, { useEffect, useState } from "react";
+import { AlertCircle } from "lucide-react";
 import { departments, pageCopy, school } from "#/lib/site";
-import { Field } from "#/templates/modern/components/Field";
 import { Button } from "#/templates/modern/components/kit";
 import { Segmented } from "#/templates/modern/components/Segmented";
+import { Input } from "#/templates/modern/components/Input";
+import { Label } from "#/templates/modern/components/Label";
 
 const kathmandu = () =>
 	new Intl.DateTimeFormat("en-GB", {
@@ -96,43 +98,83 @@ function RouteComponent() {
 						value={route}
 						onChange={setRoute}
 					/>
-					<Field
-						label="Full name"
-						id="contact-name"
-						onBlur={validate}
-						error={errors["contact-name"]}
-					/>
-					<Field
-						label="Email address"
-						id="contact-email"
-						type="email"
-						onBlur={validate}
-						error={errors["contact-email"]}
-					/>
-					<Field
-						label="Phone number"
-						id="contact-phone"
-						onBlur={validate}
-						error={errors["contact-phone"]}
-					/>
-					<div className="field">
-						<label htmlFor="contact-message">Message</label>
+					<div className={`form-control ${errors["contact-name"] ? "form-control--error" : ""}`}>
+						<Label htmlFor="contact-name" style={{ color: "var(--c-ink)" }}>Full name</Label>
+						<Input
+							type="text"
+							id="contact-name"
+							name="name"
+							onBlur={validate}
+							aria-invalid={!!errors["contact-name"]}
+							className="editorial-input"
+						/>
+						{errors["contact-name"] && (
+							<p className="field-error">
+								<AlertCircle aria-hidden="true" />
+								{errors["contact-name"]}
+							</p>
+						)}
+					</div>
+					<div className={`form-control ${errors["contact-email"] ? "form-control--error" : ""}`}>
+						<Label htmlFor="contact-email" style={{ color: "var(--c-ink)" }}>Email address</Label>
+						<Input
+							type="email"
+							id="contact-email"
+							name="email"
+							onBlur={validate}
+							aria-invalid={!!errors["contact-email"]}
+							className="editorial-input"
+						/>
+						{errors["contact-email"] && (
+							<p className="field-error">
+								<AlertCircle aria-hidden="true" />
+								{errors["contact-email"]}
+							</p>
+						)}
+					</div>
+					<div className={`form-control ${errors["contact-phone"] ? "form-control--error" : ""}`}>
+						<Label htmlFor="contact-phone" style={{ color: "var(--c-ink)" }}>Phone number</Label>
+						<Input
+							type="tel"
+							id="contact-phone"
+							name="phone"
+							onBlur={validate}
+							aria-invalid={!!errors["contact-phone"]}
+							className="editorial-input"
+						/>
+						{errors["contact-phone"] && (
+							<p className="field-error">
+								<AlertCircle aria-hidden="true" />
+								{errors["contact-phone"]}
+							</p>
+						)}
+					</div>
+					<div className={`form-control ${errors["contact-message"] ? "form-control--error" : ""}`}>
+						<div className="label-line flex justify-between w-full">
+							<Label htmlFor="contact-message" style={{ color: "var(--c-ink)" }}>Message</Label>
+							<span
+								id="contact-message-count"
+								data-testid="contact-message-count"
+								style={{ color: "var(--c-n-500)", fontSize: "14px" }}
+							>
+								{count} / 600
+							</span>
+						</div>
 						<textarea
 							id="contact-message"
+							name="message"
 							maxLength={600}
 							onBlur={validate}
 							onChange={(e) => setCount(e.target.value.length)}
 							data-testid="contact-message-input"
 							aria-describedby="contact-message-count"
+							className="editorial-input"
 						/>
-						<span
-							id="contact-message-count"
-							data-testid="contact-message-count"
-						>
-							{count} / 600
-						</span>
 						{errors["contact-message"] && (
-							<p className="field-error">! {errors["contact-message"]}</p>
+							<p className="field-error">
+								<AlertCircle aria-hidden="true" />
+								{errors["contact-message"]}
+							</p>
 						)}
 					</div>
 					<Button type="submit" testId="contact-submit-button">

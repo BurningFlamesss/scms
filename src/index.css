@@ -671,8 +671,8 @@
     }
 
     .u-edge-fade {
-        -webkit-mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
-        mask-image: linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent);
+        /* Removed horizontal mask as it statically hides the left/right text of scrolling tables. 
+           If a fade is needed, one should use a scroll-aware wrapper instead. */
     }
 
     /* --- shared editorial scaffolding --- */
@@ -1234,23 +1234,29 @@
     }
 
     .field > label {
-        font-family: var(--font-mono, monospace);
-        font-size: 10px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--color-n-600, #525252);
+        display: block;
+        font-family: var(--font-sans, sans-serif);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: normal;
+        text-transform: none;
+        color: var(--color-ink, #000);
+        margin-bottom: 8px;
     }
 
     .field :is(input, textarea, select) {
         width: 100%;
-        padding: 12px 14px;
+        padding: 8px 12px;
+        min-height: 36px;
         border: 1px solid var(--color-rule, #d4d4d4);
-        border-radius: var(--radius-field, 8px);
-        background: var(--color-paper, #fff);
+        border-radius: var(--radius-field, 6px);
+        background: transparent;
         font-family: var(--font-body, sans-serif);
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.5;
         color: var(--color-ink, #000);
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        transition: colors 0.15s ease;
     }
 
     .field textarea {
@@ -1259,8 +1265,8 @@
     }
 
     .field :is(input, textarea, select):focus {
-        outline: 2px solid var(--color-brand, #dc2626);
-        outline-offset: -1px;
+        outline: none;
+        outline: 1px solid var(--ring);
     }
 
     .contact-layout {
