@@ -35,7 +35,7 @@ export const FilterChips = ({
           data-testid={`${testId}-${option.value}`}
           data-active={active}
           className={[
-            "inline-flex min-h-[36px] items-center gap-1.5 rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-fast",
+            "group inline-flex min-h-[36px] items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-fast",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             active
               ? "border-accent/40 bg-accent/12 font-medium text-foreground"
@@ -44,7 +44,7 @@ export const FilterChips = ({
         >
           {option.label}
           {typeof option.count === "number" ? (
-            <span className="font-mono text-[10px] tabular-nums text-muted-foreground">
+            <span className="inline-flex items-center justify-center rounded-full bg-accent/10 px-1.5 py-0.5 font-mono text-[10px] tabular-nums text-accent group-data-[active=true]:bg-background group-data-[active=true]:text-foreground">
               {option.count}
             </span>
           ) : null}

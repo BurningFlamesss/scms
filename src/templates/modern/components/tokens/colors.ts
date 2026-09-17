@@ -13,7 +13,7 @@ export const color = {
   /** Light red for backgrounds */
   redLight: '#FEF2F2',
   /** Yellow - Accent color, highlights, selection */
-  yellow: '#A16207',
+  yellow: '#EAB308',
   /** Darker yellow for hover states */
   yellowDark: '#F59E0B',
   /** Light yellow for backgrounds */

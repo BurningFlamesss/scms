@@ -12,7 +12,7 @@ const SIDEBAR_W = 240;
 
 const crestTone: CrestTone = {
 	line: "#FFFFFF",
-	solid: "#A16207",
+	solid: "#EAB308",
 	onSolid: "#000000",
 };
 
