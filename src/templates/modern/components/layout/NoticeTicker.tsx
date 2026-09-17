@@ -54,7 +54,7 @@ export function NoticeTicker({ className, testId = 'notice-ticker' }: { classNam
   return (
     <div
       className={cn(
-        'flex min-h-ticker w-full items-center gap-4 border-b-hair border-n-200 bg-[#FEE2E2] px-4',
+        'flex min-h-ticker w-full items-center gap-4 border-b-hair border-n-200 bg-[#FEF2F2] px-4',
         className,
       )}
       data-testid={testId}

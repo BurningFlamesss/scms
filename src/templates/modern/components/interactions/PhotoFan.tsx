@@ -53,7 +53,7 @@ export function PhotoFan({
           top.map((p, i) => (
             <motion.span
               key={p.src + i}
-              className='absolute inset-0 block overflow-hidden rounded-card border-hair border-n-200 bg-[#FEE2E2] shadow-low'
+              className='absolute inset-0 block overflow-hidden rounded-card border-hair border-n-200 bg-[#FEF2F2] shadow-low'
               style={{ zIndex: top.length - i }}
               animate={
                 lifted
@@ -72,7 +72,7 @@ export function PhotoFan({
             </motion.span>
           ))
         )}
-        <span className='u-label absolute bottom-3 right-3 z-10 rounded-pill bg-[#FEE2E2] px-3 py-1 tnum text-ink'>
+        <span className='u-label absolute bottom-3 right-3 z-10 rounded-pill bg-[#FEF2F2] px-3 py-1 tnum text-ink'>
           {album.photos.length} photos
         </span>
       </span>

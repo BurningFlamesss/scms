@@ -11,9 +11,9 @@ export const color = {
   /** Darker red for hover states */
   redDark: '#B91C1C',
   /** Light red for backgrounds */
-  redLight: '#FEE2E2',
+  redLight: '#FEF2F2',
   /** Yellow - Accent color, highlights, selection */
-  yellow: '#FBBF24',
+  yellow: '#A16207',
   /** Darker yellow for hover states */
   yellowDark: '#F59E0B',
   /** Light yellow for backgrounds */

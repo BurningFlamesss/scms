@@ -207,7 +207,7 @@ export default function RouteComponent() {
                           sizes="(min-width: 1024px) 30vw, 45vw"
                         />
                       )}
-                      <span className="u-label pointer-events-none absolute inset-x-0 bottom-0 bg-[#FEE2E2]/95 px-3 py-2 text-left text-ink opacity-0 transition-opacity duration-micro ease-state group-hover:opacity-100 group-focus-visible:opacity-100">
+                      <span className="u-label pointer-events-none absolute inset-x-0 bottom-0 bg-[#FEF2F2]/95 px-3 py-2 text-left text-ink opacity-0 transition-opacity duration-micro ease-state group-hover:opacity-100 group-focus-visible:opacity-100">
                         {p.alt}
                       </span>
                     </button>

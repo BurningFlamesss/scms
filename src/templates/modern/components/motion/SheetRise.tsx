@@ -36,7 +36,7 @@ export function SheetRise({
           {backdrop(frameProgress)}
           {overlay ? overlay(frameProgress) : null}
         </div>
-        <div className='relative z-sheet -mt-8 rounded-t-lip bg-[#FEE2E2] shadow-high' data-testid='white-sheet'>
+        <div className='relative z-sheet -mt-8 rounded-t-lip bg-[#FEF2F2] shadow-high' data-testid='white-sheet'>
           {children}
         </div>
       </div>
@@ -55,7 +55,7 @@ export function SheetRise({
 
       <div style={{ height: runwayVh + 'svh' }} aria-hidden='true' />
 
-      <div className='relative z-sheet rounded-t-lip bg-[#FEE2E2] shadow-high' data-testid='white-sheet'>
+      <div className='relative z-sheet rounded-t-lip bg-[#FEF2F2] shadow-high' data-testid='white-sheet'>
         {children}
       </div>
     </div>

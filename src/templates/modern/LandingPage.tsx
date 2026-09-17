@@ -43,7 +43,7 @@ export default function LandingPage() {
 								<HeroCanvas scrollTrackRef={containerRef} />
 							</div>
 
-							<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-[#FEE2E2] rounded-3xl">
+							<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-[#FEF2F2] rounded-3xl">
 								<div className="grid grid-cols-[6fr_5fr] mx-20 pt-20 gap-[8%]">
 									<h2 className="text-8xl font-bold">
 										Established in purpose.

@@ -174,7 +174,7 @@ export function MemoryMatch() {
             window.setTimeout(() => hideRef.current?.focus(), 0);
           }}
           data-testid='memory-show'
-          className='u-label inline-flex w-fit min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:bg-[#FEE2E2]/10 hover:border-paper'
+          className='u-label inline-flex w-fit min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:bg-[#FEF2F2]/10 hover:border-paper'
         >
           <Eye aria-hidden='true' size={14} />
           Bring the game back
@@ -239,7 +239,7 @@ export function MemoryMatch() {
                   }}
                 >
                   <span
-                    className='absolute inset-0 flex items-center justify-center rounded-ui border-hair border-paper/50 bg-[#FEE2E2]/[0.14]'
+                    className='absolute inset-0 flex items-center justify-center rounded-ui border-hair border-paper/50 bg-[#FEF2F2]/[0.14]'
                     style={{ backfaceVisibility: 'hidden' }}
                   >
                     <span className='u-label tnum text-paper/80'>{String(i + 1).padStart(2, '0')}</span>
@@ -247,7 +247,7 @@ export function MemoryMatch() {
                   <span
                     className={cn(
                       'absolute inset-0 flex items-center justify-center rounded-ui border-hair',
-                      isMatched ? 'border-paper/40 bg-[#FEE2E2]/70' : 'border-paper bg-[#FEE2E2]',
+                      isMatched ? 'border-paper/40 bg-[#FEF2F2]/70' : 'border-paper bg-[#FEF2F2]',
                     )}
                     style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                   >
@@ -276,7 +276,7 @@ export function MemoryMatch() {
           type='button'
           onClick={reset}
           data-testid='memory-reset'
-          className='u-label inline-flex min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:border-paper hover:bg-[#FEE2E2]/10'
+          className='u-label inline-flex min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:border-paper hover:bg-[#FEF2F2]/10'
         >
           <RotateCcw aria-hidden='true' size={14} />
           Deal again
@@ -289,7 +289,7 @@ export function MemoryMatch() {
             window.setTimeout(() => showRef.current?.focus(), 0);
           }}
           data-testid='memory-hide'
-          className='u-label inline-flex min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:border-paper hover:bg-[#FEE2E2]/10'
+          className='u-label inline-flex min-h-tap items-center gap-2 rounded-ui border-hair border-paper/40 px-3 text-paper transition-colors duration-micro ease-state hover:border-paper hover:bg-[#FEF2F2]/10'
         >
           <EyeOff aria-hidden='true' size={14} />
           Put the game away

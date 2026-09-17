@@ -96,7 +96,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="flex w-full flex-col gap-0 border-hairline bg-[#FEE2E2] p-0 sm:max-w-md"
+        className="flex w-full flex-col gap-0 border-hairline bg-[#FEF2F2] p-0 sm:max-w-md"
         data-testid="notification-center"
       >
         <SheetHeader className="border-b border-hairline px-5 py-4 text-left">
@@ -167,7 +167,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
                       <li
                         key={item.id}
                         className={cn(
-                          "group relative rounded-lg border border-hairline bg-[#FEE2E2] p-3 transition-colors hover:bg-gray-100",
+                          "group relative rounded-lg border border-hairline bg-[#FEF2F2] p-3 transition-colors hover:bg-gray-100",
                           !item.read && "border-l-2 border-l-primary",
                         )}
                         data-testid="notification-item"

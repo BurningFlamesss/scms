@@ -24,7 +24,7 @@ import type { BlockType, ContentBlock } from "#/types";
 const primaryBtn =
 	"inline-flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-7 py-3.5 text-sm font-medium text-white no-underline transition-colors hover:bg-neutral-700";
 const secondaryBtn =
-	"inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-[#FEE2E2] px-7 py-3.5 text-sm font-medium text-neutral-900 no-underline transition-colors hover:border-neutral-400";
+	"inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-[#FEF2F2] px-7 py-3.5 text-sm font-medium text-neutral-900 no-underline transition-colors hover:border-neutral-400";
 
 function BlockLink({
 	href,
@@ -132,7 +132,7 @@ function renderBlock(block: ContentBlock) {
 			return (
 				<section
 					key={block.id}
-					className="border-y border-neutral-200 bg-[#FEE2E2]"
+					className="border-y border-neutral-200 bg-[#FEF2F2]"
 				>
 					<div className="content py-8">
 						{str(fields, "eyebrow") && (
@@ -185,7 +185,7 @@ function renderBlock(block: ContentBlock) {
 			return (
 				<section
 					key={block.id}
-					className="border-y border-neutral-200 bg-[#FEE2E2]"
+					className="border-y border-neutral-200 bg-[#FEF2F2]"
 				>
 					<div className="content py-[clamp(48px,7vw,90px)] text-center">
 						{str(fields, "title") && (
@@ -282,7 +282,7 @@ function renderBlock(block: ContentBlock) {
 							{tags(fields, "values").map((value) => (
 								<span
 									key={value}
-									className="rounded-full border border-neutral-300 bg-[#FEE2E2] px-4 py-1.5 text-sm text-neutral-700"
+									className="rounded-full border border-neutral-300 bg-[#FEF2F2] px-4 py-1.5 text-sm text-neutral-700"
 								>
 									{value}
 								</span>
@@ -330,7 +330,7 @@ function renderBlock(block: ContentBlock) {
 							{rows(fields, "items").map((item, i) => (
 								<div
 									key={rowKey(item, i)}
-									className="overflow-hidden rounded-xl border border-neutral-200 bg-[#FEE2E2]"
+									className="overflow-hidden rounded-xl border border-neutral-200 bg-[#FEF2F2]"
 								>
 									{typeof item.image === "string" && item.image && (
 										<img
@@ -475,7 +475,7 @@ function renderBlock(block: ContentBlock) {
 								href={str(fields, link.key)}
 								target="_blank"
 								rel="noreferrer"
-								className="rounded-full border border-neutral-300 bg-[#FEE2E2] px-4 py-1.5 text-sm text-neutral-700 no-underline transition-colors hover:border-neutral-400"
+								className="rounded-full border border-neutral-300 bg-[#FEF2F2] px-4 py-1.5 text-sm text-neutral-700 no-underline transition-colors hover:border-neutral-400"
 							>
 								{link.label}
 							</a>
@@ -546,7 +546,7 @@ function renderBlock(block: ContentBlock) {
 							{rows(fields, "programs").map((item, i) => (
 								<div
 									key={rowKey(item, i)}
-									className="rounded-xl border border-neutral-200 bg-[#FEE2E2] p-5"
+									className="rounded-xl border border-neutral-200 bg-[#FEF2F2] p-5"
 								>
 									<p className="font-medium text-neutral-900">
 										{String(item.title ?? "")}

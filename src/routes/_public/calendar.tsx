@@ -200,7 +200,7 @@ function RouteComponent() {
 						{ label: "Next holiday", ev: nextHoliday },
 						{ label: "Next examination", ev: nextExam },
 					].map((c) => (
-						<div key={c.label} className="flex flex-col gap-2 bg-[#FEE2E2] p-6">
+						<div key={c.label} className="flex flex-col gap-2 bg-[#FEF2F2] p-6">
 							<p className="u-label text-n-600">{c.label}</p>
 							{c.ev ? (
 								<>

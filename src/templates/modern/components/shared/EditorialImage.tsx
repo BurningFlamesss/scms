@@ -68,7 +68,7 @@ export const EditorialImage = ({
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[#FEE2E2]-1/10 mix-blend-multiply dark:bg-transparent"
+        className="pointer-events-none absolute inset-0 bg-[#FEF2F2]-1/10 mix-blend-multiply dark:bg-transparent"
       />
     </div>
   );

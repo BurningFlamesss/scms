@@ -12,7 +12,7 @@ const SIDEBAR_W = 240;
 
 const crestTone: CrestTone = {
 	line: "#FFFFFF",
-	solid: "#FBBF24",
+	solid: "#A16207",
 	onSolid: "#000000",
 };
 
@@ -56,8 +56,8 @@ function SidebarItem({
 					to={item.href ?? "/"}
 					target={item.external ? "_blank" : undefined}
 					className={cn(
-						"flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium transition-colors hover:text-accent",
-						isActive ? "text-accent" : "text-white",
+						"flex items-center w-full gap-2.5 px-4 py-2 text-sm font-medium transition-colors hover:text-[#EAB308]",
+						isActive ? "text-[#EAB308]" : "text-white",
 					)}
 				>
 					<span>{item.label}</span>
@@ -73,8 +73,8 @@ function SidebarItem({
 					<Link
 						to={item.href}
 						className={cn(
-							"flex-1 px-4 py-2 text-sm font-medium text-left transition-colors hover:text-accent",
-							isActive ? "text-accent" : "text-white",
+							"flex-1 px-4 py-2 text-sm font-medium text-left transition-colors hover:text-[#EAB308]",
+							isActive ? "text-[#EAB308]" : "text-white",
 						)}
 					>
 						{item.label}
@@ -84,8 +84,8 @@ function SidebarItem({
 						type="button"
 						onClick={() => setIsOpen((s) => !s)}
 						className={cn(
-							"flex-1 cursor-pointer px-4 py-2 text-sm font-medium text-left transition-colors bg-transparent border-none hover:text-accent",
-							isActive ? "text-accent" : "text-white",
+							"flex-1 cursor-pointer px-4 py-2 text-sm font-medium text-left transition-colors bg-transparent border-none hover:text-[#EAB308]",
+							isActive ? "text-[#EAB308]" : "text-white",
 						)}
 					>
 						{item.label}
@@ -95,7 +95,7 @@ function SidebarItem({
 					type="button"
 					onClick={() => setIsOpen((s) => !s)}
 					aria-expanded={isOpen}
-					className="cursor-pointer px-3 py-2 text-white bg-transparent border-none hover:text-accent transition-colors"
+					className="cursor-pointer px-3 py-2 text-white bg-transparent border-none hover:text-[#EAB308] transition-colors"
 				>
 					<ChevronRight
 						size={16}
@@ -170,7 +170,7 @@ export function Sidebar() {
 		<img
 			src={sidebar.logo}
 			alt="School logo"
-			className="size-16 rounded-full bg-[#FEE2E2] object-contain p-1"
+			className="size-16 rounded-full bg-white object-contain p-1"
 		/>
 	) : (
 		<img
@@ -181,13 +181,13 @@ export function Sidebar() {
 	);
 
 	const navFooter = data?.session?.id ? (
-		<div className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer text-accent-foreground">
+		<div className="bg-[#EAB308] flex w-full items-center justify-center py-2 cursor-pointer text-black">
 			Dashboard Coming Soon!
 		</div>
 	) : (
 		<Link
 				to="/login"
-				className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer text-primary-foreground hover:bg-accent/90"
+				className="bg-[#EAB308] flex w-full items-center justify-center py-2 cursor-pointer text-black hover:bg-[#EAB308]/90"
 			>
 				Login
 			</Link>
@@ -217,17 +217,7 @@ export function Sidebar() {
 						data-testid="nav-home"
 					>
 						{logoMark}
-						{/* <span className="text-lg font-bold uppercase tracking-wide">
-							<span className="text-primary-foreground">Everest</span>
-							<span className="text-accent">School</span>
-						</span> */}
 					</Link>
-					{/* <span
-						className="w-full bg-accent py-2 text-center text-accent-foreground font-medium"
-						data-testid="nav-tagline"
-					>
-						{sidebar.tagline}
-					</span> */}
 				</header>
 
 				<nav
@@ -249,7 +239,7 @@ export function Sidebar() {
 					aria-label={isOpen ? "Close navigation" : "Open navigation"}
 					title={isOpen ? "Close navigation" : "Open navigation"}
 					data-testid="nav-collapse-toggle"
-					className="inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full bg-[#FEE2E2]/10 text-white transition-colors hover:bg-[#FEE2E2]/30"
+					className="inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/30"
 				>
 					<Menu aria-hidden="true" size={18} />
 				</button>
@@ -264,8 +254,8 @@ export function Sidebar() {
 					className={cn(
 						"inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full transition-colors",
 						pinned
-							? "bg-[#FEE2E2] text-black"
-							: "bg-[#FEE2E2]/10 text-white hover:bg-[#FEE2E2]/30",
+							? "bg-white text-black"
+							: "bg-white/10 text-white hover:bg-white/30",
 					)}
 				>
 					{pinned ? (
@@ -283,7 +273,7 @@ export function Sidebar() {
 					className="flex min-w-0 items-center gap-3"
 					data-testid="nav-home-mobile"
 				>
-					<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[#FEE2E2]">
+					<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-white">
 						{sidebar?.logo ? (
 							<img
 								src={sidebar.logo}
@@ -341,7 +331,7 @@ export function Sidebar() {
 						>
 							<div className="flex items-center justify-between px-4 pt-3">
 								<span className="flex items-center gap-2 font-semibold text-primary-foreground">
-									<span className="flex size-8 items-center justify-center rounded-md bg-[#FEE2E2]">
+									<span className="flex size-8 items-center justify-center rounded-md bg-white">
 										{logoMark}
 									</span>
 									{sidebar?.tagline}
