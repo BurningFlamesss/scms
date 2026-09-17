@@ -12,8 +12,8 @@ export const school = {
     placeholder: 'TAGLINE — SET IN CMS',
     help: 'One short line, 4 to 7 words. Shown in the sidebar under the crest.',
   },
-  establishedBs: 2052,
-  establishedAd: 1995,
+  establishedBs: 2042,
+  establishedAd: 1985,
   registrationNo: 'Reg. 116/052/053, Kaski District Education Office',
   address: {
     line1: 'Butwal-8, Sukkhanagar',

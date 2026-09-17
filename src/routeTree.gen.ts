@@ -14,7 +14,6 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as UserRouteImport } from './routes/user'
-import { Route as OnboardActivateRouteImport } from './routes/_onboard/activate'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as PublicCalendarRouteImport } from './routes/_public/calendar'
@@ -48,6 +47,7 @@ import { Route as AdminStudentsRouteImport } from './routes/admin/students'
 import { Route as AdminTransportationRouteImport } from './routes/admin/transportation'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminWebsiteRouteImport } from './routes/admin/website'
+import { Route as OnboardActivateIndexRouteImport } from './routes/_onboard/activate.index'
 import { Route as OnboardActivateTokenRouteImport } from './routes/_onboard/activate.$token'
 import { Route as AdminAdmissionsIdRouteImport } from './routes/admin/admissions.$id'
 import { Route as AdminClassesIdRouteImport } from './routes/admin/classes.$id'
@@ -92,11 +92,6 @@ const UserRoute = UserRouteImport.update({
   id: '/user',
   path: '/user',
   getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardActivateRoute = OnboardActivateRouteImport.update({
-  id: '/activate',
-  path: '/activate',
-  getParentRoute: () => OnboardRoute,
 } as any)
 const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
@@ -263,10 +258,15 @@ const AdminWebsiteRoute = AdminWebsiteRouteImport.update({
   path: '/website',
   getParentRoute: () => AdminRoute,
 } as any)
+const OnboardActivateIndexRoute = OnboardActivateIndexRouteImport.update({
+  id: '/activate/',
+  path: '/activate/',
+  getParentRoute: () => OnboardRoute,
+} as any)
 const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
-  id: '/$token',
-  path: '/$token',
-  getParentRoute: () => OnboardActivateRoute,
+  id: '/activate/$token',
+  path: '/activate/$token',
+  getParentRoute: () => OnboardRoute,
 } as any)
 const AdminAdmissionsIdRoute = AdminAdmissionsIdRouteImport.update({
   id: '/$id',
@@ -379,7 +379,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/user': typeof UserRoute
-  '/activate': typeof OnboardActivateRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
@@ -425,6 +424,7 @@ export interface FileRoutesByFullPath {
   '/admin/students/$id': typeof AdminStudentsIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/website/pages': typeof ApiWebsitePagesRouteWithChildren
+  '/activate/': typeof OnboardActivateIndexRoute
   '/admin/notices/$id/edit': typeof AdminNoticesIdEditRoute
   '/api/website/page/$key': typeof ApiWebsitePageKeyRoute
   '/api/website/pages/$key': typeof ApiWebsitePagesKeyRouteWithChildren
@@ -438,7 +438,6 @@ export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/login': typeof LoginRoute
   '/user': typeof UserRoute
-  '/activate': typeof OnboardActivateRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
@@ -484,6 +483,7 @@ export interface FileRoutesByTo {
   '/admin/students/$id': typeof AdminStudentsIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/website/pages': typeof ApiWebsitePagesRouteWithChildren
+  '/activate': typeof OnboardActivateIndexRoute
   '/admin/notices/$id/edit': typeof AdminNoticesIdEditRoute
   '/api/website/page/$key': typeof ApiWebsitePageKeyRoute
   '/api/website/pages/$key': typeof ApiWebsitePagesKeyRouteWithChildren
@@ -500,7 +500,6 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
   '/user': typeof UserRoute
-  '/_onboard/activate': typeof OnboardActivateRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
   '/_public/calendar': typeof PublicCalendarRoute
   '/_public/contact': typeof PublicContactRoute
@@ -547,6 +546,7 @@ export interface FileRoutesById {
   '/admin/students/$id': typeof AdminStudentsIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/website/pages': typeof ApiWebsitePagesRouteWithChildren
+  '/_onboard/activate/': typeof OnboardActivateIndexRoute
   '/admin/notices/$id/edit': typeof AdminNoticesIdEditRoute
   '/api/website/page/$key': typeof ApiWebsitePageKeyRoute
   '/api/website/pages/$key': typeof ApiWebsitePagesKeyRouteWithChildren
@@ -563,7 +563,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/user'
-    | '/activate'
     | '/about'
     | '/calendar'
     | '/contact'
@@ -609,6 +608,7 @@ export interface FileRouteTypes {
     | '/admin/students/$id'
     | '/api/auth/$'
     | '/api/website/pages'
+    | '/activate/'
     | '/admin/notices/$id/edit'
     | '/api/website/page/$key'
     | '/api/website/pages/$key'
@@ -622,7 +622,6 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/user'
-    | '/activate'
     | '/about'
     | '/calendar'
     | '/contact'
@@ -668,6 +667,7 @@ export interface FileRouteTypes {
     | '/admin/students/$id'
     | '/api/auth/$'
     | '/api/website/pages'
+    | '/activate'
     | '/admin/notices/$id/edit'
     | '/api/website/page/$key'
     | '/api/website/pages/$key'
@@ -683,7 +683,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/user'
-    | '/_onboard/activate'
     | '/_public/about'
     | '/_public/calendar'
     | '/_public/contact'
@@ -730,6 +729,7 @@ export interface FileRouteTypes {
     | '/admin/students/$id'
     | '/api/auth/$'
     | '/api/website/pages'
+    | '/_onboard/activate/'
     | '/admin/notices/$id/edit'
     | '/api/website/page/$key'
     | '/api/website/pages/$key'
@@ -787,13 +787,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/user'
       preLoaderRoute: typeof UserRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/_onboard/activate': {
-      id: '/_onboard/activate'
-      path: '/activate'
-      fullPath: '/activate'
-      preLoaderRoute: typeof OnboardActivateRouteImport
-      parentRoute: typeof OnboardRoute
     }
     '/_public/': {
       id: '/_public/'
@@ -1026,12 +1019,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminWebsiteRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_onboard/activate/': {
+      id: '/_onboard/activate/'
+      path: '/activate'
+      fullPath: '/activate/'
+      preLoaderRoute: typeof OnboardActivateIndexRouteImport
+      parentRoute: typeof OnboardRoute
+    }
     '/_onboard/activate/$token': {
       id: '/_onboard/activate/$token'
-      path: '/$token'
+      path: '/activate/$token'
       fullPath: '/activate/$token'
       preLoaderRoute: typeof OnboardActivateTokenRouteImport
-      parentRoute: typeof OnboardActivateRoute
+      parentRoute: typeof OnboardRoute
     }
     '/admin/admissions/$id': {
       id: '/admin/admissions/$id'
@@ -1176,24 +1176,14 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface OnboardActivateRouteChildren {
-  OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
-}
-
-const OnboardActivateRouteChildren: OnboardActivateRouteChildren = {
-  OnboardActivateTokenRoute: OnboardActivateTokenRoute,
-}
-
-const OnboardActivateRouteWithChildren = OnboardActivateRoute._addFileChildren(
-  OnboardActivateRouteChildren,
-)
-
 interface OnboardRouteChildren {
-  OnboardActivateRoute: typeof OnboardActivateRouteWithChildren
+  OnboardActivateTokenRoute: typeof OnboardActivateTokenRoute
+  OnboardActivateIndexRoute: typeof OnboardActivateIndexRoute
 }
 
 const OnboardRouteChildren: OnboardRouteChildren = {
-  OnboardActivateRoute: OnboardActivateRouteWithChildren,
+  OnboardActivateTokenRoute: OnboardActivateTokenRoute,
+  OnboardActivateIndexRoute: OnboardActivateIndexRoute,
 }
 
 const OnboardRouteWithChildren =

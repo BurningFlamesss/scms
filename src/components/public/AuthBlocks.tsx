@@ -110,41 +110,22 @@ function LoginForm({ fields }: { fields: Record<string, unknown> }) {
 		let userName = "";
 		let isSuperOrAdmin = false;
 
-		try {
-			const result = await authClient.signIn.email({
-				email: values.email,
-				password: values.password,
-			});
-			if (!result.error && result.data?.user) {
-				signedIn = true;
-				userName = result.data.user.name ?? values.email.split("@")[0];
-				isSuperOrAdmin = result.data.user.role === "superadmin" || result.data.user.role === "admin";
-			}
-		} catch {
-			// fallback
-		}
+		const result = await authClient.signIn.email({
+			email: values.email,
+			password: values.password,
+		});
 
-		if (!signedIn) {
-			const isSuper = values.email.includes("super");
-			const isAdmin = values.email.includes("admin");
-			const role = isSuper ? "superadmin" : isAdmin ? "admin" : "student";
-			const rawName = values.email.split("@")[0].replace(/[._-]/g, " ");
-			userName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
-			if (isSuper) userName = "Super Admin";
-			else if (isAdmin) userName = "Principal Admin";
+		if (result.error) {
+			setStatus("error");
+			setErrors({ email: result.error.message || "Invalid email or password." });
+			return;
+        }
 
-			const demoUser = {
-				id: `demo-${values.email.replace(/[^a-z0-9]/gi, "_")}`,
-				name: userName,
-				email: values.email,
-				role: role,
-				image: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(userName)}`,
-			};
-
-			document.cookie = `scms_demo_session=${encodeURIComponent(JSON.stringify({ user: demoUser }))}; path=/; max-age=604800; SameSite=Lax`;
+        if (result.data?.user) {
 			signedIn = true;
-			isSuperOrAdmin = isSuper || isAdmin;
-		}
+			userName = result.data.user.name ?? values.email.split("@")[0];
+			isSuperOrAdmin = result.data.user.role === "superadmin" || result.data.user.role === "admin";
+        }
 
 		toast.success(`Welcome back, ${userName}`);
 		setStatus("success");
@@ -253,19 +234,6 @@ function LoginForm({ fields }: { fields: Record<string, unknown> }) {
 					school office for account assistance.
 				</div>
 			) : null}
-			{status === "success" ? (
-				<div
-					className="form-status form-status--success"
-					role="status"
-					data-testid="login-demo-success"
-				>
-					<Check aria-hidden="true" />
-					<span>
-						Sign-in form verified. This frontend preview is not connected to
-						authentication.
-					</span>
-				</div>
-			) : null}
 
 			<Button
 				type="submit"
@@ -342,7 +310,7 @@ export function AuthPage({
 	const select = onSelectSection ?? (() => {});
 
 	return (
-		<section className="auth-page" aria-labelledby="login-title">
+		<section className="auth-page overflow-x-hidden min-w-0" aria-labelledby="login-title">
 			<CmsSectionBox
 				preview={preview}
 				sectionType="auth_visual"

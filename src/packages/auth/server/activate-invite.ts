@@ -53,7 +53,7 @@ export const activateInvite = createServerFn()
 			prisma.account.create({
 				data: {
 					id: crypto.randomUUID(),
-					accountId: user.email,
+					accountId: user.id,
 					providerId: "credential",
 					userId: user.id,
 					password: hashedPassword,

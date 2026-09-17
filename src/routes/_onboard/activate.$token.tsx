@@ -8,7 +8,8 @@ import { getInvite } from "#/packages/auth/server/get-invite.ts";
 import { pageCopy } from "#/lib/site";
 import { Label } from "#/templates/modern/components/Label";
 import { Input } from "#/templates/modern/components/Input";
-import { Button } from "#/templates/modern/components/Button";
+import { Button } from "#/templates/modern/components/Button.tsx";
+import { ImageReveal, SectionLabel } from "#/templates/modern/components/Editorial.tsx";
 
 export const Route = createFileRoute("/_onboard/activate/$token")({
 	beforeLoad: async ({ context }) => {
@@ -64,65 +65,71 @@ function RouteComponent() {
 	};
 
 	return (
-    <section className="auth-page" aria-labelledby="activate-title">
-      <div className="cms-section-box min-w-0" style={{ border: 'none', background: 'transparent' }}>
-         <div className="auth-visual">
-            <img src="/public/schools/everest/landing-footage/frame_0001.jpeg" alt="" className="editorial-media" />
-         </div>
-      </div>
-      <div className="auth-panel">
-        <div className="cms-section-box" style={{ border: 'none', background: 'transparent' }}>
-          <Link to="/" className="auth-back" style={{ color: "var(--c-black)" }}>
-            <ArrowLeft aria-hidden="true" style={{ color: "var(--c-red)" }} />
-            Public website
-          </Link>
-        </div>
-        <div className="auth-panel__inner">
-          <div className="cms-section-box" style={{ border: 'none', background: 'transparent' }}>
-             <header className="auth-intro">
-                <p className="eyebrow" style={{ color: "var(--c-red)" }}>{pageCopy.activate.eyebrow}</p>
-                <h1 id="activate-title" className="u-display" style={{ color: "var(--c-black)" }}>
-                   SET YOUR<br/>PASSWORD.
-                </h1>
-                <p className="lead" style={{ color: "var(--c-ink)" }}>Creating account for {invite.user.email}</p>
-             </header>
-          </div>
-          <div className="cms-section-box" style={{ border: 'none', background: 'transparent' }}>
-            <form onSubmit={handleSubmit} className="auth-form" noValidate>
-              <div className={`form-control ${error ? "form-control--error" : ""}`}>
-                <Label htmlFor="password" style={{ color: "var(--c-black)" }}>Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value); setError(""); }}
-                  className="editorial-input"
-                />
-              </div>
-              <div className={`form-control ${error ? "form-control--error" : ""}`}>
-                <Label htmlFor="confirmPassword" style={{ color: "var(--c-black)" }}>Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => { setConfirmPassword(e.target.value); setError(""); }}
-                  className="editorial-input"
-                />
-                {error && (
-                  <p className="field-error">
-                    <AlertCircle aria-hidden="true" />
-                    {error}
-                  </p>
-                )}
-              </div>
-              <Button type="submit" disabled={busy} className="institution-button institution-button--full">
-                {busy ? <LoaderCircle className="spin" aria-hidden="true" /> : null}
-                {busy ? "Activating..." : "Activate Account"}
-              </Button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+			<section className="auth-page overflow-x-hidden min-w-0" aria-labelledby="activate-title">
+			<div className="auth-visual min-w-0">
+				<ImageReveal
+					src="/public/schools/everest/landing-footage/frame_0001.jpeg"
+					alt="School architecture marking the entrance to Everest"
+					eager
+					testId="activate-visual-image"
+				/>
+				<div className="auth-visual__overlay">
+					<SectionLabel number="04" inverse>
+						Welcome
+					</SectionLabel>
+					<p>Account Activation</p>
+					<span>One community / connected responsibly</span>
+				</div>
+			</div>
+			<div className="auth-panel w-full">
+				<Link to="/" className="auth-back" style={{ color: "var(--c-black)" }}>
+				<ArrowLeft aria-hidden="true" style={{ color: "var(--c-red)" }} />
+				Public website
+				</Link>
+				<div className="auth-panel__inner">
+					<header>
+						<span className="auth-kicker">
+							{pageCopy.activate.eyebrow}
+						</span>
+						<h1 id="activate-title" className="t-page-title text-foreground">
+						SET YOUR<br />PASSWORD.
+						</h1>
+						<p className="auth-intro text-foreground mt-4 font-medium break-all">Creating account for {invite.user.email}</p>
+					</header>
+					<form onSubmit={handleSubmit} className="auth-form" noValidate>
+					<div className={`form-control ${error ? "form-control--error" : ""}`}>
+						<Label htmlFor="password">Password</Label>
+						<Input
+						id="password"
+						type="password"
+						value={password}
+						onChange={(e) => { setPassword(e.target.value); setError(""); }}
+						className="editorial-input text-foreground"
+						/>
+					</div>
+					<div className={`form-control ${error ? "form-control--error" : ""}`}>
+						<Label htmlFor="confirmPassword">Confirm Password</Label>
+						<Input
+						id="confirmPassword"
+						type="password"
+						value={confirmPassword}
+						onChange={(e) => { setConfirmPassword(e.target.value); setError(""); }}
+						className="editorial-input text-foreground"
+						/>
+						{error && (
+							<p className="field-error">
+							<AlertCircle aria-hidden="true" />
+							{error}
+							</p>
+						)}
+					</div>
+					<Button type="submit" disabled={busy} className="institution-button institution-button--full">
+						{busy ? <LoaderCircle className="spin" aria-hidden="true" /> : null}
+						{busy ? "Activating..." : "Activate Account"}
+					</Button>
+					</form>
+				</div>
+			</div>
+			</section>
   );
 }

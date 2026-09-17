@@ -5,7 +5,7 @@ export const aboutIntro = {
   eyebrow: '01 / PURPOSE',
   statement: ['THIRTY-ONE YEARS', 'ON ONE CAMPUS.'],
   support:
-    'Everest was opened in 2052 BS by six teachers who had all taught elsewhere in Pokhara and wanted a school their own children could attend. The building has grown four times since. The governing board has never moved out of the library.',
+    'Everest was opened in 2042 BS and has established itself as one of the leading Secondary Schools in Nepal. It is best known for its progressive teaching and learning approach in a student-friendly environment. At its core, the goal is to produce disciplined, amicable, self-confident, and dynamic citizens.',
 };
 
 export const milestones: Milestone[] = [
