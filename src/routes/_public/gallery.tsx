@@ -189,7 +189,7 @@ export default function RouteComponent() {
                         )
                       }
                       data-testid={"gallery-tile-" + i}
-                      className="group relative block h-full w-full overflow-hidden rounded-card border-hair border-n-200"
+                      className="group relative block h-full w-full overflow-hidden rounded-card !border-0 !bg-transparent"
                     >
                       {i === 0 && !reduced ? (
                         <motion.span

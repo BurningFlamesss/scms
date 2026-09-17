@@ -42,18 +42,18 @@ export function PhotoFan({
       onBlur={() => setLifted(false)}
       data-testid={'photo-stack-' + album.id}
       aria-label={`Open ${album.event}, ${album.year} — ${album.photos.length} photographs`}
-      className='group flex flex-col gap-4 text-left'
+      className='group flex flex-col gap-4 text-left !border-0 !bg-transparent'
     >
       <span className='relative block aspect-[4/3] w-full'>
         {reduced ? (
-          <span className='absolute inset-0 overflow-hidden rounded-card border-hair border-n-200'>
+          <span className='absolute inset-0 overflow-hidden rounded-card'>
             <Picture image={album.photos[0]} sizes='(min-width: 1024px) 30vw, 90vw' />
           </span>
         ) : (
           top.map((p, i) => (
             <motion.span
               key={p.src + i}
-              className='absolute inset-0 block overflow-hidden rounded-card border-hair border-n-200 bg-[#FEF2F2] shadow-low'
+              className='absolute inset-0 block overflow-hidden rounded-card'
               style={{ zIndex: top.length - i }}
               animate={
                 lifted
@@ -72,7 +72,7 @@ export function PhotoFan({
             </motion.span>
           ))
         )}
-        <span className='u-label absolute bottom-3 right-3 z-10 rounded-pill bg-[#FEF2F2] px-3 py-1 tnum text-ink'>
+        <span className='u-label absolute bottom-3 right-3 z-10 rounded-pill bg-black/60 px-3 py-1 tnum text-white'>
           {album.photos.length} photos
         </span>
       </span>

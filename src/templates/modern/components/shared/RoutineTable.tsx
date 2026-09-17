@@ -115,8 +115,10 @@ export const RoutineTable = ({ routine }: { routine: Routine }) => {
               <tr className="border-b border-border bg-secondary">
                 <th
                   scope="col"
-                  className="sticky left-0 z-[1] w-[112px] bg-secondary px-4 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground"
+                  className="sticky left-0 z-[1] w-[112px] px-4 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground"
                 >
+                  <div className="absolute inset-0 -z-20 bg-card border-r border-border" />
+                  <div className="absolute inset-0 -z-10 bg-secondary" />
                   Day
                 </th>
                 {routine.periods.map((period, index) => (
@@ -160,14 +162,14 @@ export const RoutineTable = ({ routine }: { routine: Routine }) => {
                       <th
                         scope="row"
                         className={[
-                          "sticky left-0 z-[1] px-4 py-3 text-left align-top",
-                          isToday
-                            ? "bg-[hsl(var(--accent)/0.1)]"
-                            : rowIndex % 2 === 1
-                              ? "bg-[hsl(var(--secondary))]"
-                              : "bg-card",
+                          "sticky left-0 z-[1] px-4 py-3 text-left align-top relative",
                         ].join(" ")}
                       >
+                        <div className="absolute inset-0 -z-20 bg-card border-r border-border" />
+                        <div className={[
+                             "absolute inset-0 -z-10 border-r border-transparent",
+                             isToday ? "bg-accent/10" : rowIndex % 2 === 1 ? "bg-secondary" : "bg-transparent"
+                           ].join(" ")} />
                         <span className="block text-[13px] font-medium text-foreground">
                           {row.day}
                         </span>
