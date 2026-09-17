@@ -78,7 +78,7 @@ export function BusFinder() {
         <label htmlFor='bus-search' className='u-label text-muted-foreground'>
           Your area
         </label>
-        <div className='flex items-center gap-3 border-b border-border focus-within:border-b-rule focus-within:border-accent'>
+        <div className='flex items-center gap-3 border-b-2 border-transparent focus-within:!outline-none focus-within:!ring-0 focus-within:border-accent'>
           <Search aria-hidden='true' size={18} className='shrink-0 text-muted-foreground' />
           <input
             id='bus-search'
@@ -88,7 +88,8 @@ export function BusFinder() {
             onChange={(e) => setQ(e.target.value)}
             placeholder='Lakeside, Ward 15, बागर …'
             data-testid='bus-search'
-            className='min-h-[52px] w-full bg-transparent text-body-l text-foreground outline-none placeholder:text-muted-foreground'
+            className='min-h-[52px] w-full bg-transparent text-[19px] leading-snug text-foreground placeholder:text-muted-foreground'
+            style={{ boxShadow: 'none', outline: 'none', border: 'none' }}
           />
           {q ? (
             <button
@@ -206,7 +207,7 @@ export function BusFinder() {
           </RevealUp>
 
           {/* Confirmatory only: the list below carries identical information. */}
-          <div className='overflow-hidden'>
+          <div className='overflow-hidden -my-10'>
             <motion.svg
               key={best!.route.id}
               viewBox='0 0 720 200'

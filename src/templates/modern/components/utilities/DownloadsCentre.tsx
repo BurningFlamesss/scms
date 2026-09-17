@@ -82,7 +82,7 @@ export function DownloadsCentre() {
                   type='button'
                   onClick={() => issue(d.title, meta)}
                   data-testid={'download-' + d.id}
-                  className='group flex w-full flex-wrap items-center gap-x-6 gap-y-2 py-4 text-left'
+                  className='group flex w-full flex-wrap items-center gap-x-6 gap-y-2 py-4 text-left transistion-colors duration-fast !border-0 !bg-transparent focus-visible:outline-none focus-visible:ring-0 hover:bg-secondary/50'
                 >
                   <FileText aria-hidden='true' size={16} className='shrink-0 text-accent' />
                   <span className='min-w-0 flex-1 text-body-m text-ink'>{d.title}</span>

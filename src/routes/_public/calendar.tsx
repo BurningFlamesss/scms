@@ -540,7 +540,7 @@ function RouteComponent() {
 				</div>
 			</ChromeSection>
 
-			<ChromeSection testId="calendar-list" className="bg-n-50">
+			<ChromeSection testId="calendar-list">
 				<h2
 					id="allnotices-heading"
 					className="u-display mb-8 text-display-l text-ink"
