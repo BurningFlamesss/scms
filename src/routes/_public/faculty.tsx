@@ -55,7 +55,7 @@ const QuickAction = ({
   </button>
 );
 
-export const Route = createFileRoute("/user/faculty-page-detail")({
+export const Route = createFileRoute("/_public/faculty")({
   loader: async ({ location }) => {
     if (String(location.search.cms ?? "") === "1") {
       const previewPage = await getWebsitePagePreviewServer({

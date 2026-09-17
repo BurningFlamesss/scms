@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, PageHeader } from "#/templates/modern/components/chrome/PageFrame";
 import { BusFinder } from '#/templates/modern/components/interactions/BusFinder';
 
-export const Route = createFileRoute("/user/transportation")({
+export const Route = createFileRoute("/_public/transportation")({
   component: RouteComponent,
 });
 

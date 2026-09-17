@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageFrame, PageHeader } from "#/templates/modern/components/chrome/PageFrame";
 import { ResultsChart } from '#/templates/modern/components/utilities/ResultsChart';
 
-export const Route = createFileRoute("/user/result")({
+export const Route = createFileRoute("/_public/result")({
   component: RouteComponent,
 });
 

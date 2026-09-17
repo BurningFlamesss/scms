@@ -173,7 +173,7 @@ const NoticeReader = ({ notice }: { notice: Notice }) => (
 
 /* ------------------------------- Page -------------------------------- */
 
-export const Route = createFileRoute("/user/notices-page-detail")({
+export const Route = createFileRoute("/_public/notices")({
 	component: RouteComponent,
 });
 

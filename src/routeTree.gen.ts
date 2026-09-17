@@ -19,8 +19,16 @@ import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as PublicCalendarRouteImport } from './routes/_public/calendar'
 import { Route as PublicContactRouteImport } from './routes/_public/contact'
+import { Route as PublicCourseFinderRouteImport } from './routes/_public/course-finder'
+import { Route as PublicCoursesRouteImport } from './routes/_public/courses'
+import { Route as PublicFacilitiesRouteImport } from './routes/_public/facilities'
+import { Route as PublicFacultyRouteImport } from './routes/_public/faculty'
 import { Route as PublicGalleryRouteImport } from './routes/_public/gallery'
+import { Route as PublicNoticesRouteImport } from './routes/_public/notices'
 import { Route as PublicResourcesRouteImport } from './routes/_public/resources'
+import { Route as PublicResultRouteImport } from './routes/_public/result'
+import { Route as PublicScholarshipsRouteImport } from './routes/_public/scholarships'
+import { Route as PublicTransportationRouteImport } from './routes/_public/transportation'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminSplatRouteImport } from './routes/admin/$'
 import { Route as AdminActivityRouteImport } from './routes/admin/activity'
@@ -39,14 +47,6 @@ import { Route as AdminStudentsRouteImport } from './routes/admin/students'
 import { Route as AdminTransportationRouteImport } from './routes/admin/transportation'
 import { Route as AdminUsersRouteImport } from './routes/admin/users'
 import { Route as AdminWebsiteRouteImport } from './routes/admin/website'
-import { Route as UserCourseFinderRouteImport } from './routes/user/course-finder'
-import { Route as UserCoursesPageDetailRouteImport } from './routes/user/courses-page-detail'
-import { Route as UserFacilitiesPageDetailRouteImport } from './routes/user/facilities-page-detail'
-import { Route as UserFacultyPageDetailRouteImport } from './routes/user/faculty-page-detail'
-import { Route as UserNoticesPageDetailRouteImport } from './routes/user/notices-page-detail'
-import { Route as UserResultRouteImport } from './routes/user/result'
-import { Route as UserScholarshipsPageDetailRouteImport } from './routes/user/scholarships-page-detail'
-import { Route as UserTransportationRouteImport } from './routes/user/transportation'
 import { Route as OnboardActivateTokenRouteImport } from './routes/_onboard/activate.$token'
 import { Route as AdminAdmissionsIdRouteImport } from './routes/admin/admissions.$id'
 import { Route as AdminClassesIdRouteImport } from './routes/admin/classes.$id'
@@ -117,14 +117,54 @@ const PublicContactRoute = PublicContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicCourseFinderRoute = PublicCourseFinderRouteImport.update({
+  id: '/course-finder',
+  path: '/course-finder',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicCoursesRoute = PublicCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicFacilitiesRoute = PublicFacilitiesRouteImport.update({
+  id: '/facilities',
+  path: '/facilities',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicFacultyRoute = PublicFacultyRouteImport.update({
+  id: '/faculty',
+  path: '/faculty',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicGalleryRoute = PublicGalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicNoticesRoute = PublicNoticesRouteImport.update({
+  id: '/notices',
+  path: '/notices',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicResourcesRoute = PublicResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicResultRoute = PublicResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicScholarshipsRoute = PublicScholarshipsRouteImport.update({
+  id: '/scholarships',
+  path: '/scholarships',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicTransportationRoute = PublicTransportationRouteImport.update({
+  id: '/transportation',
+  path: '/transportation',
   getParentRoute: () => PublicRoute,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -216,48 +256,6 @@ const AdminWebsiteRoute = AdminWebsiteRouteImport.update({
   id: '/website',
   path: '/website',
   getParentRoute: () => AdminRoute,
-} as any)
-const UserCourseFinderRoute = UserCourseFinderRouteImport.update({
-  id: '/course-finder',
-  path: '/course-finder',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserCoursesPageDetailRoute = UserCoursesPageDetailRouteImport.update({
-  id: '/courses-page-detail',
-  path: '/courses-page-detail',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserFacilitiesPageDetailRoute =
-  UserFacilitiesPageDetailRouteImport.update({
-    id: '/facilities-page-detail',
-    path: '/facilities-page-detail',
-    getParentRoute: () => UserRoute,
-  } as any)
-const UserFacultyPageDetailRoute = UserFacultyPageDetailRouteImport.update({
-  id: '/faculty-page-detail',
-  path: '/faculty-page-detail',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserNoticesPageDetailRoute = UserNoticesPageDetailRouteImport.update({
-  id: '/notices-page-detail',
-  path: '/notices-page-detail',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserResultRoute = UserResultRouteImport.update({
-  id: '/result',
-  path: '/result',
-  getParentRoute: () => UserRoute,
-} as any)
-const UserScholarshipsPageDetailRoute =
-  UserScholarshipsPageDetailRouteImport.update({
-    id: '/scholarships-page-detail',
-    path: '/scholarships-page-detail',
-    getParentRoute: () => UserRoute,
-  } as any)
-const UserTransportationRoute = UserTransportationRouteImport.update({
-  id: '/transportation',
-  path: '/transportation',
-  getParentRoute: () => UserRoute,
 } as any)
 const OnboardActivateTokenRoute = OnboardActivateTokenRouteImport.update({
   id: '/$token',
@@ -374,13 +372,21 @@ export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
-  '/user': typeof UserRouteWithChildren
+  '/user': typeof UserRoute
   '/activate': typeof OnboardActivateRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
+  '/course-finder': typeof PublicCourseFinderRoute
+  '/courses': typeof PublicCoursesRoute
+  '/facilities': typeof PublicFacilitiesRoute
+  '/faculty': typeof PublicFacultyRoute
   '/gallery': typeof PublicGalleryRoute
+  '/notices': typeof PublicNoticesRoute
   '/resources': typeof PublicResourcesRoute
+  '/result': typeof PublicResultRoute
+  '/scholarships': typeof PublicScholarshipsRoute
+  '/transportation': typeof PublicTransportationRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -398,14 +404,6 @@ export interface FileRoutesByFullPath {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/course-finder': typeof UserCourseFinderRoute
-  '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
-  '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
-  '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
-  '/user/result': typeof UserResultRoute
-  '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
-  '/user/transportation': typeof UserTransportationRoute
   '/admin/': typeof AdminIndexRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/admin/admissions/$id': typeof AdminAdmissionsIdRoute
@@ -432,13 +430,21 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof PublicIndexRoute
   '/login': typeof LoginRoute
-  '/user': typeof UserRouteWithChildren
+  '/user': typeof UserRoute
   '/activate': typeof OnboardActivateRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/calendar': typeof PublicCalendarRoute
   '/contact': typeof PublicContactRoute
+  '/course-finder': typeof PublicCourseFinderRoute
+  '/courses': typeof PublicCoursesRoute
+  '/facilities': typeof PublicFacilitiesRoute
+  '/faculty': typeof PublicFacultyRoute
   '/gallery': typeof PublicGalleryRoute
+  '/notices': typeof PublicNoticesRoute
   '/resources': typeof PublicResourcesRoute
+  '/result': typeof PublicResultRoute
+  '/scholarships': typeof PublicScholarshipsRoute
+  '/transportation': typeof PublicTransportationRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -456,14 +462,6 @@ export interface FileRoutesByTo {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/course-finder': typeof UserCourseFinderRoute
-  '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
-  '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
-  '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
-  '/user/result': typeof UserResultRoute
-  '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
-  '/user/transportation': typeof UserTransportationRoute
   '/admin': typeof AdminIndexRoute
   '/activate/$token': typeof OnboardActivateTokenRoute
   '/admin/admissions/$id': typeof AdminAdmissionsIdRoute
@@ -493,13 +491,21 @@ export interface FileRoutesById {
   '/_public': typeof PublicRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
   '/login': typeof LoginRoute
-  '/user': typeof UserRouteWithChildren
+  '/user': typeof UserRoute
   '/_onboard/activate': typeof OnboardActivateRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
   '/_public/calendar': typeof PublicCalendarRoute
   '/_public/contact': typeof PublicContactRoute
+  '/_public/course-finder': typeof PublicCourseFinderRoute
+  '/_public/courses': typeof PublicCoursesRoute
+  '/_public/facilities': typeof PublicFacilitiesRoute
+  '/_public/faculty': typeof PublicFacultyRoute
   '/_public/gallery': typeof PublicGalleryRoute
+  '/_public/notices': typeof PublicNoticesRoute
   '/_public/resources': typeof PublicResourcesRoute
+  '/_public/result': typeof PublicResultRoute
+  '/_public/scholarships': typeof PublicScholarshipsRoute
+  '/_public/transportation': typeof PublicTransportationRoute
   '/admin/$': typeof AdminSplatRoute
   '/admin/activity': typeof AdminActivityRoute
   '/admin/admissions': typeof AdminAdmissionsRouteWithChildren
@@ -517,14 +523,6 @@ export interface FileRoutesById {
   '/admin/transportation': typeof AdminTransportationRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/website': typeof AdminWebsiteRoute
-  '/user/course-finder': typeof UserCourseFinderRoute
-  '/user/courses-page-detail': typeof UserCoursesPageDetailRoute
-  '/user/facilities-page-detail': typeof UserFacilitiesPageDetailRoute
-  '/user/faculty-page-detail': typeof UserFacultyPageDetailRoute
-  '/user/notices-page-detail': typeof UserNoticesPageDetailRoute
-  '/user/result': typeof UserResultRoute
-  '/user/scholarships-page-detail': typeof UserScholarshipsPageDetailRoute
-  '/user/transportation': typeof UserTransportationRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_onboard/activate/$token': typeof OnboardActivateTokenRoute
@@ -560,8 +558,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/calendar'
     | '/contact'
+    | '/course-finder'
+    | '/courses'
+    | '/facilities'
+    | '/faculty'
     | '/gallery'
+    | '/notices'
     | '/resources'
+    | '/result'
+    | '/scholarships'
+    | '/transportation'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -579,14 +585,6 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/course-finder'
-    | '/user/courses-page-detail'
-    | '/user/facilities-page-detail'
-    | '/user/faculty-page-detail'
-    | '/user/notices-page-detail'
-    | '/user/result'
-    | '/user/scholarships-page-detail'
-    | '/user/transportation'
     | '/admin/'
     | '/activate/$token'
     | '/admin/admissions/$id'
@@ -618,8 +616,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/calendar'
     | '/contact'
+    | '/course-finder'
+    | '/courses'
+    | '/facilities'
+    | '/faculty'
     | '/gallery'
+    | '/notices'
     | '/resources'
+    | '/result'
+    | '/scholarships'
+    | '/transportation'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -637,14 +643,6 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/course-finder'
-    | '/user/courses-page-detail'
-    | '/user/facilities-page-detail'
-    | '/user/faculty-page-detail'
-    | '/user/notices-page-detail'
-    | '/user/result'
-    | '/user/scholarships-page-detail'
-    | '/user/transportation'
     | '/admin'
     | '/activate/$token'
     | '/admin/admissions/$id'
@@ -678,8 +676,16 @@ export interface FileRouteTypes {
     | '/_public/about'
     | '/_public/calendar'
     | '/_public/contact'
+    | '/_public/course-finder'
+    | '/_public/courses'
+    | '/_public/facilities'
+    | '/_public/faculty'
     | '/_public/gallery'
+    | '/_public/notices'
     | '/_public/resources'
+    | '/_public/result'
+    | '/_public/scholarships'
+    | '/_public/transportation'
     | '/admin/$'
     | '/admin/activity'
     | '/admin/admissions'
@@ -697,14 +703,6 @@ export interface FileRouteTypes {
     | '/admin/transportation'
     | '/admin/users'
     | '/admin/website'
-    | '/user/course-finder'
-    | '/user/courses-page-detail'
-    | '/user/facilities-page-detail'
-    | '/user/faculty-page-detail'
-    | '/user/notices-page-detail'
-    | '/user/result'
-    | '/user/scholarships-page-detail'
-    | '/user/transportation'
     | '/_public/'
     | '/admin/'
     | '/_onboard/activate/$token'
@@ -735,7 +733,7 @@ export interface RootRouteChildren {
   PublicRoute: typeof PublicRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
   LoginRoute: typeof LoginRoute
-  UserRoute: typeof UserRouteWithChildren
+  UserRoute: typeof UserRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiWebsitePagesRoute: typeof ApiWebsitePagesRouteWithChildren
   ApiWebsitePageKeyRoute: typeof ApiWebsitePageKeyRoute
@@ -813,6 +811,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/course-finder': {
+      id: '/_public/course-finder'
+      path: '/course-finder'
+      fullPath: '/course-finder'
+      preLoaderRoute: typeof PublicCourseFinderRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/courses': {
+      id: '/_public/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof PublicCoursesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/facilities': {
+      id: '/_public/facilities'
+      path: '/facilities'
+      fullPath: '/facilities'
+      preLoaderRoute: typeof PublicFacilitiesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/faculty': {
+      id: '/_public/faculty'
+      path: '/faculty'
+      fullPath: '/faculty'
+      preLoaderRoute: typeof PublicFacultyRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/gallery': {
       id: '/_public/gallery'
       path: '/gallery'
@@ -820,11 +846,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicGalleryRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/notices': {
+      id: '/_public/notices'
+      path: '/notices'
+      fullPath: '/notices'
+      preLoaderRoute: typeof PublicNoticesRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/resources': {
       id: '/_public/resources'
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof PublicResourcesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/result': {
+      id: '/_public/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof PublicResultRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/scholarships': {
+      id: '/_public/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof PublicScholarshipsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/transportation': {
+      id: '/_public/transportation'
+      path: '/transportation'
+      fullPath: '/transportation'
+      preLoaderRoute: typeof PublicTransportationRouteImport
       parentRoute: typeof PublicRoute
     }
     '/admin/': {
@@ -952,62 +1006,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/website'
       preLoaderRoute: typeof AdminWebsiteRouteImport
       parentRoute: typeof AdminRoute
-    }
-    '/user/course-finder': {
-      id: '/user/course-finder'
-      path: '/course-finder'
-      fullPath: '/user/course-finder'
-      preLoaderRoute: typeof UserCourseFinderRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/courses-page-detail': {
-      id: '/user/courses-page-detail'
-      path: '/courses-page-detail'
-      fullPath: '/user/courses-page-detail'
-      preLoaderRoute: typeof UserCoursesPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/facilities-page-detail': {
-      id: '/user/facilities-page-detail'
-      path: '/facilities-page-detail'
-      fullPath: '/user/facilities-page-detail'
-      preLoaderRoute: typeof UserFacilitiesPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/faculty-page-detail': {
-      id: '/user/faculty-page-detail'
-      path: '/faculty-page-detail'
-      fullPath: '/user/faculty-page-detail'
-      preLoaderRoute: typeof UserFacultyPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/notices-page-detail': {
-      id: '/user/notices-page-detail'
-      path: '/notices-page-detail'
-      fullPath: '/user/notices-page-detail'
-      preLoaderRoute: typeof UserNoticesPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/result': {
-      id: '/user/result'
-      path: '/result'
-      fullPath: '/user/result'
-      preLoaderRoute: typeof UserResultRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/scholarships-page-detail': {
-      id: '/user/scholarships-page-detail'
-      path: '/scholarships-page-detail'
-      fullPath: '/user/scholarships-page-detail'
-      preLoaderRoute: typeof UserScholarshipsPageDetailRouteImport
-      parentRoute: typeof UserRoute
-    }
-    '/user/transportation': {
-      id: '/user/transportation'
-      path: '/transportation'
-      fullPath: '/user/transportation'
-      preLoaderRoute: typeof UserTransportationRouteImport
-      parentRoute: typeof UserRoute
     }
     '/_onboard/activate/$token': {
       id: '/_onboard/activate/$token'
@@ -1186,8 +1184,16 @@ interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
   PublicCalendarRoute: typeof PublicCalendarRoute
   PublicContactRoute: typeof PublicContactRoute
+  PublicCourseFinderRoute: typeof PublicCourseFinderRoute
+  PublicCoursesRoute: typeof PublicCoursesRoute
+  PublicFacilitiesRoute: typeof PublicFacilitiesRoute
+  PublicFacultyRoute: typeof PublicFacultyRoute
   PublicGalleryRoute: typeof PublicGalleryRoute
+  PublicNoticesRoute: typeof PublicNoticesRoute
   PublicResourcesRoute: typeof PublicResourcesRoute
+  PublicResultRoute: typeof PublicResultRoute
+  PublicScholarshipsRoute: typeof PublicScholarshipsRoute
+  PublicTransportationRoute: typeof PublicTransportationRoute
   PublicIndexRoute: typeof PublicIndexRoute
 }
 
@@ -1195,8 +1201,16 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
   PublicCalendarRoute: PublicCalendarRoute,
   PublicContactRoute: PublicContactRoute,
+  PublicCourseFinderRoute: PublicCourseFinderRoute,
+  PublicCoursesRoute: PublicCoursesRoute,
+  PublicFacilitiesRoute: PublicFacilitiesRoute,
+  PublicFacultyRoute: PublicFacultyRoute,
   PublicGalleryRoute: PublicGalleryRoute,
+  PublicNoticesRoute: PublicNoticesRoute,
   PublicResourcesRoute: PublicResourcesRoute,
+  PublicResultRoute: PublicResultRoute,
+  PublicScholarshipsRoute: PublicScholarshipsRoute,
+  PublicTransportationRoute: PublicTransportationRoute,
   PublicIndexRoute: PublicIndexRoute,
 }
 
@@ -1369,30 +1383,6 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface UserRouteChildren {
-  UserCourseFinderRoute: typeof UserCourseFinderRoute
-  UserCoursesPageDetailRoute: typeof UserCoursesPageDetailRoute
-  UserFacilitiesPageDetailRoute: typeof UserFacilitiesPageDetailRoute
-  UserFacultyPageDetailRoute: typeof UserFacultyPageDetailRoute
-  UserNoticesPageDetailRoute: typeof UserNoticesPageDetailRoute
-  UserResultRoute: typeof UserResultRoute
-  UserScholarshipsPageDetailRoute: typeof UserScholarshipsPageDetailRoute
-  UserTransportationRoute: typeof UserTransportationRoute
-}
-
-const UserRouteChildren: UserRouteChildren = {
-  UserCourseFinderRoute: UserCourseFinderRoute,
-  UserCoursesPageDetailRoute: UserCoursesPageDetailRoute,
-  UserFacilitiesPageDetailRoute: UserFacilitiesPageDetailRoute,
-  UserFacultyPageDetailRoute: UserFacultyPageDetailRoute,
-  UserNoticesPageDetailRoute: UserNoticesPageDetailRoute,
-  UserResultRoute: UserResultRoute,
-  UserScholarshipsPageDetailRoute: UserScholarshipsPageDetailRoute,
-  UserTransportationRoute: UserTransportationRoute,
-}
-
-const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
-
 interface ApiWebsitePagesKeyBlocksRouteChildren {
   ApiWebsitePagesKeyBlocksBlockIdRoute: typeof ApiWebsitePagesKeyBlocksBlockIdRoute
 }
@@ -1442,7 +1432,7 @@ const rootRouteChildren: RootRouteChildren = {
   PublicRoute: PublicRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
   LoginRoute: LoginRoute,
-  UserRoute: UserRouteWithChildren,
+  UserRoute: UserRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiWebsitePagesRoute: ApiWebsitePagesRouteWithChildren,
   ApiWebsitePageKeyRoute: ApiWebsitePageKeyRoute,

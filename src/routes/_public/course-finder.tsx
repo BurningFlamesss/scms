@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { PageFrame, PageHeader } from "#/templates/modern/components/chrome/PageFrame";
 import { StreamChooser } from '#/templates/modern/components/interactions/StreamChooser';
 
-export const Route = createFileRoute("/user/course-finder")({
+export const Route = createFileRoute("/_public/course-finder")({
   component: RouteComponent,
 });
 

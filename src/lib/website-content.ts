@@ -404,7 +404,7 @@ export async function unpublishPage(key: WebsitePageKey, actor: Actor): Promise<
 
 export async function ensureDefaultPages(): Promise<void> {
   const defaultPages: { key: WebsitePageKey; title: string; path: string }[] = [
-    { key: "faculty", title: "Faculty & Administration", path: "/user/faculty-page-detail" },
+    { key: "faculty", title: "Faculty & Administration", path: "/faculty" },
     { key: "login", title: "Sign in", path: "/login-modern" },
   ];
 

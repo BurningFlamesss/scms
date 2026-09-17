@@ -438,7 +438,7 @@ const ScholarshipDetail = ({ item }: { item: Scholarship }) => {
   );
 };
 
-export const Route = createFileRoute("/user/scholarships-page-detail")({
+export const Route = createFileRoute("/_public/scholarships")({
 	component: RouteComponent,
 });
 

@@ -34,7 +34,7 @@ const CATEGORY_ORDER = [
   "Campus",
 ];
 
-export const Route = createFileRoute("/user/facilities-page-detail")({
+export const Route = createFileRoute("/_public/facilities")({
 	component: RouteComponent,
 });
 

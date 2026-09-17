@@ -291,7 +291,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
   );
 };
 
-export const Route = createFileRoute("/user/courses-page-detail")({
+export const Route = createFileRoute("/_public/courses")({
 	component: RouteComponent,
 });
 
