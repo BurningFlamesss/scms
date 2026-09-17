@@ -43,35 +43,49 @@ function RouteComponent() {
 					<p className="devanagari">{school.nepali}</p>
 					<h2 className="t-page-title text-foreground">{school.name}</h2>
 					<p>{school.address}</p>
-					<div className="time-card">
-						<strong data-testid="contact-open-state">
-							OPEN TODAY · 09:00–16:00
-						</strong>
-						<span data-testid="kathmandu-time">{time} · ASIA/KATHMANDU</span>
-						{[
-							"SUNDAY 09:00–16:00",
-							"MONDAY 09:00–16:00",
-							"TUESDAY 09:00–16:00",
-							"WEDNESDAY 09:00–16:00",
-							"THURSDAY 09:00–16:00",
-							"FRIDAY 09:00–16:00",
-							"SATURDAY CLOSED",
-						].map((x) => (
-							<p key={x}>{x}</p>
-						))}
+					<div className="time-card mt-8 rounded-card border border-border bg-transparent p-6">
+						<div className="flex items-center gap-2 mb-4">
+							<strong data-testid="contact-open-state" className="font-display text-base tracking-wider uppercase text-foreground">
+								OPEN TODAY · 09:00–16:00
+							</strong>
+						</div>
+						<span data-testid="kathmandu-time" className="block text-base text-muted-foreground mb-6 pb-4 border-b border-rule-soft">
+							{time} · ASIA/KATHMANDU
+						</span>
+						<ul className="space-y-3 mb-6 pb-6 border-b border-rule-soft">
+							{[
+								["SUNDAY", "09:00–16:00"],
+								["MONDAY", "09:00–16:00"],
+								["TUESDAY", "09:00–16:00"],
+								["WEDNESDAY", "09:00–16:00"],
+								["THURSDAY", "09:00–16:00"],
+								["FRIDAY", "09:00–16:00"],
+								["SATURDAY", "CLOSED"],
+							].map(([day, hours]) => (
+								<li key={day} className="flex justify-between text-base">
+									<span className="font-medium text-muted-foreground">{day}</span>
+									<span className="text-foreground">{hours}</span>
+								</li>
+							))}
+						</ul>
+						<div className="flex flex-col gap-3">
+							<a href={`tel:${school.phoneNtc}`} data-testid="contact-ntc-link" className="flex justify-between items-center text-base font-medium hover:text-accent transition-colors">
+								<span className="text-muted-foreground">NTC</span> 
+								<span>{school.phoneNtc}</span>
+							</a>
+							<a href={`tel:${school.phoneNcell}`} data-testid="contact-ncell-link" className="flex justify-between items-center text-base font-medium hover:text-accent transition-colors">
+								<span className="text-muted-foreground">NCELL</span> 
+								<span>{school.phoneNcell}</span>
+							</a>
+							<a
+								href="https://maps.google.com/?q=Pokhara+5+Nepal"
+								data-testid="contact-directions-link"
+								className="inline-flex mt-2 items-center justify-center font-medium text-base text-accent hover:text-accent/80 transition-colors"
+							>
+								GET DIRECTIONS <span className="ml-1 text-lg leading-none">↗</span>
+							</a>
+						</div>
 					</div>
-					<a href={`tel:${school.phoneNtc}`} data-testid="contact-ntc-link">
-						NTC · {school.phoneNtc}
-					</a>
-					<a href={`tel:${school.phoneNcell}`} data-testid="contact-ncell-link">
-						NCELL · {school.phoneNcell}
-					</a>
-					<a
-						href="https://maps.google.com/?q=Pokhara+5+Nepal"
-						data-testid="contact-directions-link"
-					>
-						GET DIRECTIONS ↗
-					</a>
 				</aside>
 				<form onSubmit={(e) => e.preventDefault()} data-testid="contact-form">
 					<h2 className="t-h2 text-foreground">DIRECT YOUR ENQUIRY</h2>
@@ -165,7 +179,7 @@ function RouteComponent() {
 							</p>
 						)}
 					</div>
-					<Button type="submit" testId="contact-submit-button">
+					<Button type="submit" testId="contact-submit-button" className="institution-button institution-button--full w-full py-3 mt-6">
 						Send enquiry
 					</Button>
 					<p className="form-note">
