@@ -18,13 +18,23 @@ export const Route = createFileRoute("/_onboard/activate/$token")({
 		}
 	},
 	loader: async ({ params }) => {
-		const invite = await getInvite({ data: params.token });
+		const clean = decodeURIComponent(params.token || "").trim().replace(/\/+$/, "");
+		const invite = await getInvite({ data: clean });
 		if (!invite) throw notFound();
 		if (invite.usedAt) throw new Error(ERROR.INVITATION_USED);
 		if (invite.expiresAt < new Date()) throw new Error(ERROR.INVITATION_EXPIRED);
 		return invite;
 	},
-	notFoundComponent: () => <div>This invite link doesn't exists.</div>,
+	notFoundComponent: () => (
+		<div className="flex flex-col items-center justify-center min-h-screen">
+			<div className="max-w-md p-8 text-center bg-card border border-border shadow-sm rounded-xl">
+				<AlertCircle className="w-12 h-12 mx-auto text-red-500 mb-4" />
+				<h2 className="text-xl font-semibold mb-2">Invite Not Found</h2>
+				<p className="text-muted-foreground mb-6">This activation link appears to be invalid or incorrectly formatted. Please check the URL and try again.</p>
+				<Link to="/" className="text-accent hover:underline font-medium">Return to homepage</Link>
+			</div>
+		</div>
+	),
 	errorComponent: ({ error }) => {
 		if (error.message === ERROR.INVITATION_USED) return <div>This invitation has already been used.</div>;
 		if (error.message === ERROR.INVITATION_EXPIRED) return <div>This invitation has expired.</div>;
