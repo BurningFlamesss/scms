@@ -130,7 +130,7 @@ const EligibilitySelfCheck = ({ item }: { item: Scholarship }) => {
         className="mt-4 h-1.5 bg-secondary [&>div]:bg-accent"
       />
 
-      <ul className="mt-6 divide-y divide-rule-soft border-y border-border">
+      <ul className="mt-6 divide-y divide-rule-soft">
         {item.eligibility.map((criterion) => {
           const isChecked = Boolean(checked[criterion.id]);
           return (
@@ -145,7 +145,7 @@ const EligibilitySelfCheck = ({ item }: { item: Scholarship }) => {
                 }
                 aria-pressed={isChecked}
                 data-testid="scholarship-eligibility-item"
-                className="flex w-full items-start gap-3.5 py-4 text-left transition-colors duration-fast hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40"
+                className="flex w-full items-start gap-3.5 py-4 text-left transition-colors duration-fast !border-0 !bg-transparent hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-0"
               >
                 {isChecked ? (
                   <CheckCircle2
@@ -557,7 +557,7 @@ function RouteComponent() {
 
             <ul
               data-testid="scholarship-list"
-              className="rail-scroll mt-6 divide-y divide-rule-soft border-y border-border lg:max-h-[70vh] lg:overflow-y-auto"
+              className="rail-scroll mt-6 divide-y divide-rule-soft lg:max-h-[70vh] lg:overflow-y-auto"
             >
               {filtered.map((item, index) => {
                 const isActive = active && item.id === active.id;
@@ -572,8 +572,8 @@ function RouteComponent() {
                         data-active={isActive}
                         data-testid="scholarship-row"
                         className={[
-                          "flex w-full items-start gap-4 py-4 pl-3 pr-2 text-left transition-colors duration-fast",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40",
+                          "flex w-full items-start gap-4 py-4 pl-3 pr-2 text-left transition-colors duration-fast !border-0 !bg-transparent",
+                          "focus-visible:outline-none focus-visible:ring-0",
                           isActive
                             ? "bg-accent/[0.08]"
                             : "hover:bg-secondary/60",

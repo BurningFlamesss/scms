@@ -340,7 +340,7 @@ function RouteComponent() {
         ) : (
           <ul
             data-testid="notice-list"
-            className="mt-8 divide-y divide-rule-soft border-y border-border"
+            className="mt-8 divide-y divide-rule-soft"
           >
             {filtered.map((notice) => (
               <li key={notice.id} id={notice.id}>
@@ -348,7 +348,7 @@ function RouteComponent() {
                   type="button"
                   onClick={() => setOpen(notice)}
                   data-testid="notice-row"
-                  className="group grid w-full grid-cols-1 gap-x-8 gap-y-2.5 py-6 text-left transition-colors duration-fast hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40 sm:grid-cols-[110px_1fr_auto] sm:items-start"
+                  className="group grid w-full grid-cols-1 gap-x-8 gap-y-2.5 py-6 text-left transition-colors duration-fast !border-0 !bg-transparent hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-0 sm:grid-cols-[110px_1fr_auto] sm:items-start"
                 >
                   <span className="sm:pt-1">
                     <span className="block font-mono text-[12px] tabular-nums leading-none text-foreground">
