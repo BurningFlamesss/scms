@@ -45,9 +45,49 @@ export default function LandingPage() {
 	return (
 		<>
 			<div className="relative min-h-screen bg-background">
-				<div ref={containerRef} className="relative h-[500vh]">
-					<div className="sticky top-0 h-screen w-full overflow-hidden">
+				<div ref={containerRef} className="relative h-[600vh]">
+					<div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
 						<HeroCanvas scrollTrackRef={containerRef} />
+						
+						{/* Dark Vignette Overlay for Text Legibility */}
+						<div className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+
+						{/* Scroll-triggered Overlays */}
+						<div className="pointer-events-none absolute inset-0 z-10 flex lg:pl-[var(--nav-w)]">
+							<div className="relative h-full w-full p-8 lg:p-16">
+								{/* Text 1: Visible by default, Appears Top Right */}
+								<div className="scroll-text-1 absolute right-8 top-1/4 max-w-lg text-right text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] lg:right-24">
+									<h2 className="font-display text-5xl font-bold leading-tight md:text-7xl">
+										A place to grow.
+									</h2>
+									<p className="mt-4 text-lg font-medium text-white/95 md:text-xl">
+										Developing character, capability, and curiosity since 2050 BS.
+									</p>
+								</div>
+
+								{/* Text 2: Appears Bottom Left (relative to layout) */}
+								<div className="scroll-text-2 absolute bottom-24 left-8 max-w-xl translate-y-[20px] text-white opacity-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] lg:left-24">
+									<h2 className="font-display text-5xl font-bold leading-tight md:text-7xl">
+										Future ready.
+									</h2>
+									<p className="mt-4 text-lg font-medium text-white/95 md:text-xl">
+										Our state-of-the-art facilities and modern curriculums empower students to thrive in an evolving world.
+									</p>
+								</div>
+
+								{/* Text 3: Appears Center */}
+								<div className="scroll-text-3 absolute inset-0 flex flex-col items-center justify-center text-center text-white opacity-0 translate-y-[20px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+									<div className="max-w-3xl px-6">
+										<h2 className="font-display text-5xl font-bold leading-tight md:text-8xl">
+											Everest.
+										</h2>
+										<p className="mt-4 text-xl font-medium text-white/95 md:text-2xl">
+											The summit of education.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<section className="hero-next-section absolute bottom-0 left-0 z-10 h-[80vh] w-full overflow-hidden bg-[#FEF2F2] rounded-t-3xl">
@@ -284,13 +324,19 @@ export function HeroCanvas({ scrollTrackRef }: { scrollTrackRef: React.RefObject
 				trigger: scrollTrackRef.current,
 				start: "top top",
 				end: "bottom bottom",
-				scrub: 0,
+				scrub: true,
 				onUpdate: (self) => {
 					const frameIndex = Math.floor(self.progress * (frameCount - 1));
 					drawFrame(frameIndex);
 				},
 			},
 		});
+
+		timeline.to(".scroll-text-1", { opacity: 0, y: -20, duration: 1, ease: "power1.inOut" }, 1.5)
+				.to(".scroll-text-2", { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }, 3)
+				.to(".scroll-text-2", { opacity: 0, y: -20, duration: 1, ease: "power1.inOut" }, 5.5)
+				.to(".scroll-text-3", { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }, 7)
+				.to(".scroll-text-3", { opacity: 0, y: -20, duration: 1, ease: "power1.inOut" }, 9.5);
 
 		// Trigger initial frame draw after GSAP ScrollTrigger setup
 		const currentScroll = ScrollTrigger.getById("hero-scroll");
