@@ -13,7 +13,7 @@
 
   --color-red: #DC2626;
   --color-red-dark: #B91C1C;
-  --color-red-light: #FEF2F2;
+  --color-red-light: #FEE2E2;
   --color-yellow: #FBBF24;
   --color-yellow-dark: #F59E0B;
   --color-yellow-light: #FEFCE8;
@@ -52,7 +52,7 @@
 
   /* --- RYBW design-system tokens (modern template + admin) --- */
   --color-ink: #000000;
-  --color-paper: #FFFFFF;
+  --color-paper: #FEE2E2;
   --color-brand: #DC2626;
   --color-n-50: #FAFAFA;
   --color-n-100: #F5F5F5;
@@ -68,10 +68,10 @@
   --color-rule: #D4D4D4;
   --color-rule-soft: #E5E5E5;
   --color-rule-strong: #171717;
-  --color-surface-0: #FFFFFF;
-  --color-surface-1: #FFFFFF;
+  --color-surface-0: #FEE2E2;
+  --color-surface-1: #FEE2E2;
   --color-surface-2: #F5F5F5;
-  --color-paper-1: #FFFFFF;
+  --color-paper-1: #FEE2E2;
   --color-info: #DC2626;
   --color-info-foreground: #FFFFFF;
   --color-success: #166534;
@@ -140,11 +140,11 @@
 @layer base {
     :root {
         /* shadcn surface tokens mapped to new color scheme */
-        --background: 0 0% 100%;
+        --background: 0 93% 94%;
         --foreground: 0 0% 0%;
-        --card: 0 0% 100%;
+        --card: 0 93% 94%;
         --card-foreground: 0 0% 0%;
-        --popover: 0 0% 100%;
+        --popover: 0 93% 94%;
         --popover-foreground: 0 0% 0%;
         --primary: 0 85% 51%;
         --primary-foreground: 0 0% 100%;
@@ -231,6 +231,26 @@
     ::-moz-selection {
         background: var(--c-yellow);
         color: var(--c-black);
+    }
+
+    button,
+    a,
+    [role="button"],
+    [type="button"],
+    [type="submit"],
+    [type="reset"],
+    select,
+    summary,
+    label[for],
+    input[type="checkbox"],
+    input[type="radio"],
+    [tabindex]:not([tabindex="-1"]) {
+        cursor: pointer;
+    }
+
+    [disabled],
+    [aria-disabled="true"] {
+        cursor: not-allowed;
     }
 
     :focus-visible {
@@ -419,7 +439,7 @@
     }
 
     body {
-        background: #fff !important;
+        background: #FEE2E2 !important;
         color: #111 !important;
     }
 

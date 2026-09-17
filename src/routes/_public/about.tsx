@@ -12,26 +12,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
+  Separator,
 } from "#/templates/modern/components/kit";
-import { DownloadButton } from "#/templates/modern/components/shared/DownloadButton";
 import { EditorialImage } from "#/templates/modern/components/shared/EditorialImage";
 import { EmptyState } from "#/templates/modern/components/shared/EmptyState";
 import { FilterChips } from "#/templates/modern/components/shared/FilterChips";
 import { school } from "#/content/school";
 import { photo } from "#/lib/media";
-import { downloadOfficialPdf } from "#/lib/pdf";
-import type { Doc } from "#/lib/types";
-
-const brochureDoc: Doc = {
-  id: "about-brochure",
-  title: "Everest Institutional Profile",
-  type: "application/pdf",
-  url: "/downloads/everest-profile-2026.pdf",
-  size: 2.1 * 1024 * 1024,
-  category: "official",
-  date: new Date("2026-01-12"),
-  description: "Comprehensive overview of our institutional mission, leadership, and community impact.",
-};
 
 const chapters = [
   {
@@ -221,16 +208,6 @@ function RouteComponent() {
         eyebrow="ABOUT EVEREST"
         title="A place where curiosity becomes capability."
         subtitle="An institutional story told through the people, spaces, and principles that shape each school day."
-        meta={[]}
-        actions={
-          <DownloadButton
-            label="Download Institution Profile"
-            meta={`PDF · ${school.establishedBs} BS · ${school.establishedAd} AD`}
-            stamp="Official"
-            testId="about-download-brochure-button"
-            onDownload={() => downloadOfficialPdf(brochureDoc)}
-          />
-        }
       />
 
       <div className="mt-14">
@@ -254,8 +231,75 @@ function RouteComponent() {
           />
         </div>
       ) : (
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1.55fr_0.85fr] lg:gap-14">
-          {/* Featured space */}
+        <div className="mt-10 grid gap-12 lg:grid-cols-[236px_1fr] lg:gap-16">
+          <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
+            <p className="t-eyebrow">Contents</p>
+            <div
+              role="group"
+              aria-label="Chapters"
+              data-testid="about-chapter-switcher"
+              className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:mt-5 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0"
+            >
+              {filtered.map((item) => {
+                const isActive = item.id === active.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveId(item.id)}
+                    aria-pressed={isActive}
+                    data-active={isActive}
+                    data-testid={`about-chapter-switcher-item-${item.id}`}
+                    className={[
+                      "shrink-0 rounded-field border px-3.5 py-2.5 text-left transition-colors duration-fast",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                      "lg:w-full lg:rounded-none lg:border-0 lg:border-l-2 lg:px-0 lg:pl-4",
+                      isActive
+                        ? "border-accent/40 bg-accent/10 lg:border-accent lg:bg-transparent"
+                        : "border-border bg-background hover:bg-secondary lg:border-rule lg:bg-transparent lg:hover:border-rule-strong",
+                    ].join(" ")}
+                  >
+                    <span
+                      className={[
+                        "block whitespace-nowrap text-[13px] lg:whitespace-normal",
+                        isActive
+                          ? "font-medium text-foreground"
+                          : "text-muted-foreground",
+                      ].join(" ")}
+                    >
+                      {item.name}
+                    </span>
+                    <span className="mt-1 hidden font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground lg:block">
+                      {item.category}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <Separator className="my-7 hidden lg:block" />
+
+            <dl className="hidden gap-y-5 lg:grid">
+              {[
+                { label: "Category", value: active.category },
+                { label: "Since", value: active.since },
+                { label: "Block", value: active.block },
+                { label: "Focus", value: active.inCharge },
+              ].map((item) => (
+                <div key={item.label}>
+                  <dt className="t-eyebrow">{item.label}</dt>
+                  <dd className="mt-1.5 text-[13px] leading-relaxed text-foreground">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="t-meta mt-7 leading-relaxed hidden lg:block">
+              {school.address.line1}, {school.address.line2}. Visiting hours for prospective families are
+              Sunday to Friday, 10:00 to 16:00.
+            </p>
+          </aside>
+
           <Reveal key={active.id} className="min-w-0">
             <article data-testid="chapter-featured">
               <EditorialImage
@@ -282,7 +326,6 @@ function RouteComponent() {
                 </p>
               </div>
 
-              {/* Specs strip */}
               <dl
                 data-testid="chapter-specs-strip"
                 className="mt-9 grid grid-cols-2 gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-3"
@@ -297,7 +340,6 @@ function RouteComponent() {
                 ))}
               </dl>
 
-              {/* Operating detail */}
               <dl className="mt-8 grid gap-x-10 gap-y-5 sm:grid-cols-2">
                 {[
                   { icon: MapPin, label: "Focus Area", value: active.block },
@@ -327,7 +369,6 @@ function RouteComponent() {
                 ))}
               </dl>
 
-              {/* What students say */}
               <blockquote
                 data-testid="chapter-students-love"
                 className="mt-9 rounded-card bg-secondary/60 px-6 py-6"
@@ -341,7 +382,6 @@ function RouteComponent() {
                 </footer>
               </blockquote>
 
-              {/* Gallery */}
               <div className="mt-14">
                 <SectionHeading
                   eyebrow="Glimpses"
@@ -368,74 +408,9 @@ function RouteComponent() {
               </div>
             </article>
           </Reveal>
-
-          {/* Chapter index rail */}
-          <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-            <div className="flex items-baseline justify-between gap-4">
-              <p className="t-eyebrow">Contents</p>
-              <span className="t-meta">{filtered.length} chapters</span>
-            </div>
-
-            <div
-              data-testid="chapter-rail"
-              className="rail-scroll mt-4 overflow-y-auto rounded-card border border-border bg-secondary/50 lg:max-h-[68vh]"
-            >
-              <ul>
-                {filtered.map((chapter, index) => {
-                  const isActive = chapter.id === active.id;
-                  return (
-                    <li key={chapter.id}>
-                      <button
-                        type="button"
-                        onClick={() => setActiveId(chapter.id)}
-                        aria-current={isActive ? "true" : undefined}
-                        data-active={isActive}
-                        data-testid="chapter-rail-item"
-                        className={[
-                          "flex w-full items-start gap-3.5 border-b border-border/70 px-4 py-3.5 text-left transition-colors duration-fast",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40",
-                          index === filtered.length - 1 ? "border-b-0" : "",
-                          isActive ? "bg-background" : "hover:bg-background/60",
-                        ].join(" ")}
-                      >
-                        <span
-                          className={[
-                            "mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-fast",
-                            isActive ? "bg-accent" : "bg-rule-strong",
-                          ].join(" ")}
-                          aria-hidden="true"
-                        />
-                        <span className="min-w-0 flex-1">
-                          <span
-                            className={[
-                              "block text-[13px] leading-snug",
-                              isActive
-                                ? "font-medium text-foreground"
-                                : "text-muted-foreground",
-                            ].join(" ")}
-                          >
-                            {chapter.name}
-                          </span>
-                          <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
-                            {chapter.category}
-                          </span>
-                        </span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            <p className="t-meta mt-4 leading-relaxed">
-              {school.address.line1}, {school.address.line2}. Visiting hours for prospective families are
-              Sunday to Friday, 10:00 to 16:00.
-            </p>
-          </aside>
         </div>
       )}
 
-      {/* Lightbox */}
       <Dialog
         open={lightbox !== null}
         onOpenChange={(open: boolean) => {

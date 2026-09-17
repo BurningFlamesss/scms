@@ -166,11 +166,11 @@ export function Sidebar() {
 
 	if (isAdmin) return null;
 
-	const logoMark = sidebar.logo ? (
+	const logoMark = sidebar?.logo ? (
 		<img
 			src={sidebar.logo}
 			alt="School logo"
-			className="size-16 rounded-full bg-white object-contain p-1"
+			className="size-16 rounded-full bg-[#FEE2E2] object-contain p-1"
 		/>
 	) : (
 		<img
@@ -181,13 +181,13 @@ export function Sidebar() {
 	);
 
 	const navFooter = data?.session?.id ? (
-		<div className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl text-accent-foreground">
+		<div className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer text-accent-foreground">
 			Dashboard Coming Soon!
 		</div>
 	) : (
 		<Link
 				to="/login"
-				className="bg-primary flex w-full items-center justify-center py-2 cursor-pointer rounded-b-2xl text-primary-foreground hover:bg-primary/90"
+				className="bg-accent flex w-full items-center justify-center py-2 cursor-pointer text-primary-foreground hover:bg-accent/90"
 			>
 				Login
 			</Link>
@@ -195,7 +195,7 @@ export function Sidebar() {
 
 	const navLinks = (
 		<ul className="space-y-1 mt-4">
-			{Object.values(sidebar.collapsible).map((item) => (
+			{sidebar?.collapsible && Object.values(sidebar.collapsible).map((item) => (
 				<SidebarItem key={item.id} item={item} pathname={pathname} />
 			))}
 		</ul>
@@ -241,7 +241,7 @@ export function Sidebar() {
 			</aside>
 
 			{/* ── Desktop controls: fixed right edge ── */}
-			<div className="fixed top-4 right-4 z-nav hidden flex-col items-center gap-2 rounded-full bg-black/80 backdrop-blur-sm p-1.5 shadow-lg lg:flex">
+			<div className="fixed top-4 right-4 z-nav hidden flex-col items-center gap-2 rounded-full bg-primary/95 backdrop-blur-sm p-1.5 shadow-lg lg:flex">
 				<button
 					type="button"
 					onClick={() => setIsOpen((s) => !s)}
@@ -249,7 +249,7 @@ export function Sidebar() {
 					aria-label={isOpen ? "Close navigation" : "Open navigation"}
 					title={isOpen ? "Close navigation" : "Open navigation"}
 					data-testid="nav-collapse-toggle"
-					className="inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/30"
+					className="inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full bg-[#FEE2E2]/10 text-white transition-colors hover:bg-[#FEE2E2]/30"
 				>
 					<Menu aria-hidden="true" size={18} />
 				</button>
@@ -264,8 +264,8 @@ export function Sidebar() {
 					className={cn(
 						"inline-flex size-9 border-none cursor-pointer items-center justify-center rounded-full transition-colors",
 						pinned
-							? "bg-white text-black"
-							: "bg-white/10 text-white hover:bg-white/30",
+							? "bg-[#FEE2E2] text-black"
+							: "bg-[#FEE2E2]/10 text-white hover:bg-[#FEE2E2]/30",
 					)}
 				>
 					{pinned ? (
@@ -283,8 +283,8 @@ export function Sidebar() {
 					className="flex min-w-0 items-center gap-3"
 					data-testid="nav-home-mobile"
 				>
-					<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-white">
-						{sidebar.logo ? (
+					<span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[#FEE2E2]">
+						{sidebar?.logo ? (
 							<img
 								src={sidebar.logo}
 								alt=""
@@ -295,7 +295,7 @@ export function Sidebar() {
 						)}
 					</span>
 					<span className="truncate text-[15px] font-semibold text-primary-foreground">
-						{sidebar.tagline}
+						{sidebar?.tagline}
 					</span>
 				</Link>
 				<button
@@ -341,10 +341,10 @@ export function Sidebar() {
 						>
 							<div className="flex items-center justify-between px-4 pt-3">
 								<span className="flex items-center gap-2 font-semibold text-primary-foreground">
-									<span className="flex size-8 items-center justify-center rounded-md bg-white">
+									<span className="flex size-8 items-center justify-center rounded-md bg-[#FEE2E2]">
 										{logoMark}
 									</span>
-									{sidebar.tagline}
+									{sidebar?.tagline}
 								</span>
 								<button
 									type="button"

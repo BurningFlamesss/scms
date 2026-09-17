@@ -25,6 +25,8 @@ import indexCss from "../index.css?url";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import globalCss from "../styles.css?url";
 
+import { getSchoolConfig, getSchoolContent } from "#/packages/school/loader.ts";
+
 const PUBLIC_CACHE_HEADERS = () => ({
 	"Cache-Control":
 		"public, max-age=60, s-maxage=3600, stale-while-revalidate=86400",
@@ -87,10 +89,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			withTimeout(getScholarshipsServer()),
 		]);
 
-		const config = configResult.status === "fulfilled" ? configResult.value : null;
+		const config = configResult.status === "fulfilled" && configResult.value ? configResult.value : getSchoolConfig("everest");
 		const facultyContent = facultyContentResult.status === "fulfilled" ? facultyContentResult.value : null;
 		const loginContent = loginContentResult.status === "fulfilled" ? loginContentResult.value : null;
-		const sidebarContent = sidebarContentResult.status === "fulfilled" ? sidebarContentResult.value : null;
+		const sidebarContent = sidebarContentResult.status === "fulfilled" && sidebarContentResult.value ? sidebarContentResult.value : getSchoolContent("everest");
 		const facultyMembers = facultyMembersResult.status === "fulfilled" ? facultyMembersResult.value : null;
 		const notices = noticesResult.status === "fulfilled" ? noticesResult.value : null;
 		const scholarships = scholarshipsResult.status === "fulfilled" ? scholarshipsResult.value : null;

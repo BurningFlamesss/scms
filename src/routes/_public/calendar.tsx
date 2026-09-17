@@ -191,7 +191,7 @@ function RouteComponent() {
 				title={calendarIntro.statement.join(" ")}
 				lead={calendarIntro.support}
 			/>
-			<ChromeSection testId="calendar-intro">
+			<ChromeSection testId="calendar-intro" className="!mt-10">
 				<div
 					className="grid gap-px border-hair border-n-200 bg-n-200 sm:grid-cols-2"
 					data-testid="calendar-counters"
@@ -200,7 +200,7 @@ function RouteComponent() {
 						{ label: "Next holiday", ev: nextHoliday },
 						{ label: "Next examination", ev: nextExam },
 					].map((c) => (
-						<div key={c.label} className="flex flex-col gap-2 bg-paper p-6">
+						<div key={c.label} className="flex flex-col gap-2 bg-[#FEE2E2] p-6">
 							<p className="u-label text-n-600">{c.label}</p>
 							{c.ev ? (
 								<>
@@ -223,7 +223,7 @@ function RouteComponent() {
 				</div>
 			</ChromeSection>
 
-			<ChromeSection testId="calendar-grid-section" className="pt-0">
+			<ChromeSection testId="calendar-grid-section" className="!mt-10">
 				<div className="flex flex-col gap-6">
 					<WidgetCaption>
 						Both calendars are always shown; the toggle only chooses which one

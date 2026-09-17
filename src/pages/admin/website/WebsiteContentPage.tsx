@@ -384,7 +384,7 @@ export default function WebsiteContentPage() {
 								src={`${page.path}?cms=1`}
 								title={`Live preview: ${page.title}`}
 								data-testid="cms-live-preview"
-								className="h-[calc(100vh-240px)] min-h-[560px] w-full border-0 bg-white"
+								className="h-[calc(100vh-240px)] min-h-[560px] w-full border-0 bg-[#FEE2E2]"
 							/>
 						</Panel>
 					</div>

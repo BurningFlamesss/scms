@@ -54,7 +54,7 @@ export function NoticeTicker({ className, testId = 'notice-ticker' }: { classNam
   return (
     <div
       className={cn(
-        'flex min-h-ticker w-full items-center gap-4 border-b-hair border-n-200 bg-paper',
+        'flex min-h-ticker w-full items-center gap-4 border-b-hair border-n-200 bg-[#FEE2E2] px-4',
         className,
       )}
       data-testid={testId}
@@ -89,7 +89,7 @@ export function NoticeTicker({ className, testId = 'notice-ticker' }: { classNam
         onClick={() => setPlaying((p) => !p)}
         data-testid='ticker-toggle'
         aria-pressed={!playing}
-        className='inline-flex h-tap w-tap shrink-0 items-center justify-center rounded-ui text-n-600 hover:text-ink'
+        className='inline-flex h-tap w-tap shrink-0 items-center justify-center rounded-ui border-none bg-transparent text-n-600 hover:text-ink hover:bg-transparent'
       >
         {playing ? <Pause aria-hidden='true' size={14} /> : <Play aria-hidden='true' size={14} />}
         <span className='sr-only'>{playing ? 'Pause the notice rotation' : 'Play the notice rotation'}</span>

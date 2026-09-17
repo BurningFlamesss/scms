@@ -17,8 +17,10 @@ export function PageShell({
 				variant === "default" && "lg:pl-[var(--nav-w)]",
 			)}
 		>
-			<div className={variant === "default" ? "u-container" : ""}>
-				<NoticeTicker />
+			<div className={variant === "overlay" ? "lg:pl-[var(--nav-w)]" : ""}>
+				<div className="u-container">
+					<NoticeTicker />
+				</div>
 			</div>
 			<main id="main" tabIndex={-1} className="outline-none">
 				{children}

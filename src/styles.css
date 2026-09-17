@@ -11,7 +11,7 @@
   /* Red, Yellow, Black, White color scheme */
   --c-red: #DC2626;
   --c-red-dark: #B91C1C;
-  --c-red-light: #FEF2F2;
+  --c-red-light: #FEE2E2;
   --c-yellow: #FBBF24;
   --c-yellow-dark: #F59E0B;
   --c-yellow-light: #FEFCE8;
@@ -29,8 +29,8 @@
   --c-gray-900: #171717;
 
   /* Aliases for backward compatibility with app.css */
-  --bg: var(--c-white);
-  --paper: var(--c-white);
+  --bg: var(--c-red-light);
+  --paper: var(--c-red-light);
   --ink: var(--c-black);
   --ink-2: var(--c-gray-900);
   --muted: var(--c-gray-500);
@@ -41,7 +41,9 @@
   --success: #166534;
   --danger: var(--c-red-dark);
 
-  --background: var(--c-white);
+  --background: var(--c-red-light);
+  --card: var(--c-red-light);
+  --popover: var(--c-red-light);
   --foreground: var(--c-black);
   --card: var(--c-white);
   --card-foreground: var(--c-black);
@@ -164,7 +166,7 @@
     @apply m-0 p-0 box-border;
   }
   body {
-    background-color: var(--background);
+    background-color: #FEE2E2 !important;
     color: var(--foreground);
     font-family: var(--font-sans);
     font-weight: var(--font-weight-regular);

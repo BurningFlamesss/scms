@@ -18,9 +18,9 @@ function RouteComponent() {
 				title="Downloads and Materials"
 				lead="Access important files, forms, and documents for the academic session."
 			/>
-			<Section testId="resources-downloads">
+			<div className="mt-10 mb-16" data-testid="resources-downloads">
 				<DownloadsCentre />
-			</Section>
+			</div>
 		</PageFrame>
 	);
 }

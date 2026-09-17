@@ -185,6 +185,7 @@ export const getSchoolContentServer = createServerFn({ method: "GET" })
 					{ id: "transportation", label: "Transportation", href: "/user/transportation" },
 					{ id: "result", label: "Result", href: "/user/result" },
 					{ id: "course-finder", label: "Course Finder", href: "/user/course-finder" },
+				{ id: "resources", label: "Resources", href: "/resources" },
 				],
 			},
 			contact: { id: "contact", label: "CONTACT", href: "/contact" },

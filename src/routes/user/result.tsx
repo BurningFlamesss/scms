@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageFrame, PageHeader, Section } from "#/templates/modern/components/chrome/PageFrame";
+import { PageFrame, PageHeader } from "#/templates/modern/components/chrome/PageFrame";
 import { ResultsChart } from '#/templates/modern/components/utilities/ResultsChart';
 
 export const Route = createFileRoute("/user/result")({
@@ -14,9 +14,9 @@ function RouteComponent() {
         title="Board results"
         lead="Division splits over the last five sessions for secondary education exams."
       />
-      <Section className="mb-16 mt-8">
+      <div className="mt-10 mb-16">
           <ResultsChart />
-      </Section>
+      </div>
     </PageFrame>
   );
 }
