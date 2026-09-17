@@ -110,7 +110,7 @@ export function Lightbox({
             onClick={onClose}
             data-testid='lightbox-close'
             aria-label='Close the image viewer'
-            className='inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-paper/40 text-paper hover:border-paper'
+            className='inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-red-500/40 text-red-500 hover:border-red-500 !bg-transparent !border-red-500/40'
           >
             <X aria-hidden='true' size={18} />
           </button>
@@ -123,7 +123,7 @@ export function Lightbox({
           onClick={() => go(-1)}
           aria-label='Previous photograph'
           data-testid='lightbox-prev'
-          className='absolute left-2 z-10 inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-paper/40 text-paper hover:border-paper md:left-4'
+          className='absolute left-2 z-10 inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-red-500/40 text-red-500 hover:border-red-500 !bg-transparent !border-red-500/40 md:left-4'
         >
           <ChevronLeft aria-hidden='true' size={20} />
         </button>
@@ -153,7 +153,7 @@ export function Lightbox({
           onClick={() => go(1)}
           aria-label='Next photograph'
           data-testid='lightbox-next'
-          className='absolute right-2 z-10 inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-paper/40 text-paper hover:border-paper md:right-4'
+          className='absolute right-2 z-10 inline-flex h-tap w-tap items-center justify-center rounded-ui border-hair border-red-500/40 text-red-500 hover:border-red-500 !bg-transparent !border-red-500/40 md:right-4'
         >
           <ChevronRight aria-hidden='true' size={20} />
         </button>

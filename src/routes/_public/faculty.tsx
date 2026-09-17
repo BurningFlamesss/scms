@@ -313,7 +313,7 @@ function RouteComponent() {
         ) : (
           <ul
             data-testid="faculty-directory"
-            className="mt-9 divide-y divide-rule-soft border-y border-border"
+            className="mt-9 divide-y divide-rule-soft"
           >
             {filtered.map((person) => (
               <li key={person.id}>
@@ -321,7 +321,7 @@ function RouteComponent() {
                   type="button"
                   onClick={() => setSelected(person)}
                   data-testid="faculty-directory-row"
-                  className="group flex w-full items-center gap-4 py-4 text-left transition-colors duration-fast hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40"
+                  className="group flex w-full items-center gap-4 py-4 text-left transition-colors duration-fast !border-0 !bg-transparent hover:bg-secondary/60 focus-visible:outline-none focus-visible:ring-0"
                 >
                   <MonogramAvatar
                     name={person.name}
