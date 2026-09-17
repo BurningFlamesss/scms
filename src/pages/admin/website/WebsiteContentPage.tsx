@@ -48,7 +48,22 @@ import {
 import { useAuth } from "@/providers/AuthProvider";
 import type { BlockType, WebsitePage, WebsitePageKey } from "@/types";
 
-const PAGE_KEYS: WebsitePageKey[] = ["faculty", "login"];
+const PAGE_KEYS: WebsitePageKey[] = [
+	"home",
+	"about",
+	"courses",
+	"facilities",
+	"gallery",
+	"calendar",
+	"contact",
+	"resources",
+	"result",
+	"transportation",
+	"notices",
+	"scholarship",
+	"faculty",
+	"login"
+];
 
 function clone<T>(value: T): T {
 	return JSON.parse(JSON.stringify(value)) as T;

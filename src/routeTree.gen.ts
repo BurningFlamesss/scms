@@ -41,6 +41,7 @@ import { Route as AdminGalleryRouteImport } from './routes/admin/gallery'
 import { Route as AdminNoticesRouteImport } from './routes/admin/notices'
 import { Route as AdminOverviewRouteImport } from './routes/admin/overview'
 import { Route as AdminPaymentsRouteImport } from './routes/admin/payments'
+import { Route as AdminScholarshipsRouteImport } from './routes/admin/scholarships'
 import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as AdminStaffRouteImport } from './routes/admin/staff'
 import { Route as AdminStudentsRouteImport } from './routes/admin/students'
@@ -227,6 +228,11 @@ const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
   path: '/payments',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminScholarshipsRoute = AdminScholarshipsRouteImport.update({
+  id: '/scholarships',
+  path: '/scholarships',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -398,6 +404,7 @@ export interface FileRoutesByFullPath {
   '/admin/notices': typeof AdminNoticesRouteWithChildren
   '/admin/overview': typeof AdminOverviewRoute
   '/admin/payments': typeof AdminPaymentsRouteWithChildren
+  '/admin/scholarships': typeof AdminScholarshipsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/staff': typeof AdminStaffRouteWithChildren
   '/admin/students': typeof AdminStudentsRouteWithChildren
@@ -456,6 +463,7 @@ export interface FileRoutesByTo {
   '/admin/notices': typeof AdminNoticesRouteWithChildren
   '/admin/overview': typeof AdminOverviewRoute
   '/admin/payments': typeof AdminPaymentsRouteWithChildren
+  '/admin/scholarships': typeof AdminScholarshipsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/staff': typeof AdminStaffRouteWithChildren
   '/admin/students': typeof AdminStudentsRouteWithChildren
@@ -517,6 +525,7 @@ export interface FileRoutesById {
   '/admin/notices': typeof AdminNoticesRouteWithChildren
   '/admin/overview': typeof AdminOverviewRoute
   '/admin/payments': typeof AdminPaymentsRouteWithChildren
+  '/admin/scholarships': typeof AdminScholarshipsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/staff': typeof AdminStaffRouteWithChildren
   '/admin/students': typeof AdminStudentsRouteWithChildren
@@ -579,6 +588,7 @@ export interface FileRouteTypes {
     | '/admin/notices'
     | '/admin/overview'
     | '/admin/payments'
+    | '/admin/scholarships'
     | '/admin/settings'
     | '/admin/staff'
     | '/admin/students'
@@ -637,6 +647,7 @@ export interface FileRouteTypes {
     | '/admin/notices'
     | '/admin/overview'
     | '/admin/payments'
+    | '/admin/scholarships'
     | '/admin/settings'
     | '/admin/staff'
     | '/admin/students'
@@ -697,6 +708,7 @@ export interface FileRouteTypes {
     | '/admin/notices'
     | '/admin/overview'
     | '/admin/payments'
+    | '/admin/scholarships'
     | '/admin/settings'
     | '/admin/staff'
     | '/admin/students'
@@ -963,6 +975,13 @@ declare module '@tanstack/react-router' {
       path: '/payments'
       fullPath: '/admin/payments'
       preLoaderRoute: typeof AdminPaymentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/scholarships': {
+      id: '/admin/scholarships'
+      path: '/scholarships'
+      fullPath: '/admin/scholarships'
+      preLoaderRoute: typeof AdminScholarshipsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/settings': {
@@ -1351,6 +1370,7 @@ interface AdminRouteChildren {
   AdminNoticesRoute: typeof AdminNoticesRouteWithChildren
   AdminOverviewRoute: typeof AdminOverviewRoute
   AdminPaymentsRoute: typeof AdminPaymentsRouteWithChildren
+  AdminScholarshipsRoute: typeof AdminScholarshipsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminStaffRoute: typeof AdminStaffRouteWithChildren
   AdminStudentsRoute: typeof AdminStudentsRouteWithChildren
@@ -1372,6 +1392,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminNoticesRoute: AdminNoticesRouteWithChildren,
   AdminOverviewRoute: AdminOverviewRoute,
   AdminPaymentsRoute: AdminPaymentsRouteWithChildren,
+  AdminScholarshipsRoute: AdminScholarshipsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminStaffRoute: AdminStaffRouteWithChildren,
   AdminStudentsRoute: AdminStudentsRouteWithChildren,

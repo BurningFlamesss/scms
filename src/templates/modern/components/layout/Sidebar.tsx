@@ -170,7 +170,7 @@ export function Sidebar() {
 		<img
 			src={sidebar.logo}
 			alt="School logo"
-			className="size-16 rounded-full bg-white object-contain p-1"
+			className="h-16"
 		/>
 	) : (
 		<img

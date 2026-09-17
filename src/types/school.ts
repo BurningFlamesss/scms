@@ -30,15 +30,7 @@ export interface SchoolContent {
 export interface SidebarContent {
 	logo: string;
 	tagline: string;
-	collapsible: {
-		home: ItemDetail;
-		about: ItemDetail;
-		courses: ItemDetail;
-		facilities: ItemDetail;
-		gallery: ItemDetail;
-		moreInfo: ItemDetail;
-		contact: ItemDetail;
-	};
+	collapsible: Record<string, ItemDetail>;
 }
 
 export interface ItemDetail {

@@ -23,6 +23,47 @@
 				"label": "Gallery",
 				"href": "/gallery"
 			},
+			"faculty": {
+				"id": "faculty",
+				"label": "Faculty & Staff",
+				"href": "/faculty"
+			},
+			"notices": {
+				"id": "notices",
+				"label": "Notice Board",
+				"href": "/notices"
+			},
+			"more_info": {
+				"id": "more_info",
+				"label": "More Info",
+				"children": [
+					{
+						"id": "calendar",
+						"label": "Calendar",
+						"href": "/calendar"
+					},
+					{
+						"id": "scholarships",
+						"label": "Scholarships",
+						"href": "/scholarships"
+					},
+					{
+						"id": "transportation",
+						"label": "Transportation",
+						"href": "/transportation"
+					},
+					{
+						"id": "resources",
+						"label": "Downloads Centre",
+						"href": "/resources"
+					},
+					{
+						"id": "result",
+						"label": "Board Results",
+						"href": "/result"
+					}
+				]
+			},
 			"contact": {
 				"id": "contact",
 				"label": "Contact",

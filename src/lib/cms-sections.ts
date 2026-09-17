@@ -11,7 +11,7 @@ import type { BlockType, ContentBlock } from "@/types";
 // been saved yet.
 // ---------------------------------------------------------------------------
 
-export type CmsPageKey = "faculty" | "login";
+export type CmsPageKey = "home" | "about" | "courses" | "facilities" | "gallery" | "calendar" | "contact" | "resources" | "result" | "transportation" | "notices" | "scholarship" | "faculty" | "login";
 
 export const LOGIN_SECTION_TYPES: BlockType[] = [
 	"auth_visual",
@@ -27,7 +27,23 @@ export const FACULTY_SECTION_TYPES: BlockType[] = [
 ];
 
 export function pageSectionTypes(pageKey: CmsPageKey): BlockType[] {
-	return pageKey === "faculty" ? FACULTY_SECTION_TYPES : LOGIN_SECTION_TYPES;
+	switch (pageKey) {
+		case "faculty": return FACULTY_SECTION_TYPES;
+		case "login": return LOGIN_SECTION_TYPES;
+		case "home": return ["hero", "intro", "stats", "featured_events"];
+		case "about": return ["history", "mission_vision", "principal_message"];
+		case "contact": return ["contact_details", "office_hours", "map"];
+		case "courses": return ["academics"];
+		case "facilities": return ["facilities"];
+		case "gallery": return ["gallery_grid"];
+		case "calendar": return ["featured_events"];
+		case "resources": return ["rich_text"];
+		case "result": return ["stats"];
+		case "transportation": return ["contact_details"];
+		case "notices": return ["announcements", "featured_notices"];
+		case "scholarship": return ["admissions_info"];
+		default: return ["rich_text"];
+	}
 }
 
 export const SECTION_LABELS: Partial<Record<BlockType, string>> = {
