@@ -39,7 +39,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
     <Tabs defaultValue="overview" className="w-full">
       <TabsList
         data-testid={`program-tabs-${program.id}`}
-        className="h-auto flex-wrap justify-start gap-1 rounded-full bg-secondary p-1"
+        className="h-auto flex-wrap justify-start gap-1 rounded-full bg-transparent p-1"
       >
         {[
           { value: "overview", label: "Overview" },
@@ -51,7 +51,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
             key={tab.value}
             value={tab.value}
             data-testid={`program-tab-${program.id}-${tab.value}`}
-            className="rounded-full px-3.5 py-1.5 text-[13px] transition-colors duration-fast data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs"
+            className="!border-none !outline-none !ring-0 rounded-full px-3.5 py-1.5 text-[13px] transition-colors duration-fast data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs"
           >
             {tab.label}
           </TabsTrigger>
@@ -81,7 +81,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
             </dl>
           </div>
 
-          <div className="min-w-0 rounded-card border border-border bg-secondary/50 p-5">
+          <div className="min-w-0  bg-transparent p-5">
             <p className="t-eyebrow">What makes it distinctive</p>
             <ul className="mt-4 space-y-3">
               {program.highlights.map((item) => (
@@ -99,7 +99,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-rule-soft pt-6">
+        <div className="mt-8  pt-6">
           <DownloadButton
             label="Programme prospectus"
             meta={`PDF · ${program.code} · Session 2083 BS`}
@@ -114,14 +114,14 @@ const ProgramDetail = ({ program }: { program: Program }) => {
       </TabsContent>
 
       <TabsContent value="subjects" className="mt-6 focus-visible:outline-none">
-        <div className="overflow-hidden rounded-card border border-border">
+        <div className="overflow-hidden ">
           <div className="rail-scroll overflow-x-auto">
             <table
               className="w-full min-w-[520px] border-collapse text-left"
               data-testid={`program-subjects-table-${program.id}`}
             >
               <thead>
-                <tr className="border-b border-border bg-secondary">
+                <tr className=" bg-transparent">
                   <th className="px-4 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     Code
                   </th>
@@ -140,8 +140,8 @@ const ProgramDetail = ({ program }: { program: Program }) => {
                 {program.subjects.map((subject, index) => (
                   <tr
                     key={subject.code}
-                    className={`border-b border-rule-soft last:border-b-0 ${
-                      index % 2 === 1 ? "bg-secondary/40" : ""
+                    className={` ${
+                      index % 2 === 1 ? "bg-transparent" : ""
                     }`}
                   >
                     <td className="px-4 py-3 font-mono text-[11px] tabular-nums text-muted-foreground">
@@ -154,7 +154,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
                       {subject.credit}
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex rounded-full border border-border bg-background px-2 py-0.5 text-[11px] text-muted-foreground">
+                      <span className="inline-flex rounded-full bg-transparent px-2 py-0.5 text-[11px] text-muted-foreground">
                         {subject.kind}
                       </span>
                     </td>
@@ -162,7 +162,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
                 ))}
               </tbody>
               <tfoot>
-                <tr className="border-t border-border bg-secondary">
+                <tr className=" bg-transparent">
                   <td className="px-4 py-3" />
                   <td className="px-4 py-3 text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
                     Total credit hours
@@ -179,14 +179,14 @@ const ProgramDetail = ({ program }: { program: Program }) => {
       </TabsContent>
 
       <TabsContent value="fees" className="mt-6 focus-visible:outline-none">
-        <div className="overflow-hidden rounded-card border border-border">
+        <div className="overflow-hidden ">
           <div className="rail-scroll overflow-x-auto">
             <table
               className="w-full min-w-[560px] border-collapse text-left"
               data-testid={`program-fees-table-${program.id}`}
             >
               <thead>
-                <tr className="border-b border-border bg-secondary">
+                <tr className=" bg-transparent">
                   <th className="px-4 py-3 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     Particular
                   </th>
@@ -202,8 +202,8 @@ const ProgramDetail = ({ program }: { program: Program }) => {
                 {program.fees.map((fee, index) => (
                   <tr
                     key={fee.label}
-                    className={`border-b border-rule-soft last:border-b-0 ${
-                      index % 2 === 1 ? "bg-secondary/40" : ""
+                    className={` ${
+                      index % 2 === 1 ? "bg-transparent" : ""
                     }`}
                   >
                     <td className="px-4 py-3 text-[13px] text-foreground">
@@ -250,7 +250,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
             {program.careers.map((career) => (
               <li
                 key={career}
-                className="flex items-start gap-3 rounded-field border border-border bg-card px-4 py-3.5"
+                className="flex items-start gap-3  bg-transparent px-4 py-3.5"
               >
                 <ArrowUpRight
                   className="mt-0.5 h-4 w-4 shrink-0 text-accent"
@@ -270,7 +270,7 @@ const ProgramDetail = ({ program }: { program: Program }) => {
           </p>
         )}
 
-        <div className="mt-8 border-t border-rule-soft pt-6">
+        <div className="mt-8  pt-6">
           <p className="t-eyebrow">Learning outcomes</p>
           <ul className="mt-4 space-y-3">
             {program.outcomes.map((outcome) => (
@@ -364,11 +364,11 @@ function RouteComponent() {
                   data-testid={`program-level-switcher-item-${item.id}`}
                   className={[
                     "shrink-0 rounded-field border px-3.5 py-2.5 text-left transition-colors duration-fast",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                    "lg:w-full lg:rounded-none lg:border-0 lg:border-l-2 lg:px-0 lg:pl-4",
+                    "focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
+                    "lg:w-full lg:rounded-none lg:border-0 lg:border-l-0 lg:px-0 lg:pl-4",
                     active
-                      ? "border-accent/40 bg-accent/10 lg:border-accent lg:bg-transparent"
-                      : "border-border bg-background hover:bg-secondary lg:border-rule lg:bg-transparent lg:hover:border-rule-strong",
+                      ? "border-accent/40 bg-transparent lg:border-accent lg:bg-transparent"
+                      : "border-border bg-background hover:bg-transparent lg:border-rule lg:bg-transparent lg:hover:border-rule-strong",
                   ].join(" ")}
                 >
                   <span
@@ -442,10 +442,10 @@ function RouteComponent() {
           <Reveal key={`spotlight-${spotlight.id}`} delay={STAGGER}>
             <article
               data-testid="featured-block"
-              className="mt-section overflow-hidden rounded-card border border-border bg-card shadow-sm lg:mt-section-lg"
+              className="mt-section overflow-hidden  bg-transparent shadow-sm lg:mt-section-lg"
             >
               <div className="grid lg:grid-cols-[1fr_0.8fr]">
-                <div className="border-l-2 border-accent/35 p-6 sm:p-8">
+                <div className="border-y border-transparent p-6 sm:p-8">
                   <p className="t-eyebrow">Most-chosen programme at this level</p>
                   <h3
                     className="t-h2 mt-2.5 text-foreground"
@@ -489,7 +489,7 @@ function RouteComponent() {
                   </div>
                 </div>
 
-                <div className="border-t border-border p-6 sm:p-8 lg:border-l lg:border-t-0">
+                <div className=" p-6 sm:p-8 lg:border-y lg:border-t-0">
                   <EditorialImage
                     src={spotlight.image}
                     alt={spotlight.title}
@@ -525,7 +525,7 @@ function RouteComponent() {
             <Accordion
               type="single"
               collapsible
-              className="mt-8 border-y border-border"
+              className="mt-8 border-y border-border bg-transparent"
               data-testid="program-index"
             >
               {levelPrograms.map((program) => (
@@ -535,7 +535,7 @@ function RouteComponent() {
                   data-testid="program-row"
                   className="border-b border-rule-soft last:border-b-0"
                 >
-                  <AccordionTrigger className="gap-4 py-5 text-left hover:no-underline [&[data-state=open]>svg]:text-accent">
+                  <AccordionTrigger className="!border-0 !border-none !outline-none !ring-0 !shadow-none bg-transparent gap-4 py-5 text-left hover:no-underline [&[data-state=open]>svg]:text-accent">
                     <div className="grid min-w-0 flex-1 gap-1 text-left sm:grid-cols-[108px_1fr] sm:items-baseline sm:gap-x-5">
                       <span className="t-meta">{program.code}</span>
                       <span className="min-w-0">
@@ -554,7 +554,7 @@ function RouteComponent() {
                       <span className="t-meta">{program.seats} seats</span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="pb-10 pt-1">
+                  <AccordionContent className="bg-transparent pb-10 pt-1">
                     <ProgramDetail program={program} />
                   </AccordionContent>
                 </AccordionItem>
