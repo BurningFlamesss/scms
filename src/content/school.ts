@@ -16,12 +16,12 @@ export const school = {
   establishedAd: 1995,
   registrationNo: 'Reg. 116/052/053, Kaski District Education Office',
   address: {
-    line1: 'Ward No. 8, Sriman Marga',
-    line2: 'Pokhara Metropolitan City',
-    district: 'Kaski, Gandaki Province',
+    line1: 'Butwal-8, Sukkhanagar',
+    line2: 'Butwal Sub-Metropolitan City',
+    district: 'Rupandehi, Lumbini Province',
     country: 'Nepal',
-    postal: '33700',
-    addressNe: 'पोखरा महानगरपालिका वडा नं ८, कास्की',
+    postal: '32907',
+    addressNe: 'बुटवल उपमहानगरपालिका वडा नं ८, रुपन्देही',
   },
   geo: { lat: 28.2096, lng: 83.9856 },
   phones: [

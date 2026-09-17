@@ -475,3 +475,102 @@ model Scholarship {
   @@index([category])
   @@map("scholarship")
 }
+
+/// Photo albums shown in the gallery page.
+model Album {
+  id        String   @id @default(cuid())
+  event     String
+  year      String
+  category  String
+  date      String?
+  photos    Json     // Array of { src, alt, width, height }
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([year])
+  @@map("album")
+}
+
+/// Campus facilities (Biology lab, Library, etc).
+model Facility {
+  id        String   @id @default(cuid())
+  name      String
+  room      String
+  specs     Json     // strict string[]
+  images    Json     // strict Img[] { src, alt }
+  block     Json     // { d, cx, cy } for the interactive map
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("facility")
+}
+
+/// Downloadable resources for students/guardians.
+model Resource {
+  id        String   @id @default(cuid())
+  title     String
+  category  String
+  fileUrl   String
+  fileSize  String
+  kind      String   @default("PDF")
+  audience  String   @default("All")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@map("resource")
+}
+
+/// Board results tracking academic excellence over years.
+model BoardResult {
+  id             String   @id @default(cuid())
+  board          String   // 'SEE' or 'NEB'
+  year           String   // e.g. '2079'
+  appeared       Int
+  passed         Int
+  distinction    Int
+  firstDivision  Int
+  secondDivision Int
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([board, year])
+  @@map("board_result")
+}
+
+/// Bus routes for the transportation page.
+model BusRoute {
+  id          String   @id @default(cuid())
+  busNumber   String
+  driverName  String
+  driverPhone String
+  stops       Json     // Array of strings or {time, stopName}
+  feeMonthly  Int?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("bus_route")
+}
+
+/// Calendar and school events.
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  category    String   // Holiday, Examination, General
+  term        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([startDate])
+  @@index([category])
+  @@map("calendar_event")
+}

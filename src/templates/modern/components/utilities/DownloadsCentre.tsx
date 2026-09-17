@@ -15,9 +15,30 @@ function formatSize(kb: number): string {
  * after it. The documents themselves are held in the school office CMS; this
  * build issues a plain-text record card in their place rather than a dead link.
  */
-export function DownloadsCentre() {
+export function DownloadsCentre({ dbResources }: { dbResources?: any[] }) {
   const [cat, setCat] = useState<string | null>(null);
-  const list = useMemo(() => (cat ? downloads.filter((d) => d.category === cat) : downloads), [cat]);
+  
+  // Use DB data if provided, fallback to static imports
+  const sourceDownloads = useMemo(() => {
+    if (dbResources && dbResources.length > 0) {
+      return dbResources.map(r => ({
+        ...r,
+        sizeKb: parseInt(r.fileSize) || 120, // Mock parsed size if string
+        dateAd: r.createdAt ? new Date(r.createdAt).toISOString().split('T')[0] : '2024-05-15',
+        format: r.kind || 'PDF'
+      }));
+    }
+    return downloads;
+  }, [dbResources]);
+
+  const sourceCategories = useMemo(() => {
+    if (dbResources && dbResources.length > 0) {
+      return Array.from(new Set(sourceDownloads.map(d => d.category)));
+    }
+    return downloadCategories;
+  }, [dbResources, sourceDownloads]);
+
+  const list = useMemo(() => (cat ? sourceDownloads.filter((d) => d.category === cat) : sourceDownloads), [cat, sourceDownloads]);
 
   const issue = (title: string, meta: string) => {
     const blob = new Blob(
@@ -51,7 +72,7 @@ export function DownloadsCentre() {
 
       <div className='flex flex-wrap items-center gap-2' data-testid='downloads-filters'>
         <span className='u-label mr-2 text-n-600'>Category</span>
-        {downloadCategories.map((c) => (
+        {sourceCategories.map((c: string) => (
           <Chip
             key={c}
             selected={cat === c}

@@ -68,7 +68,13 @@ export const ModelName = {
   ContentBlock: 'ContentBlock',
   FacultyMember: 'FacultyMember',
   Notice: 'Notice',
-  Scholarship: 'Scholarship'
+  Scholarship: 'Scholarship',
+  Album: 'Album',
+  Facility: 'Facility',
+  Resource: 'Resource',
+  BoardResult: 'BoardResult',
+  BusRoute: 'BusRoute',
+  CalendarEvent: 'CalendarEvent'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -377,6 +383,99 @@ export const ScholarshipScalarFieldEnum = {
 } as const
 
 export type ScholarshipScalarFieldEnum = (typeof ScholarshipScalarFieldEnum)[keyof typeof ScholarshipScalarFieldEnum]
+
+
+export const AlbumScalarFieldEnum = {
+  id: 'id',
+  event: 'event',
+  year: 'year',
+  category: 'category',
+  date: 'date',
+  photos: 'photos',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AlbumScalarFieldEnum = (typeof AlbumScalarFieldEnum)[keyof typeof AlbumScalarFieldEnum]
+
+
+export const FacilityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  room: 'room',
+  specs: 'specs',
+  images: 'images',
+  block: 'block',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FacilityScalarFieldEnum = (typeof FacilityScalarFieldEnum)[keyof typeof FacilityScalarFieldEnum]
+
+
+export const ResourceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  category: 'category',
+  fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
+  kind: 'kind',
+  audience: 'audience',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResourceScalarFieldEnum = (typeof ResourceScalarFieldEnum)[keyof typeof ResourceScalarFieldEnum]
+
+
+export const BoardResultScalarFieldEnum = {
+  id: 'id',
+  board: 'board',
+  year: 'year',
+  appeared: 'appeared',
+  passed: 'passed',
+  distinction: 'distinction',
+  firstDivision: 'firstDivision',
+  secondDivision: 'secondDivision',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BoardResultScalarFieldEnum = (typeof BoardResultScalarFieldEnum)[keyof typeof BoardResultScalarFieldEnum]
+
+
+export const BusRouteScalarFieldEnum = {
+  id: 'id',
+  busNumber: 'busNumber',
+  driverName: 'driverName',
+  driverPhone: 'driverPhone',
+  stops: 'stops',
+  feeMonthly: 'feeMonthly',
+  order: 'order',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusRouteScalarFieldEnum = (typeof BusRouteScalarFieldEnum)[keyof typeof BusRouteScalarFieldEnum]
+
+
+export const CalendarEventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  category: 'category',
+  term: 'term',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CalendarEventScalarFieldEnum = (typeof CalendarEventScalarFieldEnum)[keyof typeof CalendarEventScalarFieldEnum]
 
 
 export const SortOrder = {

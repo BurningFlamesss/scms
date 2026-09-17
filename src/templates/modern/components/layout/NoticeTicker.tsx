@@ -96,7 +96,7 @@ export function NoticeTicker({ className, testId = 'notice-ticker' }: { classNam
       </button>
 
       <Link
-        to='/calendar'
+        to='/notices'
         className='u-label mr-4 hidden shrink-0 text-n-600 underline underline-offset-4 hover:text-ink lg:inline'
         data-testid='ticker-view-all'
       >

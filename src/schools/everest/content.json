@@ -256,9 +256,9 @@
 					"visible": true,
 					"order": 1,
 					"fields": {
-						"phone": "+977 61 521884",
-						"email": "office@everestpokhara.edu.np",
-						"address": "Pokhara Metropolitan City–5, Kaski, Gandaki Province, Nepal"
+						"phone": "+977 71 54XXXX",
+						"email": "office@everest.edu.np",
+						"address": "Butwal-8, Sukkhanagar, Rupandehi, Lumbini Province, Nepal"
 					}
 				},
 				{
@@ -280,9 +280,9 @@
 					"order": 3,
 					"fields": {
 						"label": "Main Campus",
-						"latitude": "28.2096",
-						"longitude": "83.9856",
-						"directions": "Located in Pokhara Metropolitan City–5, near the Kaski District Court. Accessible by public transport from Lakeside (15 min) and Pokhara Airport (25 min)."
+						"latitude": "27.7006",
+						"longitude": "83.4323",
+						"directions": "Located in Butwal-8, Sukkhanagar. Accessible by public transport from Milan Chowk (15 min) and Butwal Bus Park (25 min)."
 					}
 				},
 				{

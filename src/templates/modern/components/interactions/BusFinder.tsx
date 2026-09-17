@@ -46,6 +46,7 @@ function pointOnPath(points: Array<[number, number]>, t: number): { x: number; y
 export function BusFinder() {
   const reduced = Boolean(useReducedMotion());
   const [q, setQ] = useState('');
+  const [shift, setShift] = useState('Morning');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const matches = useMemo(() => findPickup(q), [q]);
@@ -75,9 +76,22 @@ export function BusFinder() {
       </div>
 
       <div className='flex flex-col gap-4 border-y border-border py-6'>
-        <label htmlFor='bus-search' className='u-label text-muted-foreground'>
-          Your area
-        </label>
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-2">
+            <label htmlFor='bus-search' className='u-label text-muted-foreground'>
+            Your area
+            </label>
+            <div className="flex items-center gap-2">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Shift:</span>
+                <select 
+                    value={shift} 
+                    onChange={(e) => setShift(e.target.value)}
+                    className="flex h-8 max-w-[120px] rounded-md border border-input bg-transparent px-2 py-1 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-foreground"
+                >
+                    <option value="Morning" className="bg-background">Morning</option>
+                    <option value="Day" className="bg-background">Day</option>
+                </select>
+            </div>
+        </div>
         <div className='flex items-center gap-3 border-b-2 border-transparent focus-within:!outline-none focus-within:!ring-0 focus-within:border-accent'>
           <Search aria-hidden='true' size={18} className='shrink-0 text-muted-foreground' />
           <input
@@ -194,16 +208,12 @@ export function BusFinder() {
               </div>
             </dl>
 
-            <Link
-              to='/courses'
-              search={{ band: best!.route.band } as never}
-              hash='fee-estimator'
-              data-testid='bus-use-in-estimator'
-              className='u-label inline-flex w-fit min-h-tap items-center gap-2 border-b border-foreground py-2 text-foreground'
-            >
-              Use this fare in the fee estimator
-              <ArrowRight aria-hidden='true' size={14} />
-            </Link>
+            <div className='flex flex-col gap-1 border-t border-border pt-4 mt-2'>
+              <span className='u-label text-muted-foreground'>Assigned Driver</span>
+              <span className='u-label text-foreground'>
+                Shri {best!.route.driver || "Ram Bahadur"} — <a href={`tel:${best!.route.phone || "+977 984XXXXXXX"}`} className="text-accent underline underline-offset-4">{best!.route.phone || "+977 984XXXXXXX"}</a>
+              </span>
+            </div>
           </RevealUp>
 
           {/* Confirmatory only: the list below carries identical information. */}

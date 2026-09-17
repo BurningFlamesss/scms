@@ -133,3 +133,33 @@ export type Notice = Prisma.NoticeModel
  * Public scholarship schemes, mirroring the frontend Scholarship shape.
  */
 export type Scholarship = Prisma.ScholarshipModel
+/**
+ * Model Album
+ * Photo albums shown in the gallery page.
+ */
+export type Album = Prisma.AlbumModel
+/**
+ * Model Facility
+ * Campus facilities (Biology lab, Library, etc).
+ */
+export type Facility = Prisma.FacilityModel
+/**
+ * Model Resource
+ * Downloadable resources for students/guardians.
+ */
+export type Resource = Prisma.ResourceModel
+/**
+ * Model BoardResult
+ * Board results tracking academic excellence over years.
+ */
+export type BoardResult = Prisma.BoardResultModel
+/**
+ * Model BusRoute
+ * Bus routes for the transportation page.
+ */
+export type BusRoute = Prisma.BusRouteModel
+/**
+ * Model CalendarEvent
+ * Calendar and school events.
+ */
+export type CalendarEvent = Prisma.CalendarEventModel

@@ -375,3 +375,37 @@ export const getScholarshipsServer = createServerFn({ method: "GET" }).handler(
 		return rows.map(toScholarship);
 	},
 );
+
+export const getAlbumsServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	const rows = await prisma.album.findMany({ orderBy: { order: "asc" } });
+	return rows.map((r) => ({ ...r, photos: r.photos as any }));
+});
+
+export const getFacilitiesServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	const rows = await prisma.facility.findMany({ orderBy: { order: "asc" } });
+	return rows.map((r) => ({ ...r, specs: r.specs as any, images: r.images as any, block: r.block as any }));
+});
+
+export const getResourcesServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	return await prisma.resource.findMany({ orderBy: { order: "asc" } });
+});
+
+export const getBoardResultsServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	return await prisma.boardResult.findMany({ orderBy: { order: "asc" } });
+});
+
+export const getBusRoutesServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	const rows = await prisma.busRoute.findMany({ orderBy: { order: "asc" } });
+	return rows.map((r) => ({ ...r, stops: r.stops as any }));
+});
+
+export const getCalendarEventsServer = createServerFn({ method: "GET" }).handler(async () => {
+	setResponseHeaders(PUBLIC_CACHE_HEADERS);
+	const rows = await prisma.calendarEvent.findMany({ orderBy: { startDate: "asc" } });
+	return rows.map((r) => ({ ...r, startDate: r.startDate.toISOString(), endDate: r.endDate.toISOString() }));
+});

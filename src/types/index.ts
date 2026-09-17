@@ -732,3 +732,66 @@ export type {
   ThenNow,
   CrestPart,
 } from "../content/types";
+
+export interface Album {
+  id: string;
+  event: string;
+  year: string;
+  category: string;
+  date?: string;
+  photos: { src: string; alt: string; width: number; height: number }[];
+  order: number;
+}
+
+export interface Facility {
+  id: string;
+  name: string;
+  room: string;
+  specs: string[];
+  images: { src: string; alt: string; width: number; height: number }[];
+  block: { d: string; cx: number; cy: number };
+  order: number;
+}
+
+export interface Resource {
+  id: string;
+  title: string;
+  category: string;
+  fileUrl: string;
+  fileSize: string;
+  kind: string;
+  audience: string;
+  order: number;
+}
+
+export interface BoardResult {
+  id: string;
+  board: string;
+  year: string;
+  appeared: number;
+  passed: number;
+  distinction: number;
+  firstDivision: number;
+  secondDivision: number;
+  order: number;
+}
+
+export interface BusRoute {
+  id: string;
+  busNumber: string;
+  driverName: string;
+  driverPhone: string;
+  stops: string[];
+  feeMonthly?: number;
+  order: number;
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  description?: string;
+  startDate: string;
+  endDate: string;
+  category: string;
+  term?: string;
+}

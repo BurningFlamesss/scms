@@ -20,18 +20,28 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
  * B6.2 - Board results. A chart for the shape of it, and a real data table
  * beneath as the accessible equivalent rather than an afterthought.
  */
-export function ResultsChart() {
+export function ResultsChart({ dbResults }: { dbResults?: any[] }) {
   const [board, setBoard] = useState<'see' | 'neb'>('see');
-  const rows = board === 'see' ? seeResults : nebResults;
+  
+  const activeFallback = board === 'see' ? seeResults : nebResults;
+  
+  // Use DB data if provided, fallback to static imports
+  const rows = useMemo(() => {
+    let source = activeFallback;
+    if (dbResults && dbResults.length > 0) {
+      source = dbResults.filter(r => r.board.toLowerCase() === board);
+    }
+    return [...source].sort((a,b) => Number(b.year) - Number(a.year));
+  }, [dbResults, board, activeFallback]);
 
   const data = useMemo(
     () => ({
       labels: rows.map((r) => r.year),
       datasets: [
         {
-          label: 'Distinction',
-          data: rows.map((r) => r.distinction),
-          backgroundColor: color.red,
+          label: 'Second division',
+          data: rows.map((r) => r.secondDivision),
+          backgroundColor: color.gray300,
           borderWidth: 0,
         },
         {
@@ -41,11 +51,11 @@ export function ResultsChart() {
           borderWidth: 0,
         },
         {
-          label: 'Second division',
-          data: rows.map((r) => r.secondDivision),
-          backgroundColor: color.gray300,
+          label: 'Distinction',
+          data: rows.map((r) => r.distinction),
+          backgroundColor: color.red,
           borderWidth: 0,
-        },
+        }
       ],
     }),
     [rows],
@@ -71,6 +81,7 @@ export function ResultsChart() {
     plugins: {
       legend: {
         position: 'bottom',
+        reverse: true,
         labels: {
           color: color.gray600,
           font: { family: font.label, size: 11 },
